@@ -5,6 +5,8 @@
 //  Created by Finnis on 27/01/2021.
 //
 
+/*
+
 import SwiftUI
 import CoreLocation
 import HealthKit
@@ -50,3 +52,5 @@ struct ContentView: View {
         }
     }
 }
+
+ */
