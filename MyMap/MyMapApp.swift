@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct MyMapApp: App {
+    // Access the business logic:
+    var workoutManager = WorkoutManager()
+    
     var body: some Scene {
         WindowGroup {
-            HomeScreen()
+            NavigationView {
+                WorkoutView()
+                    .environmentObject(workoutManager)
+            }
         }
     }
 }

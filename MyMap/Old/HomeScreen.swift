@@ -5,6 +5,8 @@
 //  Created by Finnis on 03/02/2021.
 //
 
+/*
+
 import SwiftUI
 import HealthKit
 
@@ -30,3 +32,5 @@ struct HomeScreen: View {
         healthStore = HealthStore()
     }
 }
+
+ */

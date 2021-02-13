@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F409673C25D7ED7700E5FBC6 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409673B25D7ED7700E5FBC6 /* WorkoutManager.swift */; };
+		F409674025D7FA7A00E5FBC6 /* HealthKitSetupAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409673F25D7FA7A00E5FBC6 /* HealthKitSetupAssistant.swift */; };
 		F454DD8925CAEEC100749542 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F454DD8825CAEEC100749542 /* HomeScreen.swift */; };
 		F454DD8D25CAEF1700749542 /* HealthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F454DD8C25CAEF1700749542 /* HealthStore.swift */; };
 		F454DD9225CAF76D00749542 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F454DD9125CAF76D00749542 /* HealthKit.framework */; };
@@ -14,9 +16,12 @@
 		F4EAE78525C1C552005AAEEE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EAE78425C1C552005AAEEE /* ContentView.swift */; };
 		F4EAE78725C1C593005AAEEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4EAE78625C1C593005AAEEE /* Assets.xcassets */; };
 		F4EAE78A25C1C594005AAEEE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4EAE78925C1C594005AAEEE /* Preview Assets.xcassets */; };
+		F4FFF8B325D7EB6000D2BE6C /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FFF8B225D7EB6000D2BE6C /* WorkoutView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F409673B25D7ED7700E5FBC6 /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
+		F409673F25D7FA7A00E5FBC6 /* HealthKitSetupAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitSetupAssistant.swift; sourceTree = "<group>"; };
 		F454DD8825CAEEC100749542 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		F454DD8C25CAEF1700749542 /* HealthStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthStore.swift; sourceTree = "<group>"; };
 		F454DD8F25CAF76700749542 /* MyMap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyMap.entitlements; sourceTree = "<group>"; };
@@ -27,6 +32,7 @@
 		F4EAE78625C1C593005AAEEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4EAE78925C1C594005AAEEE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F4EAE78B25C1C594005AAEEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F4FFF8B225D7EB6000D2BE6C /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,12 +47,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F409673925D7ED0B00E5FBC6 /* Data Stores */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Data Stores";
+			sourceTree = "<group>";
+		};
 		F454DD9025CAF76D00749542 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				F454DD9125CAF76D00749542 /* HealthKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F454DD9D25CB323900749542 /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				F454DD8825CAEEC100749542 /* HomeScreen.swift */,
+				F454DD8C25CAEF1700749542 /* HealthStore.swift */,
+				F4EAE78425C1C552005AAEEE /* ContentView.swift */,
+			);
+			path = Old;
 			sourceTree = "<group>";
 		};
 		F4EAE77625C1C550005AAEEE = {
@@ -71,11 +94,12 @@
 			children = (
 				F454DD8F25CAF76700749542 /* MyMap.entitlements */,
 				F4EAE78225C1C552005AAEEE /* MyMapApp.swift */,
-				F454DD8825CAEEC100749542 /* HomeScreen.swift */,
-				F454DD8C25CAEF1700749542 /* HealthStore.swift */,
-				F4EAE78425C1C552005AAEEE /* ContentView.swift */,
+				F4FFF8B525D7EB9900D2BE6C /* Views */,
+				F4FFF8B625D7EBA000D2BE6C /* Models */,
+				F409673925D7ED0B00E5FBC6 /* Data Stores */,
 				F4EAE78625C1C593005AAEEE /* Assets.xcassets */,
 				F4EAE78B25C1C594005AAEEE /* Info.plist */,
+				F454DD9D25CB323900749542 /* Old */,
 				F4EAE78825C1C594005AAEEE /* Preview Content */,
 			);
 			path = MyMap;
@@ -87,6 +111,23 @@
 				F4EAE78925C1C594005AAEEE /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F4FFF8B525D7EB9900D2BE6C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F4FFF8B225D7EB6000D2BE6C /* WorkoutView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F4FFF8B625D7EBA000D2BE6C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F409673B25D7ED7700E5FBC6 /* WorkoutManager.swift */,
+				F409673F25D7FA7A00E5FBC6 /* HealthKitSetupAssistant.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,6 +203,9 @@
 				F4EAE78325C1C552005AAEEE /* MyMapApp.swift in Sources */,
 				F454DD8925CAEEC100749542 /* HomeScreen.swift in Sources */,
 				F454DD8D25CAEF1700749542 /* HealthStore.swift in Sources */,
+				F4FFF8B325D7EB6000D2BE6C /* WorkoutView.swift in Sources */,
+				F409674025D7FA7A00E5FBC6 /* HealthKitSetupAssistant.swift in Sources */,
+				F409673C25D7ED7700E5FBC6 /* WorkoutManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
