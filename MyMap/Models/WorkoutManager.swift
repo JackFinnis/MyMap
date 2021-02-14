@@ -17,9 +17,10 @@ class WorkoutManager: NSObject, ObservableObject {
     var routeBuilder: HKWorkoutRouteBuilder!
     var locationManager: CLLocationManager!
     
-    // Publish elapsed time
+    // Publish elapsed time, accumulated locations and workout state
     @Published var elapsedSeconds: Int = 0
     @Published var accumulatedLocations: [CLLocation] = []
+    @Published var state: WorkoutState = .notStarted
     
     // Cancellable holds the timer publisher
     var start: Date = Date()
@@ -28,9 +29,7 @@ class WorkoutManager: NSObject, ObservableObject {
     
     // Set up and start the timer
     func setUpTimer() {
-        // Reset values
         start = Date()
-        accumulatedTime = 0
         cancellable = Timer.publish(every: 0.1, on: .main, in: .default)
             .autoconnect()
             .sink { [weak self] _ in
@@ -72,8 +71,13 @@ class WorkoutManager: NSObject, ObservableObject {
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
+        // Request location services authorisation
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestAlwaysAuthorization()
+        
+        // Allow updates to occur in the background
+        locationManager.allowsBackgroundLocationUpdates = true
         
         // Start tracking the user
         locationManager.startUpdatingLocation()
@@ -94,6 +98,7 @@ class WorkoutManager: NSObject, ObservableObject {
         // Save the elapsed time
         accumulatedTime = elapsedSeconds
         
+        state = .paused
         print("Workout Paused")
     }
     
@@ -103,6 +108,7 @@ class WorkoutManager: NSObject, ObservableObject {
         // Start the timer
         setUpTimer()
         
+        state = .running
         print("Workout Resumed")
     }
     
@@ -111,9 +117,13 @@ class WorkoutManager: NSObject, ObservableObject {
         locationManager.stopUpdatingLocation()
         // Stop the timer
         cancellable?.cancel()
-        // End the workout session
-        endWorkoutBuilderSession()
         
+        if elapsedSeconds >= 60 {
+            // End the workout session
+            endWorkoutBuilderSession()
+        }
+        
+        state = .notStarted
         print("Workout Ended")
         
         resetWorkout()
@@ -124,6 +134,9 @@ class WorkoutManager: NSObject, ObservableObject {
         DispatchQueue.main.async {
             self.elapsedSeconds = 0
         }
+        
+        // Reset timer
+        accumulatedTime = 0
         
         print("Workout Reset")
     }
@@ -202,5 +215,16 @@ extension WorkoutManager: CLLocationManagerDelegate {
                 print("Success in inserting route data")
             }
         }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        
+        if let error = error as? CLError, error.code == .denied {
+            
+            // Location updates are not authorized.
+            manager.stopUpdatingLocation()
+            return
+        }
+        // Notify the user of any errors.
     }
 }

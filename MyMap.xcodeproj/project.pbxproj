@@ -10,6 +10,11 @@
 		F409673C25D7ED7700E5FBC6 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409673B25D7ED7700E5FBC6 /* WorkoutManager.swift */; };
 		F409674025D7FA7A00E5FBC6 /* HealthKitSetupAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409673F25D7FA7A00E5FBC6 /* HealthKitSetupAssistant.swift */; };
 		F409674725D8022900E5FBC6 /* WorkoutDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409674625D8022900E5FBC6 /* WorkoutDataStore.swift */; };
+		F409675125D94C1000E5FBC6 /* WorkoutState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409675025D94C1000E5FBC6 /* WorkoutState.swift */; };
+		F409675425D94D0500E5FBC6 /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409675325D94D0500E5FBC6 /* StartButton.swift */; };
+		F409675A25D950BA00E5FBC6 /* ToggleStateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409675925D950BA00E5FBC6 /* ToggleStateButton.swift */; };
+		F409675D25D9519E00E5FBC6 /* EndButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409675C25D9519E00E5FBC6 /* EndButton.swift */; };
+		F409676025D9554000E5FBC6 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409675F25D9554000E5FBC6 /* MapView.swift */; };
 		F454DD8925CAEEC100749542 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F454DD8825CAEEC100749542 /* HomeScreen.swift */; };
 		F454DD8D25CAEF1700749542 /* HealthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F454DD8C25CAEF1700749542 /* HealthStore.swift */; };
 		F454DD9225CAF76D00749542 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F454DD9125CAF76D00749542 /* HealthKit.framework */; };
@@ -24,6 +29,11 @@
 		F409673B25D7ED7700E5FBC6 /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
 		F409673F25D7FA7A00E5FBC6 /* HealthKitSetupAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitSetupAssistant.swift; sourceTree = "<group>"; };
 		F409674625D8022900E5FBC6 /* WorkoutDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDataStore.swift; sourceTree = "<group>"; };
+		F409675025D94C1000E5FBC6 /* WorkoutState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutState.swift; sourceTree = "<group>"; };
+		F409675325D94D0500E5FBC6 /* StartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartButton.swift; sourceTree = "<group>"; };
+		F409675925D950BA00E5FBC6 /* ToggleStateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleStateButton.swift; sourceTree = "<group>"; };
+		F409675C25D9519E00E5FBC6 /* EndButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndButton.swift; sourceTree = "<group>"; };
+		F409675F25D9554000E5FBC6 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		F454DD8825CAEEC100749542 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		F454DD8C25CAEF1700749542 /* HealthStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthStore.swift; sourceTree = "<group>"; };
 		F454DD8F25CAF76700749542 /* MyMap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyMap.entitlements; sourceTree = "<group>"; };
@@ -120,6 +130,10 @@
 			isa = PBXGroup;
 			children = (
 				F4FFF8B225D7EB6000D2BE6C /* WorkoutView.swift */,
+				F409675F25D9554000E5FBC6 /* MapView.swift */,
+				F409675325D94D0500E5FBC6 /* StartButton.swift */,
+				F409675925D950BA00E5FBC6 /* ToggleStateButton.swift */,
+				F409675C25D9519E00E5FBC6 /* EndButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -129,6 +143,7 @@
 			children = (
 				F409673B25D7ED7700E5FBC6 /* WorkoutManager.swift */,
 				F409673F25D7FA7A00E5FBC6 /* HealthKitSetupAssistant.swift */,
+				F409675025D94C1000E5FBC6 /* WorkoutState.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -202,14 +217,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F409675A25D950BA00E5FBC6 /* ToggleStateButton.swift in Sources */,
 				F4EAE78525C1C552005AAEEE /* ContentView.swift in Sources */,
 				F4EAE78325C1C552005AAEEE /* MyMapApp.swift in Sources */,
+				F409675425D94D0500E5FBC6 /* StartButton.swift in Sources */,
+				F409676025D9554000E5FBC6 /* MapView.swift in Sources */,
 				F454DD8925CAEEC100749542 /* HomeScreen.swift in Sources */,
+				F409675D25D9519E00E5FBC6 /* EndButton.swift in Sources */,
 				F409674725D8022900E5FBC6 /* WorkoutDataStore.swift in Sources */,
 				F454DD8D25CAEF1700749542 /* HealthStore.swift in Sources */,
 				F4FFF8B325D7EB6000D2BE6C /* WorkoutView.swift in Sources */,
 				F409674025D7FA7A00E5FBC6 /* HealthKitSetupAssistant.swift in Sources */,
 				F409673C25D7ED7700E5FBC6 /* WorkoutManager.swift in Sources */,
+				F409675125D94C1000E5FBC6 /* WorkoutState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

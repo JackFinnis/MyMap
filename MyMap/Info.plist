@@ -25,13 +25,9 @@
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>This app requires access to your health data</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>I need to know where I am - ALL THE TIME!!!</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Hello</string>
-	<key>NSLocationUsageDescription</key>
-	<string>Just accept!!!</string>
+	<string>MyMap needs to record your location  while a workout is running to record your route</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Hi again</string>
+	<string>MyMap needs to know your location to map your route</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
