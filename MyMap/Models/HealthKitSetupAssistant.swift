@@ -13,16 +13,18 @@ class HealthKitSetupAssistant {
     let healthStore = HKHealthStore()
     
     // Request authorization to access HealthKit.
-    func requestAuthorization() {
+    func requestAuthorisation() {
 
         // The quantity type to write to the health store.
         let typesToShare: Set = [
-            HKQuantityType.workoutType()
+            HKQuantityType.workoutType(),
+            HKSeriesType.workoutRoute()
         ]
         
         // The quantity type to read from the health store.
         let typesToRead: Set = [
-            HKQuantityType.workoutType()
+            HKQuantityType.workoutType(),
+            HKSeriesType.workoutRoute()
         ]
         
         // Request authorization for those quantity types.

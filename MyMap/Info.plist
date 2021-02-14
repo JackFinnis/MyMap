@@ -24,6 +24,14 @@
 	<string>This app requires access to your health data</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>This app requires access to your health data</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>I need to know where I am - ALL THE TIME!!!</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Hello</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Just accept!!!</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Hi again</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -33,7 +41,7 @@
 	<true/>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>processing</string>
+		<string>location</string>
 	</array>
 	<key>UILaunchScreen</key>
 	<dict/>
