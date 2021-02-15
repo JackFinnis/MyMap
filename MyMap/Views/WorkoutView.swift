@@ -12,6 +12,9 @@ struct WorkoutView: View {
     // Access environment object workout manager
     @EnvironmentObject var workoutManager: WorkoutManager
     
+    // Access map manager business logic
+    var mapManager = MapManager()
+    
     // Setup HealthKit
     var healthKitSetupAssistant = HealthKitSetupAssistant()
     
@@ -20,16 +23,7 @@ struct WorkoutView: View {
         ZStack {
             
             MapView()
-            
-            VStack {
-
-                Text("")
-                    .frame(width: UIScreen.main.bounds.width, height: UIApplication.shared.keyWindow?.windowScene?.statusBarManager?.statusBarFrame.height)
-                    .background(Blur())
-                    .ignoresSafeArea()
-                
-                Spacer()
-            }
+                .ignoresSafeArea()
             
             VStack {
                 
@@ -74,3 +68,17 @@ struct WorkoutView: View {
         return String(format: "%02d:%02d", elapsed.m, elapsed.s)
     }
 }
+
+/* Old
+ 
+VStack {
+
+    Text("")
+        .frame(width: UIScreen.main.bounds.width, height:  UIApplication.shared.statusBarFrame.height)
+        .background(Blur())
+        .ignoresSafeArea()
+    
+    Spacer()
+}
+ 
+*/

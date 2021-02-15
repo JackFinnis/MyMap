@@ -12,7 +12,7 @@ class HealthKitSetupAssistant {
     
     let healthStore = HKHealthStore()
     
-    // Request authorization to access HealthKit.
+    // Request authorisation to access HealthKit.
     func requestAuthorisation() {
 
         // The quantity type to write to the health store.

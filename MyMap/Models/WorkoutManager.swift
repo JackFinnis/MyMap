@@ -204,15 +204,15 @@ extension WorkoutManager: CLLocationManagerDelegate {
             }
         }
         
-        // Add the location data to the route
+        // Add the locations to the route
         routeBuilder.insertRouteData(filteredLocations) { (success, error) in
             
             if !success {
                 
-                print("Error in inserting route data")
+                print("Error in inserting locations")
             } else {
                 
-                print("Success in inserting route data")
+                print("Success in inserting locations")
             }
         }
     }
