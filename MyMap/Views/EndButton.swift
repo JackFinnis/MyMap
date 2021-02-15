@@ -23,8 +23,8 @@ struct EndButton: View {
                 Image(systemName: "stop.fill")
             }
             .padding()
-            .foregroundColor(.white)
-            .background(Color.red)
+            .foregroundColor(Color(UIColor.white))
+            .background(Color(UIColor.systemRed))
         })
         .cornerRadius(20)
     }

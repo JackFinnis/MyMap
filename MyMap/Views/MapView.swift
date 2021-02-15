@@ -22,7 +22,7 @@ struct MapView: View {
             .onAppear {
                 
                 setRegion(coordinate)
-            }
+            }.ignoresSafeArea()
     }
     
     func setRegion(_ coordinate: CLLocationCoordinate2D) {

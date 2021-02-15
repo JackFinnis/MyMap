@@ -22,12 +22,22 @@ struct WorkoutView: View {
             MapView()
             
             VStack {
+
+                Text("")
+                    .frame(width: UIScreen.main.bounds.width, height: UIApplication.shared.keyWindow?.windowScene?.statusBarManager?.statusBarFrame.height)
+                    .background(Blur())
+                    .ignoresSafeArea()
+                
+                Spacer()
+            }
+            
+            VStack {
                 
                 Spacer()
                 
                 VStack {
                     
-                    Text("\(elapsedTimeString(elapsed: secondsToHoursMinutesSeconds(seconds: workoutManager.elapsedSeconds)))")
+                    Text("\(elapsedTimeString(elapsed: secondsToMinutesSeconds(seconds: workoutManager.elapsedSeconds)))")
                     
                     HStack {
                         
@@ -42,22 +52,25 @@ struct WorkoutView: View {
                     }
                 }
                 .padding()
-                .frame(maxWidth: .infinity)
-                .background(Color.white)
+                .background(Blur())
+                .cornerRadius(30)
+                .shadow(radius: 5, y: 5)
+                .padding()
             }
-        }.onAppear {
+        }
+        .onAppear {
             
             healthKitSetupAssistant.requestAuthorisation()
         }
     }
     
-    // Convert the seconds into seconds, minutes, hours.
-    func secondsToHoursMinutesSeconds (seconds: Int) -> (Int, Int, Int) {
-      return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
+    // Convert the seconds into seconds and minutes
+    func secondsToMinutesSeconds (seconds: Int) -> (Int, Int) {
+      return (seconds / 60, seconds % 60)
     }
     
     // Convert the seconds, minutes, hours into a string.
-    func elapsedTimeString(elapsed: (h: Int, m: Int, s: Int)) -> String {
-        return String(format: "%d:%02d:%02d", elapsed.h, elapsed.m, elapsed.s)
+    func elapsedTimeString(elapsed: (m: Int, s: Int)) -> String {
+        return String(format: "%02d:%02d", elapsed.m, elapsed.s)
     }
 }

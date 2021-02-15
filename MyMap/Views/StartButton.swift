@@ -23,8 +23,8 @@ struct StartButton: View {
                 Image(systemName: "play.fill")
             }
             .padding()
-            .foregroundColor(.white)
-            .background(Color.green)
+            .foregroundColor(Color(UIColor.white))
+            .background(Color(UIColor.systemGreen))
         })
         .cornerRadius(20)
     }

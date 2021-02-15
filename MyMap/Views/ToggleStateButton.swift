@@ -28,7 +28,8 @@ struct ToggleStateButton: View {
                     Image(systemName: "play.fill")
                 }
                 .padding()
-                .foregroundColor(.black)
+                .foregroundColor(Color(UIColor.black))
+                .background(Color(UIColor.white))
             } else {
                 // Show pause button
                 HStack {
@@ -36,7 +37,8 @@ struct ToggleStateButton: View {
                     Image(systemName: "pause.fill")
                 }
                 .padding()
-                .foregroundColor(.black)
+                .foregroundColor(Color(UIColor.black))
+                .background(Color(UIColor.white))
             }
         })
         .cornerRadius(20)
