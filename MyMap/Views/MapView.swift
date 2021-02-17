@@ -9,27 +9,44 @@ import SwiftUI
 import MapKit
 
 struct MapView: UIViewRepresentable {
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-
+    
+    // Access environment object workout manager
+    @EnvironmentObject var workoutManager: WorkoutManager
+    
+    var centredOnUser: Bool
+    
     func makeUIView(context: Context) -> MKMapView {
-        
-        let map = MKMapView()
-        map.delegate = context.coordinator
+        // Create map view
+        let mapView = MKMapView()
+        mapView.delegate = context.coordinator
         
         // Show user location, map scale and compass
-        map.showsUserLocation = true
-        map.showsScale = true
-        map.showsCompass = true
+        mapView.showsUserLocation = true
+        mapView.showsScale = true
+        mapView.showsCompass = true
         
-        return map
+        return mapView
     }
-
-    func updateUIView(_ uiView: MKMapView, context: Context) {
-        
+    
+    func makeCoordinator() -> MapCoordinator {
+        MapCoordinator(self)
     }
+    
+    func updateUIView(_ mapView: MKMapView, context: Context) {
+        print("Update View")
+        mapView.setCenter(mapView.userLocation.coordinate, animated: true)
+    }
+    
+    func getUserRegion(mapView: MKMapView) -> MKCoordinateRegion {
+        let region = MKCoordinateRegion(center: mapView.userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
+        return region
+    }
+    
+    // Pan to user at start
+    // Change to satellite image
+    // Pan to user having clicked button
+    // Point direction user is facing
+    // Add all workout routes
 }
 
 /* Old

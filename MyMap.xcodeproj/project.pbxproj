@@ -16,16 +16,13 @@
 		F409675D25D9519E00E5FBC6 /* EndButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409675C25D9519E00E5FBC6 /* EndButton.swift */; };
 		F409676025D9554000E5FBC6 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409675F25D9554000E5FBC6 /* MapView.swift */; };
 		F409676325D9CB4B00E5FBC6 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409676225D9CB4B00E5FBC6 /* Blur.swift */; };
-		F409677025DACD0C00E5FBC6 /* LocationSetupAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409676F25DACD0C00E5FBC6 /* LocationSetupAssistant.swift */; };
-		F409677325DAD0D000E5FBC6 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409677225DAD0D000E5FBC6 /* MapManager.swift */; };
-		F409677725DADCE700E5FBC6 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409677625DADCE700E5FBC6 /* Coordinator.swift */; };
 		F454DD8925CAEEC100749542 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F454DD8825CAEEC100749542 /* HomeScreen.swift */; };
 		F454DD8D25CAEF1700749542 /* HealthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F454DD8C25CAEF1700749542 /* HealthStore.swift */; };
 		F454DD9225CAF76D00749542 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F454DD9125CAF76D00749542 /* HealthKit.framework */; };
+		F469552725DBE7E6000FA605 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F469552625DBE7E6000FA605 /* MapCoordinator.swift */; };
 		F4EAE78325C1C552005AAEEE /* MyMapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EAE78225C1C552005AAEEE /* MyMapApp.swift */; };
 		F4EAE78525C1C552005AAEEE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EAE78425C1C552005AAEEE /* ContentView.swift */; };
 		F4EAE78725C1C593005AAEEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4EAE78625C1C593005AAEEE /* Assets.xcassets */; };
-		F4EAE78A25C1C594005AAEEE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4EAE78925C1C594005AAEEE /* Preview Assets.xcassets */; };
 		F4FFF8B325D7EB6000D2BE6C /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FFF8B225D7EB6000D2BE6C /* WorkoutView.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,18 +36,15 @@
 		F409675C25D9519E00E5FBC6 /* EndButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndButton.swift; sourceTree = "<group>"; };
 		F409675F25D9554000E5FBC6 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		F409676225D9CB4B00E5FBC6 /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
-		F409676F25DACD0C00E5FBC6 /* LocationSetupAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSetupAssistant.swift; sourceTree = "<group>"; };
-		F409677225DAD0D000E5FBC6 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
-		F409677625DADCE700E5FBC6 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		F454DD8825CAEEC100749542 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		F454DD8C25CAEF1700749542 /* HealthStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthStore.swift; sourceTree = "<group>"; };
 		F454DD8F25CAF76700749542 /* MyMap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyMap.entitlements; sourceTree = "<group>"; };
 		F454DD9125CAF76D00749542 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		F469552625DBE7E6000FA605 /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		F4EAE77F25C1C551005AAEEE /* MyMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4EAE78225C1C552005AAEEE /* MyMapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMapApp.swift; sourceTree = "<group>"; };
 		F4EAE78425C1C552005AAEEE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F4EAE78625C1C593005AAEEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F4EAE78925C1C594005AAEEE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F4EAE78B25C1C594005AAEEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4FFF8B225D7EB6000D2BE6C /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,7 +72,7 @@
 		F409677525DADCBF00E5FBC6 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
-				F409677625DADCE700E5FBC6 /* Coordinator.swift */,
+				F469552625DBE7E6000FA605 /* MapCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -99,6 +93,24 @@
 				F4EAE78425C1C552005AAEEE /* ContentView.swift */,
 			);
 			path = Old;
+			sourceTree = "<group>";
+		};
+		F469552325DBE78F000FA605 /* Setup Assistants */ = {
+			isa = PBXGroup;
+			children = (
+				F409673F25D7FA7A00E5FBC6 /* HealthKitSetupAssistant.swift */,
+			);
+			path = "Setup Assistants";
+			sourceTree = "<group>";
+		};
+		F469552A25DBE839000FA605 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F454DD8F25CAF76700749542 /* MyMap.entitlements */,
+				F4EAE78625C1C593005AAEEE /* Assets.xcassets */,
+				F4EAE78B25C1C594005AAEEE /* Info.plist */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		F4EAE77625C1C550005AAEEE = {
@@ -124,23 +136,13 @@
 				F4EAE78225C1C552005AAEEE /* MyMapApp.swift */,
 				F4FFF8B525D7EB9900D2BE6C /* Views */,
 				F4FFF8B625D7EBA000D2BE6C /* Models */,
+				F469552325DBE78F000FA605 /* Setup Assistants */,
 				F409677525DADCBF00E5FBC6 /* Coordinators */,
 				F409673925D7ED0B00E5FBC6 /* Data Stores */,
-				F4EAE78625C1C593005AAEEE /* Assets.xcassets */,
-				F454DD8F25CAF76700749542 /* MyMap.entitlements */,
-				F4EAE78B25C1C594005AAEEE /* Info.plist */,
+				F469552A25DBE839000FA605 /* Supporting Files */,
 				F454DD9D25CB323900749542 /* Old */,
-				F4EAE78825C1C594005AAEEE /* Preview Content */,
 			);
 			path = MyMap;
-			sourceTree = "<group>";
-		};
-		F4EAE78825C1C594005AAEEE /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				F4EAE78925C1C594005AAEEE /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		F4FFF8B525D7EB9900D2BE6C /* Views */ = {
@@ -148,10 +150,10 @@
 			children = (
 				F4FFF8B225D7EB6000D2BE6C /* WorkoutView.swift */,
 				F409675F25D9554000E5FBC6 /* MapView.swift */,
+				F409676225D9CB4B00E5FBC6 /* Blur.swift */,
 				F409675325D94D0500E5FBC6 /* StartButton.swift */,
 				F409675925D950BA00E5FBC6 /* ToggleStateButton.swift */,
 				F409675C25D9519E00E5FBC6 /* EndButton.swift */,
-				F409676225D9CB4B00E5FBC6 /* Blur.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -160,9 +162,6 @@
 			isa = PBXGroup;
 			children = (
 				F409673B25D7ED7700E5FBC6 /* WorkoutManager.swift */,
-				F409677225DAD0D000E5FBC6 /* MapManager.swift */,
-				F409673F25D7FA7A00E5FBC6 /* HealthKitSetupAssistant.swift */,
-				F409676F25DACD0C00E5FBC6 /* LocationSetupAssistant.swift */,
 				F409675025D94C1000E5FBC6 /* WorkoutState.swift */,
 			);
 			path = Models;
@@ -225,7 +224,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4EAE78A25C1C594005AAEEE /* Preview Assets.xcassets in Resources */,
 				F4EAE78725C1C593005AAEEE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -241,17 +239,15 @@
 				F4EAE78525C1C552005AAEEE /* ContentView.swift in Sources */,
 				F4EAE78325C1C552005AAEEE /* MyMapApp.swift in Sources */,
 				F409675425D94D0500E5FBC6 /* StartButton.swift in Sources */,
-				F409677325DAD0D000E5FBC6 /* MapManager.swift in Sources */,
 				F409676325D9CB4B00E5FBC6 /* Blur.swift in Sources */,
 				F409676025D9554000E5FBC6 /* MapView.swift in Sources */,
 				F454DD8925CAEEC100749542 /* HomeScreen.swift in Sources */,
 				F409675D25D9519E00E5FBC6 /* EndButton.swift in Sources */,
 				F409674725D8022900E5FBC6 /* WorkoutDataStore.swift in Sources */,
-				F409677725DADCE700E5FBC6 /* Coordinator.swift in Sources */,
+				F469552725DBE7E6000FA605 /* MapCoordinator.swift in Sources */,
 				F454DD8D25CAEF1700749542 /* HealthStore.swift in Sources */,
 				F4FFF8B325D7EB6000D2BE6C /* WorkoutView.swift in Sources */,
 				F409674025D7FA7A00E5FBC6 /* HealthKitSetupAssistant.swift in Sources */,
-				F409677025DACD0C00E5FBC6 /* LocationSetupAssistant.swift in Sources */,
 				F409673C25D7ED7700E5FBC6 /* WorkoutManager.swift in Sources */,
 				F409675125D94C1000E5FBC6 /* WorkoutState.swift in Sources */,
 			);
@@ -381,12 +377,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = MyMap/MyMap.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "MyMap/Supporting Files/MyMap.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"MyMap/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"MyMap/Supporting Files\"";
 				DEVELOPMENT_TEAM = 4CQW4CFFYT;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = MyMap/Info.plist;
+				INFOPLIST_FILE = "MyMap/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -404,12 +400,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = MyMap/MyMap.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "MyMap/Supporting Files/MyMap.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"MyMap/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"MyMap/Supporting Files\"";
 				DEVELOPMENT_TEAM = 4CQW4CFFYT;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = MyMap/Info.plist;
+				INFOPLIST_FILE = "MyMap/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

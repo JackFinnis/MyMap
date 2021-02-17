@@ -16,7 +16,6 @@ struct StartButton: View {
         Button(action: {
             // Start workout
             workoutManager.startWorkout()
-            workoutManager.state = .running
         }, label: {
             HStack {
                 Text("Start")

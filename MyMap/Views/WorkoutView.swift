@@ -12,18 +12,22 @@ struct WorkoutView: View {
     // Access environment object workout manager
     @EnvironmentObject var workoutManager: WorkoutManager
     
-    // Access map manager business logic
-    var mapManager = MapManager()
-    
     // Setup HealthKit
     var healthKitSetupAssistant = HealthKitSetupAssistant()
+    
+    // Centre on user
+    @State var centredOnUser: Bool = true
     
     var body: some View {
         
         ZStack {
             
-            MapView()
+            MapView(centredOnUser: centredOnUser)
                 .ignoresSafeArea()
+            
+            Button("Centre on user") {
+                centredOnUser.toggle()
+            }
             
             VStack {
                 
