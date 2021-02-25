@@ -12,6 +12,36 @@ import CoreLocation
 class WorkoutDataStore {
     
     let healthStore = HKHealthStore()
+    var allWorkoutRoutes: [[CLLocation]]!
+    
+    init() {
+        // Load all workout routes
+        loadAllWorkoutRoutes()
+    }
+    
+    // Load all workout routes into array
+    func loadAllWorkoutRoutes() {
+        
+        let allWorkouts = loadWorkouts()
+        
+        // Check if no workouts were returned
+        guard allWorkouts != nil else {
+            return
+        }
+        
+        // Load each workout route's data
+        for workout in allWorkouts! {
+            // Add each route to the routes array
+            let workoutRoute = loadWorkoutRoute(workout: workout)
+            
+            // Check if route is empty
+            guard workoutRoute != nil else {
+                return
+            }
+            
+            allWorkoutRoutes.append(workoutRoute!)
+        }
+    }
     
     // Load an array of all the workouts of a given type
     func loadWorkouts() -> [HKWorkout]? {
@@ -19,20 +49,21 @@ class WorkoutDataStore {
         var workoutSamples: [HKWorkout]?
         
         // Setup predicate for query
-        let workoutPredicate = HKQuery.predicateForWorkouts(with: .walking)
+        let workoutPredicate = HKQuery.predicateForWorkouts(with: .cycling)
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: true)
         
         // Query for workouts
-        let workoutsQuery = HKSampleQuery(sampleType: .workoutType(), predicate: workoutPredicate, limit: 0, sortDescriptors: [sortDescriptor]) { (query, samples, error) in
+        let workoutsQuery = HKSampleQuery(sampleType: .workoutType(), predicate: workoutPredicate, limit: HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor]) { (query, samples, error) in
+
+            print(samples)
             
-            DispatchQueue.main.async {
-                // Do something with the array of workouts
-                workoutSamples = samples as? [HKWorkout]
-            }
+            // Do something with the array of workouts
+            workoutSamples = samples as? [HKWorkout]
         }
         // Execute the workout query
         healthStore.execute(workoutsQuery)
         
+        print("Workouts list: \(workoutSamples)")
         return workoutSamples
     }
     
@@ -48,23 +79,21 @@ class WorkoutDataStore {
         // Query for workout route
         let workoutRouteQuery = HKSampleQuery(sampleType: workoutRouteType, predicate: workoutPredicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { (query, samples, error) in
             
-            DispatchQueue.main.async {
-                // Do something with the array of workout routes
-                let workoutRoutes = samples as? [HKWorkoutRoute]
+            // Do something with the array of workout routes
+            let workoutRoutes = samples as? [HKWorkoutRoute]
+            print("Workout Routes: \(workoutRoutes)")
+            
+            for workoutRoute in workoutRoutes! {
                 
-                for workoutRoute in workoutRoutes! {
+                print("Workout Route: \(workoutRoute)")
+                // Query for each workout route's location data
+                let workoutRouteLocationsQuery = HKWorkoutRouteQuery(route: workoutRoute) { (routeQuery, locations, done, error) in
                     
-                    // Query for each workout route's location data
-                    let workoutRouteLocationsQuery = HKWorkoutRouteQuery(route: workoutRoute) { (routeQuery, locations, done, error) in
-                        
-                        // Do something with the array of location data
-                        let workoutRouteLocations = locations as? [CLLocation]
-                        
-                        routeLocations?.append(contentsOf: workoutRouteLocations!)
-                    }
-                    // Execute the workout route locations query
-                    self.healthStore.execute(workoutRouteLocationsQuery)
+                    // Do something with the array of location data
+                    routeLocations?.append(contentsOf: locations!)
                 }
+                // Execute the workout route locations query
+                self.healthStore.execute(workoutRouteLocationsQuery)
             }
         }
         // Execute the workout route query

@@ -13,11 +13,16 @@ struct MapView: UIViewRepresentable {
     // Access environment object workout manager
     @EnvironmentObject var workoutManager: WorkoutManager
     
-    var centredOnUser: Bool
+    // Access the workout data store
+    let workoutDataStore = WorkoutDataStore()
+    
+    // Create map view
+    var mapView = MKMapView()
+    
+//    var centredOnUser: Bool
     
     func makeUIView(context: Context) -> MKMapView {
         // Create map view
-        let mapView = MKMapView()
         mapView.delegate = context.coordinator
         
         // Show user location, map scale and compass
@@ -33,8 +38,10 @@ struct MapView: UIViewRepresentable {
     }
     
     func updateUIView(_ mapView: MKMapView, context: Context) {
+        // This function is called lots
         print("Update View")
-        mapView.setCenter(mapView.userLocation.coordinate, animated: true)
+        // Set map centre
+        //mapView.setCenter(mapView.userLocation.coordinate, animated: true)
     }
     
     func getUserRegion(mapView: MKMapView) -> MKCoordinateRegion {
@@ -42,6 +49,7 @@ struct MapView: UIViewRepresentable {
         return region
     }
     
+    // TODO:
     // Pan to user at start
     // Change to satellite image
     // Pan to user having clicked button
@@ -49,7 +57,7 @@ struct MapView: UIViewRepresentable {
     // Add all workout routes
 }
 
-/* Old
+/* Old (Using SwiftUI):
 
 // Access environment object workout manager
 @EnvironmentObject var workoutManager: WorkoutManager

@@ -77,7 +77,7 @@ class WorkoutManager: NSObject, ObservableObject {
     func workoutConfiguration() -> HKWorkoutConfiguration {
         // Provide the workout configuration
         let configuration = HKWorkoutConfiguration()
-        configuration.activityType = .running
+        configuration.activityType = .cycling
         configuration.locationType = .outdoor
         
         return configuration
@@ -212,7 +212,7 @@ extension WorkoutManager: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 
-        print("Locations: \(locations)")
+        print("User location: \(locations)")
         
         // Only add locations during a workout session
         if state == .running {

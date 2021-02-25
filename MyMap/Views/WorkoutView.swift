@@ -15,19 +15,12 @@ struct WorkoutView: View {
     // Setup HealthKit
     var healthKitSetupAssistant = HealthKitSetupAssistant()
     
-    // Centre on user
-    @State var centredOnUser: Bool = true
-    
     var body: some View {
         
         ZStack {
             
-            MapView(centredOnUser: centredOnUser)
+            MapView()
                 .ignoresSafeArea()
-            
-            Button("Centre on user") {
-                centredOnUser.toggle()
-            }
             
             VStack {
                 
@@ -57,7 +50,7 @@ struct WorkoutView: View {
             }
         }
         .onAppear {
-            
+            // Setup HealthKit
             healthKitSetupAssistant.requestAuthorisation()
         }
     }
@@ -73,16 +66,8 @@ struct WorkoutView: View {
     }
 }
 
-/* Old
- 
-VStack {
+/* Old (Get status bar frame):
 
-    Text("")
-        .frame(width: UIScreen.main.bounds.width, height:  UIApplication.shared.statusBarFrame.height)
-        .background(Blur())
-        .ignoresSafeArea()
-    
-    Spacer()
-}
+.frame(width: UIScreen.main.bounds.width, height:  UIApplication.shared.statusBarFrame.height)
  
 */

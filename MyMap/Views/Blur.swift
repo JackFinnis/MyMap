@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// Blur a view
 struct Blur: UIViewRepresentable {
     
     var style: UIBlurEffect.Style = .regular

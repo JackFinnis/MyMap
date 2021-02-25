@@ -17,13 +17,13 @@ class HealthKitSetupAssistant {
 
         // The quantity type to write to the health store.
         let typesToShare: Set = [
-            HKQuantityType.workoutType(),
+            HKObjectType.workoutType(),
             HKSeriesType.workoutRoute()
         ]
         
         // The quantity type to read from the health store.
         let typesToRead: Set = [
-            HKQuantityType.workoutType(),
+            HKObjectType.workoutType(),
             HKSeriesType.workoutRoute()
         ]
         
