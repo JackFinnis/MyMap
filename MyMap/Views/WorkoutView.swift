@@ -16,22 +16,16 @@ struct WorkoutView: View {
     var healthKitSetupAssistant = HealthKitSetupAssistant()
     
     var body: some View {
-        
         ZStack {
-            
             MapView()
                 .ignoresSafeArea()
             
             VStack {
-                
                 Spacer()
-                
                 VStack {
-                    
                     Text("\(elapsedTimeString(elapsed: secondsToMinutesSeconds(seconds: workoutManager.elapsedSeconds)))")
                     
                     HStack {
-                        
                         if workoutManager.state == .notStarted {
                             // Just display start button
                             StartButton()

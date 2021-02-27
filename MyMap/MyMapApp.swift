@@ -10,13 +10,13 @@ import SwiftUI
 @main
 struct MyMapApp: App {
     
-    // Access workout manager business logic:
-    @ObservedObject var workoutManager = WorkoutManager()
+//    // Access workout manager business logic:
+//    @ObservedObject var workoutManager = WorkoutManager()
     
     var body: some Scene {
         WindowGroup {
             WorkoutView()
-                .environmentObject(workoutManager)
+//                .environmentObject(workoutManager)
         }
     }
 }

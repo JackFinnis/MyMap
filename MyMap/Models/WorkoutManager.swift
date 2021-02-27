@@ -22,12 +22,13 @@ class WorkoutManager: NSObject, ObservableObject {
     //  - Total distance travelled
     //  - Accumulated locations from previous segments
     //  - New locations from current segment
-    //  - The workout state
     @Published var elapsedSeconds: Int = 0
     @Published var distance: Double = 0
     @Published var accumulatedLocations: [[CLLocation]] = [[]]
     @Published var newLocations: [CLLocation] = []
-    @Published var state: WorkoutState = .notStarted
+    
+    // The workout state
+    public var state: WorkoutState = .notStarted
     
     // Cancellable holds the timer publisher
     var start: Date = Date()
@@ -37,7 +38,7 @@ class WorkoutManager: NSObject, ObservableObject {
     func startTimer() {
         // When this segment started
         start = Date()
-        cancellable = Timer.publish(every: 0.1, on: .main, in: .default)
+        cancellable = Timer.publish(every: 1, on: .main, in: .default)
             .autoconnect()
             .sink { [weak self] _ in
                 guard let self = self else { return }
@@ -212,7 +213,7 @@ extension WorkoutManager: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 
-        print("User location: \(locations)")
+        print("User location Updated")
         
         // Only add locations during a workout session
         if state == .running {
@@ -262,5 +263,9 @@ extension WorkoutManager: CLLocationManagerDelegate {
             return
         }
         // Notify the user of any errors.
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        // Handle errors
     }
 }

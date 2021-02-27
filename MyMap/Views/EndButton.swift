@@ -16,7 +16,6 @@ struct EndButton: View {
         Button(action: {
             // End workout
             workoutManager.endWorkout()
-            workoutManager.state = .notStarted
         }, label: {
             HStack {
                 Text("End")

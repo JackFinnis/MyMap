@@ -15,6 +15,7 @@ class WorkoutDataStore {
     var allWorkoutRoutes: [[CLLocation]]!
     
     init() {
+        print("Data Store Init")
         // Load all workout routes
         loadAllWorkoutRoutes()
     }
@@ -26,6 +27,7 @@ class WorkoutDataStore {
         
         // Check if no workouts were returned
         guard allWorkouts != nil else {
+            print("No Workouts Returned by Health Store")
             return
         }
         
@@ -54,16 +56,17 @@ class WorkoutDataStore {
         
         // Query for workouts
         let workoutsQuery = HKSampleQuery(sampleType: .workoutType(), predicate: workoutPredicate, limit: HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor]) { (query, samples, error) in
-
-            print(samples)
             
             // Do something with the array of workouts
             workoutSamples = samples as? [HKWorkout]
+            
+            print("Inside Query")
         }
         // Execute the workout query
         healthStore.execute(workoutsQuery)
         
-        print("Workouts list: \(workoutSamples)")
+        print("After Query")
+
         return workoutSamples
     }
     

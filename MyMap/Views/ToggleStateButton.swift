@@ -19,7 +19,8 @@ struct ToggleStateButton: View {
                 workoutManager.resumeWorkout()
             } else {
                 // Pause workout
-                workoutManager.pauseWorkout()            }
+                workoutManager.pauseWorkout()
+            }
         }, label: {
             if workoutManager.state == .paused {
                 // Show play button

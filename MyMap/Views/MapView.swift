@@ -10,16 +10,11 @@ import MapKit
 
 struct MapView: UIViewRepresentable {
     
-    // Access environment object workout manager
-    @EnvironmentObject var workoutManager: WorkoutManager
-    
     // Access the workout data store
     let workoutDataStore = WorkoutDataStore()
     
     // Create map view
     var mapView = MKMapView()
-    
-//    var centredOnUser: Bool
     
     func makeUIView(context: Context) -> MKMapView {
         // Create map view
@@ -30,11 +25,15 @@ struct MapView: UIViewRepresentable {
         mapView.showsScale = true
         mapView.showsCompass = true
         
+        // This should only print once
+        print("Make UIView")
+        
         return mapView
     }
     
     func makeCoordinator() -> MapCoordinator {
-        MapCoordinator(self)
+        print("Make Coordinator")
+        return MapCoordinator(self)
     }
     
     func updateUIView(_ mapView: MKMapView, context: Context) {
@@ -48,14 +47,14 @@ struct MapView: UIViewRepresentable {
         let region = MKCoordinateRegion(center: mapView.userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
         return region
     }
-    
-    // TODO:
-    // Pan to user at start
-    // Change to satellite image
-    // Pan to user having clicked button
-    // Point direction user is facing
-    // Add all workout routes
 }
+
+// TODO:
+// Pan to user at start
+// Change to satellite image
+// Pan to user having clicked button
+// Point direction user is facing
+// Add all workout routes
 
 /* Old (Using SwiftUI):
 
