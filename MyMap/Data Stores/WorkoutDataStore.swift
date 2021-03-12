@@ -13,9 +13,9 @@ class WorkoutDataStore {
     
     let healthStore = HKHealthStore()
     var allWorkoutRoutes: [[CLLocation]]!
+    var allWorkouts: [HKWorkout]?
     
     init() {
-        print("Data Store Init")
         // Load all workout routes
         loadAllWorkoutRoutes()
     }
@@ -23,9 +23,12 @@ class WorkoutDataStore {
     // Load all workout routes into array
     func loadAllWorkoutRoutes() {
         
-        let allWorkouts = loadWorkouts()
+        // Load array of workouts from health store
+        loadWorkouts()
         
-        // Check if no workouts were returned
+        print(allWorkouts)
+        
+        // Case no workouts were returned
         guard allWorkouts != nil else {
             print("No Workouts Returned by Health Store")
             return
@@ -36,7 +39,7 @@ class WorkoutDataStore {
             // Add each route to the routes array
             let workoutRoute = loadWorkoutRoute(workout: workout)
             
-            // Check if route is empty
+            // Case route is empty
             guard workoutRoute != nil else {
                 return
             }
@@ -46,9 +49,7 @@ class WorkoutDataStore {
     }
     
     // Load an array of all the workouts of a given type
-    func loadWorkouts() -> [HKWorkout]? {
-        
-        var workoutSamples: [HKWorkout]?
+    func loadWorkouts() {
         
         // Setup predicate for query
         let workoutPredicate = HKQuery.predicateForWorkouts(with: .cycling)
@@ -57,17 +58,15 @@ class WorkoutDataStore {
         // Query for workouts
         let workoutsQuery = HKSampleQuery(sampleType: .workoutType(), predicate: workoutPredicate, limit: HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor]) { (query, samples, error) in
             
-            // Do something with the array of workouts
-            workoutSamples = samples as? [HKWorkout]
+            print("Type of workouts query: \(type(of: samples))")
             
-            print("Inside Query")
+            DispatchQueue.main.async {
+                // Do something with the array of workouts
+                self.allWorkouts = samples as? [HKWorkout]
+            }
         }
         // Execute the workout query
         healthStore.execute(workoutsQuery)
-        
-        print("After Query")
-
-        return workoutSamples
     }
     
     // Load an array of location data for a specific workout
@@ -84,11 +83,15 @@ class WorkoutDataStore {
             
             // Do something with the array of workout routes
             let workoutRoutes = samples as? [HKWorkoutRoute]
-            print("Workout Routes: \(workoutRoutes)")
+            
+            // Case no workout routes loaded
+            guard workoutRoutes != nil else {
+                print("No workout routes loaded")
+                return
+            }
             
             for workoutRoute in workoutRoutes! {
                 
-                print("Workout Route: \(workoutRoute)")
                 // Query for each workout route's location data
                 let workoutRouteLocationsQuery = HKWorkoutRouteQuery(route: workoutRoute) { (routeQuery, locations, done, error) in
                     
