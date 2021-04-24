@@ -9,6 +9,9 @@ import SwiftUI
 
 struct WorkoutView: View {
     
+    // Access workout data store
+    @EnvironmentObject var workoutDataStore: WorkoutDataStore
+    
     // Setup HealthKit
     var healthKitSetupAssistant = HealthKitSetupAssistant()
     
@@ -22,12 +25,8 @@ struct WorkoutView: View {
         .onAppear {
             // Setup HealthKit
             healthKitSetupAssistant.requestAuthorisation()
+            // Setup workout data store
+            workoutDataStore.loadAllWorkoutRoutes()
         }
     }
 }
-
-/* Old (Get status bar frame):
-
-.frame(width: UIScreen.main.bounds.width, height:  UIApplication.shared.statusBarFrame.height)
- 
-*/

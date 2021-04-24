@@ -8,39 +8,35 @@
 import SwiftUI
 
 struct ToggleStateButton: View {
-    
     @EnvironmentObject var workoutManager: WorkoutManager
+    @Binding var workoutState: WorkoutState
     
     var body: some View {
-        
         Button(action: {
-            if workoutManager.state == .paused {
-                // Resume workout
-                workoutManager.resumeWorkout()
-            } else {
+            if workoutState == .running {
                 // Pause workout
+                workoutState = .paused
                 workoutManager.pauseWorkout()
+            } else {
+                // Resume workout
+                workoutState = .running
+                workoutManager.resumeWorkout()
             }
         }, label: {
-            if workoutManager.state == .paused {
-                // Show play button
-                HStack {
+            HStack {
+                if workoutState == .running {
+                    // Show pause button
+                    Text("Pause")
+                    Image(systemName: "pause.fill")
+                } else {
+                    // Show play button
                     Text("Resume")
                     Image(systemName: "play.fill")
                 }
-                .padding()
-                .foregroundColor(Color(UIColor.black))
-                .background(Color(UIColor.white))
-            } else {
-                // Show pause button
-                HStack {
-                    Text("Pause")
-                    Image(systemName: "pause.fill")
-                }
-                .padding()
-                .foregroundColor(Color(UIColor.black))
-                .background(Color(UIColor.white))
             }
+            .padding()
+            .foregroundColor(Color(UIColor.black))
+            .background(Color(UIColor.white))
         })
         .cornerRadius(20)
     }

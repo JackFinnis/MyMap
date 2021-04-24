@@ -12,10 +12,10 @@ import CoreLocation
 
 class WorkoutManager: NSObject, ObservableObject {
     
-    let healthStore = HKHealthStore()
-    var workoutBuilder: HKWorkoutBuilder!
-    var routeBuilder: HKWorkoutRouteBuilder!
-    var locationManager: CLLocationManager!
+    private let healthStore = HKHealthStore()
+    private var workoutBuilder: HKWorkoutBuilder!
+    private var routeBuilder: HKWorkoutRouteBuilder!
+    private var locationManager: CLLocationManager!
     
     // Publish the following:
     //  - Elapsed seconds
@@ -28,14 +28,14 @@ class WorkoutManager: NSObject, ObservableObject {
     @Published var newLocations: [CLLocation] = []
     
     // The workout state
-    public var state: WorkoutState = .notStarted
+    private var state: WorkoutState = .notStarted
     
     // Cancellable holds the timer publisher
-    var start: Date = Date()
-    var cancellable: Cancellable?
-    var accumulatedTime: Int = 0
+    private var start: Date = Date()
+    private var cancellable: Cancellable?
+    private var accumulatedTime: Int = 0
     
-    func startTimer() {
+    private func startTimer() {
         // When this segment started
         start = Date()
         cancellable = Timer.publish(every: 1, on: .main, in: .default)
@@ -46,14 +46,14 @@ class WorkoutManager: NSObject, ObservableObject {
             }
     }
     
-    func calculateElapsedTime() -> Int {
+    private func calculateElapsedTime() -> Int {
         // Time of this segment
         let segmentTime: Int = Int(-1 * self.start.timeIntervalSinceNow)
         // Total all segments' times
         return segmentTime + accumulatedTime
     }
     
-    func saveNewLocations() {
+    private func saveNewLocations() {
         // Save new locations when the workout is paused
         accumulatedLocations.append(newLocations)
         // Empty the new locations
@@ -61,7 +61,7 @@ class WorkoutManager: NSObject, ObservableObject {
     }
     
     // Setup the location manager to be used
-    func setupLocationManager() {
+    private func setupLocationManager() {
         // Create the location manager
         locationManager = CLLocationManager()
         locationManager.delegate = self
@@ -75,17 +75,17 @@ class WorkoutManager: NSObject, ObservableObject {
         locationManager.startUpdatingLocation()
     }
     
-    func workoutConfiguration() -> HKWorkoutConfiguration {
+    private func workoutConfiguration() -> HKWorkoutConfiguration {
         // Provide the workout configuration
         let configuration = HKWorkoutConfiguration()
-        configuration.activityType = .cycling
+        configuration.activityType = .walking
         configuration.locationType = .outdoor
         
         return configuration
     }
     
     // MARK: - Workout State Control
-    func startWorkout() {
+    public func startWorkout() {
         // Start the timer
         startTimer()
         
@@ -108,7 +108,7 @@ class WorkoutManager: NSObject, ObservableObject {
         print("Workout Started")
     }
     
-    func pauseWorkout() {
+    public func pauseWorkout() {
         // Stop the timer
         cancellable?.cancel()
         // Save the elapsed time
@@ -123,7 +123,7 @@ class WorkoutManager: NSObject, ObservableObject {
         print("Workout Paused")
     }
     
-    func resumeWorkout() {
+    public func resumeWorkout() {
         // Start the timer
         startTimer()
         // Start tracking user in the background
@@ -134,15 +134,13 @@ class WorkoutManager: NSObject, ObservableObject {
         print("Workout Resumed")
     }
     
-    func endWorkout() {
+    public func endWorkout() {
         // Stop the timer
         cancellable?.cancel()
         // Stop tracking user in the background
         locationManager.allowsBackgroundLocationUpdates = false
         // End the workout session
-        if elapsedSeconds >= 60 {
-            endWorkoutBuilderSession()
-        }
+        endWorkoutBuilderSession()
         
         // Workout ended
         state = .notStarted
@@ -152,7 +150,7 @@ class WorkoutManager: NSObject, ObservableObject {
         resetWorkout()
     }
     
-    func resetWorkout() {
+    private func resetWorkout() {
         // Reset the published values
         DispatchQueue.main.async {
             self.elapsedSeconds = 0
@@ -166,7 +164,7 @@ class WorkoutManager: NSObject, ObservableObject {
     }
     
     // MARK: - End Workout Session
-    func endWorkoutBuilderSession() {
+    private func endWorkoutBuilderSession() {
         
         // End workout data collection
         workoutBuilder.endCollection(withEnd: Date()) { (success, error) in

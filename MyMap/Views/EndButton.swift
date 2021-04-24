@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct EndButton: View {
-    
     @EnvironmentObject var workoutManager: WorkoutManager
+    @Binding var workoutState: WorkoutState
     
     var body: some View {
-        
         Button(action: {
             // End workout
+            workoutState = .notStarted
             workoutManager.endWorkout()
         }, label: {
             HStack {

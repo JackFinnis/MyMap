@@ -12,23 +12,23 @@ struct FloatingStateView: View {
     // Access environment object workout manager
     @EnvironmentObject var workoutManager: WorkoutManager
     
+    // The workout state
+    @State var workoutState: WorkoutState = .notStarted
+    
     var body: some View {
-        
         VStack {
-            
             Spacer()
+            
             VStack {
-                
                 Text("\(elapsedTimeString(elapsed: secondsToMinutesSeconds(seconds: workoutManager.elapsedSeconds)))")
-                
                 HStack {
-                    if workoutManager.state == .notStarted {
+                    if workoutState == .notStarted {
                         // Just display start button
-                        StartButton()
+                        StartButton(workoutState: $workoutState)
                     } else {
                         // Display toggle state and end button
-                        ToggleStateButton()
-                        EndButton()
+                        ToggleStateButton(workoutState: $workoutState)
+                        EndButton(workoutState: $workoutState)
                     }
                 }
             }
@@ -41,8 +41,8 @@ struct FloatingStateView: View {
     }
     
     // Convert the seconds into seconds and minutes
-    func secondsToMinutesSeconds (seconds: Int) -> (Int, Int) {
-      return (seconds / 60, seconds % 60)
+    func secondsToMinutesSeconds(seconds: Int) -> (Int, Int) {
+        return (seconds / 60, seconds % 60)
     }
     
     // Convert the seconds, minutes, hours into a string.

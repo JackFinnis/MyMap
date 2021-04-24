@@ -16,13 +16,12 @@
 		F409675D25D9519E00E5FBC6 /* EndButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409675C25D9519E00E5FBC6 /* EndButton.swift */; };
 		F409676025D9554000E5FBC6 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409675F25D9554000E5FBC6 /* MapView.swift */; };
 		F409676325D9CB4B00E5FBC6 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409676225D9CB4B00E5FBC6 /* Blur.swift */; };
+		F41C13872634854C00D85547 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C13862634854C00D85547 /* LoadingView.swift */; };
+		F41C138B2634862600D85547 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C138A2634862600D85547 /* Spinner.swift */; };
 		F425806025F1270300624875 /* FloatingStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F425805F25F1270300624875 /* FloatingStateView.swift */; };
-		F454DD8925CAEEC100749542 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F454DD8825CAEEC100749542 /* HomeScreen.swift */; };
-		F454DD8D25CAEF1700749542 /* HealthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F454DD8C25CAEF1700749542 /* HealthStore.swift */; };
 		F454DD9225CAF76D00749542 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F454DD9125CAF76D00749542 /* HealthKit.framework */; };
 		F469552725DBE7E6000FA605 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F469552625DBE7E6000FA605 /* MapCoordinator.swift */; };
 		F4EAE78325C1C552005AAEEE /* MyMapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EAE78225C1C552005AAEEE /* MyMapApp.swift */; };
-		F4EAE78525C1C552005AAEEE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EAE78425C1C552005AAEEE /* ContentView.swift */; };
 		F4EAE78725C1C593005AAEEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4EAE78625C1C593005AAEEE /* Assets.xcassets */; };
 		F4FFF8B325D7EB6000D2BE6C /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FFF8B225D7EB6000D2BE6C /* WorkoutView.swift */; };
 /* End PBXBuildFile section */
@@ -37,15 +36,14 @@
 		F409675C25D9519E00E5FBC6 /* EndButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndButton.swift; sourceTree = "<group>"; };
 		F409675F25D9554000E5FBC6 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		F409676225D9CB4B00E5FBC6 /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
+		F41C13862634854C00D85547 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		F41C138A2634862600D85547 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		F425805F25F1270300624875 /* FloatingStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingStateView.swift; sourceTree = "<group>"; };
-		F454DD8825CAEEC100749542 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
-		F454DD8C25CAEF1700749542 /* HealthStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthStore.swift; sourceTree = "<group>"; };
 		F454DD8F25CAF76700749542 /* MyMap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyMap.entitlements; sourceTree = "<group>"; };
 		F454DD9125CAF76D00749542 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		F469552625DBE7E6000FA605 /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		F4EAE77F25C1C551005AAEEE /* MyMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4EAE78225C1C552005AAEEE /* MyMapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMapApp.swift; sourceTree = "<group>"; };
-		F4EAE78425C1C552005AAEEE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F4EAE78625C1C593005AAEEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4EAE78B25C1C594005AAEEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4FFF8B225D7EB6000D2BE6C /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
@@ -85,16 +83,6 @@
 				F454DD9125CAF76D00749542 /* HealthKit.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		F454DD9D25CB323900749542 /* Old */ = {
-			isa = PBXGroup;
-			children = (
-				F454DD8825CAEEC100749542 /* HomeScreen.swift */,
-				F454DD8C25CAEF1700749542 /* HealthStore.swift */,
-				F4EAE78425C1C552005AAEEE /* ContentView.swift */,
-			);
-			path = Old;
 			sourceTree = "<group>";
 		};
 		F469552325DBE78F000FA605 /* Setup Assistants */ = {
@@ -138,11 +126,10 @@
 				F4EAE78225C1C552005AAEEE /* MyMapApp.swift */,
 				F4FFF8B525D7EB9900D2BE6C /* Views */,
 				F4FFF8B625D7EBA000D2BE6C /* Models */,
-				F469552325DBE78F000FA605 /* Setup Assistants */,
-				F409677525DADCBF00E5FBC6 /* Coordinators */,
 				F409673925D7ED0B00E5FBC6 /* Data Stores */,
+				F409677525DADCBF00E5FBC6 /* Coordinators */,
+				F469552325DBE78F000FA605 /* Setup Assistants */,
 				F469552A25DBE839000FA605 /* Supporting Files */,
-				F454DD9D25CB323900749542 /* Old */,
 			);
 			path = MyMap;
 			sourceTree = "<group>";
@@ -150,9 +137,11 @@
 		F4FFF8B525D7EB9900D2BE6C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F41C13862634854C00D85547 /* LoadingView.swift */,
+				F41C138A2634862600D85547 /* Spinner.swift */,
 				F4FFF8B225D7EB6000D2BE6C /* WorkoutView.swift */,
-				F425805F25F1270300624875 /* FloatingStateView.swift */,
 				F409675F25D9554000E5FBC6 /* MapView.swift */,
+				F425805F25F1270300624875 /* FloatingStateView.swift */,
 				F409676225D9CB4B00E5FBC6 /* Blur.swift */,
 				F409675325D94D0500E5FBC6 /* StartButton.swift */,
 				F409675925D950BA00E5FBC6 /* ToggleStateButton.swift */,
@@ -239,17 +228,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				F409675A25D950BA00E5FBC6 /* ToggleStateButton.swift in Sources */,
-				F4EAE78525C1C552005AAEEE /* ContentView.swift in Sources */,
+				F41C138B2634862600D85547 /* Spinner.swift in Sources */,
 				F425806025F1270300624875 /* FloatingStateView.swift in Sources */,
 				F4EAE78325C1C552005AAEEE /* MyMapApp.swift in Sources */,
+				F41C13872634854C00D85547 /* LoadingView.swift in Sources */,
 				F409675425D94D0500E5FBC6 /* StartButton.swift in Sources */,
 				F409676325D9CB4B00E5FBC6 /* Blur.swift in Sources */,
 				F409676025D9554000E5FBC6 /* MapView.swift in Sources */,
-				F454DD8925CAEEC100749542 /* HomeScreen.swift in Sources */,
 				F409675D25D9519E00E5FBC6 /* EndButton.swift in Sources */,
 				F409674725D8022900E5FBC6 /* WorkoutDataStore.swift in Sources */,
 				F469552725DBE7E6000FA605 /* MapCoordinator.swift in Sources */,
-				F454DD8D25CAEF1700749542 /* HealthStore.swift in Sources */,
 				F4FFF8B325D7EB6000D2BE6C /* WorkoutView.swift in Sources */,
 				F409674025D7FA7A00E5FBC6 /* HealthKitSetupAssistant.swift in Sources */,
 				F409673C25D7ED7700E5FBC6 /* WorkoutManager.swift in Sources */,

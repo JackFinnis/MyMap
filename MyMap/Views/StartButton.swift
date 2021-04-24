@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct StartButton: View {
-    
     @EnvironmentObject var workoutManager: WorkoutManager
+    @Binding var workoutState: WorkoutState
     
     var body: some View {
-        
         Button(action: {
             // Start workout
+            workoutState = .running
             workoutManager.startWorkout()
         }, label: {
             HStack {

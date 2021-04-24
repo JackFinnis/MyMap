@@ -8,7 +8,6 @@
 import Foundation
 
 enum WorkoutState {
-    
     case notStarted
     case running
     case paused
