@@ -6,21 +6,27 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct WorkoutView: View {
     
     // Access workout data store
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     
+    @State var userTrackingMode: MKUserTrackingMode = .none
+    @State var mapType: MKMapType = .standard
+    
     // Setup HealthKit
     var healthKitSetupAssistant = HealthKitSetupAssistant()
     
     var body: some View {
         ZStack {
-            MapView()
+            MapView(mapType: $mapType, userTrackingMode: $userTrackingMode)
                 .ignoresSafeArea()
             
-            FloatingStateView()
+            FloatingMapButtons(mapType: $mapType, userTrackingMode: $userTrackingMode)
+            
+            FloatingStateView(userTrackingMode: $userTrackingMode)
         }
         .onAppear {
             // Setup HealthKit

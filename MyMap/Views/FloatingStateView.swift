@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct FloatingStateView: View {
     
     // Access environment object workout manager
     @EnvironmentObject var workoutManager: WorkoutManager
+    
+    @Binding var userTrackingMode: MKUserTrackingMode
     
     // The workout state
     @State var workoutState: WorkoutState = .notStarted
@@ -24,7 +27,7 @@ struct FloatingStateView: View {
                 HStack {
                     if workoutState == .notStarted {
                         // Just display start button
-                        StartButton(workoutState: $workoutState)
+                        StartButton(workoutState: $workoutState, userTrackingMode: $userTrackingMode)
                     } else {
                         // Display toggle state and end button
                         ToggleStateButton(workoutState: $workoutState)

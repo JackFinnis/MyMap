@@ -6,25 +6,55 @@
 //
 
 import SwiftUI
+import MapKit
+import HealthKit
 
 struct StartButton: View {
+    
     @EnvironmentObject var workoutManager: WorkoutManager
+    
     @Binding var workoutState: WorkoutState
+    @Binding var userTrackingMode: MKUserTrackingMode
+    
+    @State var actionSheetIsPresented: Bool = false
+    @State var workoutsSheetIsPresented: Bool = false
     
     var body: some View {
         Button(action: {
-            // Start workout
-            workoutState = .running
-            workoutManager.startWorkout()
+            actionSheetIsPresented = true
         }, label: {
-            HStack {
-                Text("Start")
-                Image(systemName: "play.fill")
-            }
-            .padding()
-            .foregroundColor(Color(UIColor.white))
-            .background(Color(UIColor.systemGreen))
+            Image(systemName: "record.circle")
+                .font(.largeTitle)
+                .padding(5)
+                .foregroundColor(Color(UIColor.white))
+                .background(Color(UIColor.systemRed))
         })
-        .cornerRadius(20)
+        .cornerRadius(.greatestFiniteMagnitude)
+        .actionSheet(isPresented: $actionSheetIsPresented) {
+            ActionSheet(
+                title: Text("Choose a Workout Type"),
+                buttons: [
+                    .default(Text("Record Walk")) {
+                        recordWorkout(workoutType: .walking)
+                    },
+                    .default(Text("Record Run")) {
+                        recordWorkout(workoutType: .running)
+                    },
+                    .default(Text("Record Cycle")) {
+                        recordWorkout(workoutType: .cycling)
+                    },
+                    .default(Text("Record Other")) {
+                        recordWorkout(workoutType: .other)
+                    },
+                    .cancel()
+                ]
+            )
+        }
+    }
+    
+    func recordWorkout(workoutType: HKWorkoutActivityType) {
+        workoutState = .running
+        workoutManager.startWorkout(workoutType: workoutType)
+        userTrackingMode = .followWithHeading
     }
 }

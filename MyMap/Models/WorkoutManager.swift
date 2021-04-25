@@ -75,22 +75,22 @@ class WorkoutManager: NSObject, ObservableObject {
         locationManager.startUpdatingLocation()
     }
     
-    private func workoutConfiguration() -> HKWorkoutConfiguration {
+    private func workoutConfiguration(workoutType: HKWorkoutActivityType) -> HKWorkoutConfiguration {
         // Provide the workout configuration
         let configuration = HKWorkoutConfiguration()
-        configuration.activityType = .walking
+        configuration.activityType = workoutType
         configuration.locationType = .outdoor
         
         return configuration
     }
     
     // MARK: - Workout State Control
-    public func startWorkout() {
+    public func startWorkout(workoutType: HKWorkoutActivityType) {
         // Start the timer
         startTimer()
         
         // Create the workout builder
-        workoutBuilder = HKWorkoutBuilder(healthStore: healthStore, configuration: workoutConfiguration(), device: .local())
+        workoutBuilder = HKWorkoutBuilder(healthStore: healthStore, configuration: workoutConfiguration(workoutType: workoutType), device: .local())
         // Create the route builder
         routeBuilder = HKWorkoutRouteBuilder(healthStore: healthStore, device: nil)
         

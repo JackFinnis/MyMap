@@ -16,6 +16,9 @@ struct MapView: UIViewRepresentable {
     // Access workout data store
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     
+    @Binding var mapType: MKMapType
+    @Binding var userTrackingMode: MKUserTrackingMode
+    
     var mapView = MKMapView()
     
     func makeCoordinator() -> MapCoordinator {
@@ -35,8 +38,18 @@ struct MapView: UIViewRepresentable {
     }
     
     func updateUIView(_ mapView: MKMapView, context: Context) {
-        // Add all workout overlays
-        mapView.addOverlay(polyline())
+        // Set user tracking mode
+        if mapView.userTrackingMode != userTrackingMode {
+            mapView.setUserTrackingMode(userTrackingMode, animated: true)
+        }
+        
+        // Set map type
+        if mapView.mapType != mapType {
+            mapView.mapType = mapType
+        }
+        
+//        // Add all workout overlays
+//        mapView.addOverlay(polyline())
     }
     
     func polyline() -> MKMultiPolyline {

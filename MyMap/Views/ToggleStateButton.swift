@@ -13,15 +13,7 @@ struct ToggleStateButton: View {
     
     var body: some View {
         Button(action: {
-            if workoutState == .running {
-                // Pause workout
-                workoutState = .paused
-                workoutManager.pauseWorkout()
-            } else {
-                // Resume workout
-                workoutState = .running
-                workoutManager.resumeWorkout()
-            }
+            updateWorkoutState()
         }, label: {
             HStack {
                 if workoutState == .running {
@@ -39,5 +31,17 @@ struct ToggleStateButton: View {
             .background(Color(UIColor.white))
         })
         .cornerRadius(20)
+    }
+    
+    func updateWorkoutState() {
+        if workoutState == .running {
+            // Pause workout
+            workoutState = .paused
+            workoutManager.pauseWorkout()
+        } else {
+            // Resume workout
+            workoutState = .running
+            workoutManager.resumeWorkout()
+        }
     }
 }
