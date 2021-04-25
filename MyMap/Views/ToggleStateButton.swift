@@ -27,8 +27,8 @@ struct ToggleStateButton: View {
                     .padding(10)
             }
         })
-        .foregroundColor(Color(UIColor.black))
-        .background(Color(UIColor.white))
+        .foregroundColor(Color(UIColor.white))
+        .background(Color(UIColor.systemBackground))
     }
     
     func updateWorkoutState() {

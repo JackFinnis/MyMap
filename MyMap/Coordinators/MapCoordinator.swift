@@ -24,7 +24,7 @@ class MapCoordinator: NSObject, MKMapViewDelegate {
         }
         
         let renderer = MKMultiPolylineRenderer(multiPolyline: multiPolyline)
-        renderer.strokeColor = .red
+        renderer.strokeColor = UIColor(.accentColor)
         renderer.lineWidth = 3
         return renderer
     }

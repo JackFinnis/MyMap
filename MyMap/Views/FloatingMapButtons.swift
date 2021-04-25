@@ -12,6 +12,7 @@ struct FloatingMapButtons: View {
     
     @Binding var mapType: MKMapType
     @Binding var userTrackingMode: MKUserTrackingMode
+    @Binding var showAllWorkouts: Bool
     
     @State var advancedSettingsShowing: Bool = false
     
@@ -27,9 +28,6 @@ struct FloatingMapButtons: View {
                         Image(systemName: "info.circle")
                     })
                     .padding(10)
-                    .sheet(isPresented: $advancedSettingsShowing) {
-                        MapSettings(mapType: $mapType)
-                    }
                     
                     Button(action: {
                         updateUserTrackingMode()
@@ -45,13 +43,16 @@ struct FloatingMapButtons: View {
                     })
                     .padding(10)
                 }
-                .background(Color(UIColor.white))
+                .background(Blur())
                 .cornerRadius(11)
                 .shadow(radius: 2)
                 .padding(.horizontal, 10)
                 .padding(.top, 50)
             }
             Spacer()
+        }
+        .sheet(isPresented: $advancedSettingsShowing) {
+            MapSettings(mapType: $mapType, showAllWorkouts: $showAllWorkouts)
         }
     }
     

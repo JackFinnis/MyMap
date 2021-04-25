@@ -18,6 +18,7 @@ struct MapView: UIViewRepresentable {
     
     @Binding var mapType: MKMapType
     @Binding var userTrackingMode: MKUserTrackingMode
+    @Binding var showAllWorkouts: Bool
     
     var mapView = MKMapView()
     
@@ -48,11 +49,14 @@ struct MapView: UIViewRepresentable {
             mapView.mapType = mapType
         }
         
-//        // Add all workout overlays
-//        mapView.addOverlay(polyline())
+        mapView.removeOverlays(mapView.overlays)
+        // Add all workout overlays
+        if showAllWorkouts {
+            mapView.addOverlay(multiPolyline())
+        }
     }
     
-    func polyline() -> MKMultiPolyline {
+    func multiPolyline() -> MKMultiPolyline {
         var polylines: [MKPolyline] = []
         
         // Provide polyline overlay for each of the workout routes

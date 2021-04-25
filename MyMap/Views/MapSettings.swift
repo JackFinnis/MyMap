@@ -11,6 +11,7 @@ import MapKit
 struct MapSettings: View {
     
     @Binding var mapType: MKMapType
+    @Binding var showAllWorkouts: Bool
     
     let mapTypeNames: [String] = ["Standard", "Satellite", "Hybrid"]
     let mapTypes: [MKMapType] = [.standard, .satellite, .hybrid]
@@ -25,6 +26,12 @@ struct MapSettings: View {
                         }
                     }
                     .pickerStyle(SegmentedPickerStyle())
+                }
+                
+                Section(header: Text("Workouts")) {
+                    Toggle(isOn: $showAllWorkouts, label: {
+                        Text("Show Workout Routes")
+                    })
                 }
             }
             .navigationTitle("Map Settings")

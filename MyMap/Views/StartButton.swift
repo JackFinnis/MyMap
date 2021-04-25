@@ -26,7 +26,7 @@ struct StartButton: View {
             Image(systemName: "record.circle")
                 .font(.largeTitle)
                 .padding(5)
-                .foregroundColor(Color(UIColor.white))
+                .foregroundColor(.white)
                 .background(Color(UIColor.systemRed))
         })
         .cornerRadius(.greatestFiniteMagnitude)

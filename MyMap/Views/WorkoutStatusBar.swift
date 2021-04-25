@@ -46,7 +46,7 @@ struct WorkoutStatusBar: View {
                         
                         HStack {
                             Spacer()
-                            Text("2.58 km")
+                            Text(totalDistanceString(metres: Int(workoutManager.distance)))
                                 .font(.headline)
                             Spacer()
                         }
@@ -54,10 +54,13 @@ struct WorkoutStatusBar: View {
                 }
             })
             .padding(10)
-            .background(Color(UIColor.white))
+            .background(Blur())
             .compositingGroup()
             .shadow(radius: 2)
             .buttonStyle(PlainButtonStyle())
+        }
+        .sheet(isPresented: $workoutDetailIsPresented) {
+            WorkoutDetail()
         }
     }
     
@@ -69,5 +72,9 @@ struct WorkoutStatusBar: View {
     // Convert the seconds, minutes, hours into a string.
     func elapsedTimeString(elapsed: (m: Int, s: Int)) -> String {
         return String(format: "%02d:%02d", elapsed.m, elapsed.s)
+    }
+    
+    func totalDistanceString(metres: Int) -> String {
+        return String("\(metres / 1000).\(metres % 1000) km")
     }
 }

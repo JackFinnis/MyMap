@@ -15,16 +15,17 @@ struct WorkoutView: View {
     
     @State var userTrackingMode: MKUserTrackingMode = .follow
     @State var mapType: MKMapType = .standard
+    @State var showAllWorkouts: Bool = false
     
     // Setup HealthKit
     var healthKitSetupAssistant = HealthKitSetupAssistant()
     
     var body: some View {
         ZStack {
-            MapView(mapType: $mapType, userTrackingMode: $userTrackingMode)
+            MapView(mapType: $mapType, userTrackingMode: $userTrackingMode, showAllWorkouts: $showAllWorkouts)
                 .ignoresSafeArea()
             
-            FloatingMapButtons(mapType: $mapType, userTrackingMode: $userTrackingMode)
+            FloatingMapButtons(mapType: $mapType, userTrackingMode: $userTrackingMode, showAllWorkouts: $showAllWorkouts)
             
             WorkoutStatusBar(userTrackingMode: $userTrackingMode)
         }
