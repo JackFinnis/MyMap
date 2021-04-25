@@ -10,6 +10,8 @@ import MapKit
 
 struct MapSettings: View {
     
+    @EnvironmentObject var workoutDataStore: WorkoutDataStore
+    
     @Binding var mapType: MKMapType
     @Binding var showAllWorkouts: Bool
     
@@ -32,6 +34,12 @@ struct MapSettings: View {
                     Toggle(isOn: $showAllWorkouts, label: {
                         Text("Show Workout Routes")
                     })
+                    if showAllWorkouts && !workoutDataStore.finishedLoadingWorkoutRoutes {
+                        HStack {
+                            Spinner()
+                            Text("Loading Workouts...")
+                        }
+                    }
                 }
             }
             .navigationTitle("Map Settings")

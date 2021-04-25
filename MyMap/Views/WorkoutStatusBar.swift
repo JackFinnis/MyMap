@@ -13,8 +13,8 @@ struct WorkoutStatusBar: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     
     @Binding var userTrackingMode: MKUserTrackingMode
+    @Binding var workoutState: WorkoutState
     
-    @State var workoutState: WorkoutState = .notStarted
     @State var workoutDetailIsPresented: Bool = false
     
     var body: some View {
@@ -39,9 +39,14 @@ struct WorkoutStatusBar: View {
                             // Just display start button
                             StartButton(workoutState: $workoutState, userTrackingMode: $userTrackingMode)
                         } else {
-                            // Display toggle state and end button
-                            ToggleStateButton(workoutState: $workoutState)
-                            EndButton(workoutState: $workoutState)
+                            HStack {
+                                ToggleStateButton(workoutState: $workoutState)
+                                Divider()
+                                    .frame(height: 62)
+                                EndButton(workoutState: $workoutState)
+                            }
+                            .background(Color(UIColor.systemBackground))
+                            .cornerRadius(11)
                         }
                         
                         HStack {

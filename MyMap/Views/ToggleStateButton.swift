@@ -8,27 +8,30 @@
 import SwiftUI
 
 struct ToggleStateButton: View {
+    
     @EnvironmentObject var workoutManager: WorkoutManager
+    
     @Binding var workoutState: WorkoutState
     
     var body: some View {
         Button(action: {
             updateWorkoutState()
         }, label: {
-            if workoutState == .running {
-                // Show pause button
-                Image(systemName: "pause.fill")
-                    .font(.title)
-                    .padding(10)
-            } else {
-                // Show play button
-                Image(systemName: "play.fill")
-                    .font(.title)
-                    .padding(10)
+            HStack {
+                if workoutState == .running {
+                    // Show pause button
+                    Image(systemName: "pause.fill")
+                } else {
+                    // Show play button
+                    Image(systemName: "play.fill")
+                }
             }
+            .font(.title)
+            .padding(.vertical, 15)
+            .padding(.leading, 15)
+            .padding(.trailing, 10)
         })
-        .foregroundColor(Color(UIColor.white))
-        .background(Color(UIColor.systemBackground))
+        .buttonStyle(PlainButtonStyle())
     }
     
     func updateWorkoutState() {

@@ -26,22 +26,31 @@ struct FloatingMapButtons: View {
                         advancedSettingsShowing = true
                     }, label: {
                         Image(systemName: "info.circle")
+                            .padding(.top, 10)
+                            .padding(.horizontal, 10)
+                            .padding(.bottom, 5)
                     })
-                    .padding(10)
+                    
+                    Divider()
+                        .frame(width: 25)
                     
                     Button(action: {
                         updateUserTrackingMode()
                     }, label: {
-                        switch userTrackingMode {
-                        case .none:
-                            Image(systemName: "location")
-                        case .follow:
-                            Image(systemName: "location.fill")
-                        default:
-                            Image(systemName: "location.north.line.fill")
+                        HStack {
+                            switch userTrackingMode {
+                            case .none:
+                                Image(systemName: "location")
+                            case .follow:
+                                Image(systemName: "location.fill")
+                            default:
+                                Image(systemName: "location.north.line.fill")
+                            }
                         }
+                        .padding(.top, 5)
+                        .padding(.horizontal, 10)
+                        .padding(.bottom, 10)
                     })
-                    .padding(10)
                 }
                 .background(Blur())
                 .cornerRadius(11)

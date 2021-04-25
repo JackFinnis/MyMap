@@ -22,6 +22,7 @@
 		F4D80C7726354CBB00E23847 /* FloatingMapButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D80C7626354CBB00E23847 /* FloatingMapButtons.swift */; };
 		F4D80C83263558AB00E23847 /* MapSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D80C82263558AB00E23847 /* MapSettings.swift */; };
 		F4D80C9C2635A4EE00E23847 /* WorkoutDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D80C9B2635A4EE00E23847 /* WorkoutDetail.swift */; };
+		F4D80CA02635EE3B00E23847 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D80C9F2635EE3B00E23847 /* Spinner.swift */; };
 		F4EAE78325C1C552005AAEEE /* MyMapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EAE78225C1C552005AAEEE /* MyMapApp.swift */; };
 		F4EAE78725C1C593005AAEEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4EAE78625C1C593005AAEEE /* Assets.xcassets */; };
 		F4FFF8B325D7EB6000D2BE6C /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FFF8B225D7EB6000D2BE6C /* WorkoutView.swift */; };
@@ -44,6 +45,7 @@
 		F4D80C7626354CBB00E23847 /* FloatingMapButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingMapButtons.swift; sourceTree = "<group>"; };
 		F4D80C82263558AB00E23847 /* MapSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSettings.swift; sourceTree = "<group>"; };
 		F4D80C9B2635A4EE00E23847 /* WorkoutDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetail.swift; sourceTree = "<group>"; };
+		F4D80C9F2635EE3B00E23847 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		F4EAE77F25C1C551005AAEEE /* MyMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4EAE78225C1C552005AAEEE /* MyMapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMapApp.swift; sourceTree = "<group>"; };
 		F4EAE78625C1C593005AAEEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				F409675F25D9554000E5FBC6 /* MapView.swift */,
 				F4D80C7626354CBB00E23847 /* FloatingMapButtons.swift */,
 				F4D80C82263558AB00E23847 /* MapSettings.swift */,
+				F4D80C9F2635EE3B00E23847 /* Spinner.swift */,
 				F425805F25F1270300624875 /* WorkoutStatusBar.swift */,
 				F4D80C9B2635A4EE00E23847 /* WorkoutDetail.swift */,
 				F409676225D9CB4B00E5FBC6 /* Blur.swift */,
@@ -246,6 +249,7 @@
 				F409674025D7FA7A00E5FBC6 /* HealthKitSetupAssistant.swift in Sources */,
 				F409673C25D7ED7700E5FBC6 /* WorkoutManager.swift in Sources */,
 				F409675125D94C1000E5FBC6 /* WorkoutState.swift in Sources */,
+				F4D80CA02635EE3B00E23847 /* Spinner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

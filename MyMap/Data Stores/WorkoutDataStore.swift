@@ -8,13 +8,22 @@
 import Foundation
 import HealthKit
 import CoreLocation
+import MapKit
 
 class WorkoutDataStore: ObservableObject {
     
     let healthStore = HKHealthStore()
     
+    @Published var finishedLoadingWorkoutRoutes: Bool = false
+    
+    // All workouts
+    @Published var allWorkouts: [HKWorkout] = []
+    
     // All workout routes
     @Published var allWorkoutRoutes: [[CLLocation]] = []
+    
+    // All workout route polylines
+    @Published var allWorkoutRoutePolylines: [MKPolyline] = []
     
     // Load all workout routes into array
     public func loadAllWorkoutRoutes() {
@@ -26,16 +35,31 @@ class WorkoutDataStore: ObservableObject {
                 return
             }
             
+            DispatchQueue.main.async {
+                self.allWorkouts = workouts!
+            }
+            
             for workout in workouts! {
                 // Load each workout route's data
                 self.loadWorkoutRoute(workout: workout) { (workoutRouteLocations, error) in
                     if error != nil {
-                        print("Workout has no routes")
+                        print("Workout has no route")
                         return
                     }
                     
+                    var formattedLocations: [CLLocationCoordinate2D] = []
+                    for location in workoutRouteLocations! {
+                        let newLocation = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                        formattedLocations.append(newLocation)
+                    }
+                                        
                     DispatchQueue.main.async {
                         self.allWorkoutRoutes.append(workoutRouteLocations!)
+                        self.allWorkoutRoutePolylines.append(MKPolyline(coordinates: formattedLocations, count: formattedLocations.count))
+                        
+                        if workout == workouts!.last {
+                            self.finishedLoadingWorkoutRoutes = true
+                        }
                     }
                 }
             }

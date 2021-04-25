@@ -19,6 +19,7 @@ struct MapView: UIViewRepresentable {
     @Binding var mapType: MKMapType
     @Binding var userTrackingMode: MKUserTrackingMode
     @Binding var showAllWorkouts: Bool
+    @Binding var workoutState: WorkoutState
     
     var mapView = MKMapView()
     
@@ -51,23 +52,31 @@ struct MapView: UIViewRepresentable {
         
         mapView.removeOverlays(mapView.overlays)
         // Add all workout overlays
-        if showAllWorkouts {
-            mapView.addOverlay(multiPolyline())
+        if showAllWorkouts && workoutDataStore.finishedLoadingWorkoutRoutes {
+            mapView.addOverlay(MKMultiPolyline(workoutDataStore.allWorkoutRoutePolylines))
+        }
+        
+        if workoutState != .notStarted {
+            mapView.addOverlay(getCurrentWorkoutMultiPolyline())
         }
     }
     
-    func multiPolyline() -> MKMultiPolyline {
+    func getCurrentWorkoutMultiPolyline() -> MKMultiPolyline {
         var polylines: [MKPolyline] = []
-        
-        // Provide polyline overlay for each of the workout routes
-        for route in workoutDataStore.allWorkoutRoutes {
+        for route in workoutManager.accumulatedLocations {
             var formattedLocations: [CLLocationCoordinate2D] = []
             for location in route {
                 let newLocation = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
                 formattedLocations.append(newLocation)
             }
-            polylines.append(MKPolyline(coordinates: formattedLocations, count: route.count))
+            polylines.append(MKPolyline(coordinates: formattedLocations, count: formattedLocations.count))
         }
+        var formattedLocations: [CLLocationCoordinate2D] = []
+        for location in workoutManager.newLocations {
+            let newLocation = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            formattedLocations.append(newLocation)
+        }
+        polylines.append(MKPolyline(coordinates: formattedLocations, count: formattedLocations.count))
         
         return MKMultiPolyline(polylines)
     }

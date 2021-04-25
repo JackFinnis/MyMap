@@ -21,7 +21,9 @@ struct EndButton: View {
         }, label: {
             Image(systemName: "stop.fill")
                 .font(.title)
-                .padding(10)
+                .padding(.vertical, 15)
+                .padding(.leading, 10)
+                .padding(.trailing, 15)
         })
         .foregroundColor(Color(UIColor.systemRed))
         .alert(isPresented: $showingAlert) {

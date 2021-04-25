@@ -26,10 +26,12 @@ struct StartButton: View {
             Image(systemName: "record.circle")
                 .font(.largeTitle)
                 .padding(5)
-                .foregroundColor(.white)
-                .background(Color(UIColor.systemRed))
         })
+        .foregroundColor(.white)
+        .background(Color(UIColor.systemRed))
         .cornerRadius(.greatestFiniteMagnitude)
+        .compositingGroup()
+        .shadow(radius: 2, y: 2)
         .actionSheet(isPresented: $actionSheetIsPresented) {
             ActionSheet(
                 title: Text("Choose a Workout Type"),
