@@ -13,7 +13,7 @@ struct WorkoutView: View {
     // Access workout data store
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     
-    @State var userTrackingMode: MKUserTrackingMode = .none
+    @State var userTrackingMode: MKUserTrackingMode = .follow
     @State var mapType: MKMapType = .standard
     
     // Setup HealthKit
@@ -26,7 +26,7 @@ struct WorkoutView: View {
             
             FloatingMapButtons(mapType: $mapType, userTrackingMode: $userTrackingMode)
             
-            FloatingStateView(userTrackingMode: $userTrackingMode)
+            WorkoutStatusBar(userTrackingMode: $userTrackingMode)
         }
         .onAppear {
             // Setup HealthKit

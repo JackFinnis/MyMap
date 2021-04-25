@@ -28,7 +28,7 @@ class WorkoutManager: NSObject, ObservableObject {
     @Published var newLocations: [CLLocation] = []
     
     // The workout state
-    private var state: WorkoutState = .notStarted
+    public var state: WorkoutState = .notStarted
     
     // Cancellable holds the timer publisher
     private var start: Date = Date()

@@ -16,10 +16,6 @@ class MapCoordinator: NSObject, MKMapViewDelegate {
         self.parent = parent
     }
     
-    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        
-    }
-    
     // MARK: - Map View Delegate
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         

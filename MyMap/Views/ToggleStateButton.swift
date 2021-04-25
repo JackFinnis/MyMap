@@ -15,22 +15,20 @@ struct ToggleStateButton: View {
         Button(action: {
             updateWorkoutState()
         }, label: {
-            HStack {
-                if workoutState == .running {
-                    // Show pause button
-                    Text("Pause")
-                    Image(systemName: "pause.fill")
-                } else {
-                    // Show play button
-                    Text("Resume")
-                    Image(systemName: "play.fill")
-                }
+            if workoutState == .running {
+                // Show pause button
+                Image(systemName: "pause.fill")
+                    .font(.title)
+                    .padding(10)
+            } else {
+                // Show play button
+                Image(systemName: "play.fill")
+                    .font(.title)
+                    .padding(10)
             }
-            .padding()
-            .foregroundColor(Color(UIColor.black))
-            .background(Color(UIColor.white))
         })
-        .cornerRadius(20)
+        .foregroundColor(Color(UIColor.black))
+        .background(Color(UIColor.white))
     }
     
     func updateWorkoutState() {
