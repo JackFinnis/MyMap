@@ -10,6 +10,12 @@ import MapKit
 
 struct MapView: UIViewRepresentable {
     
+    // Access environment object workout manager
+    @EnvironmentObject var workoutManager: WorkoutManager
+    
+    // Access workout data store
+    @EnvironmentObject var workoutDataStore: WorkoutDataStore
+    
     var mapView = MKMapView()
     
     func makeCoordinator() -> MapCoordinator {
@@ -29,6 +35,23 @@ struct MapView: UIViewRepresentable {
     }
     
     func updateUIView(_ mapView: MKMapView, context: Context) {
-        // Update view
+        // Add all workout overlays
+        mapView.addOverlay(polyline())
+    }
+    
+    func polyline() -> MKMultiPolyline {
+        var polylines: [MKPolyline] = []
+        
+        // Provide polyline overlay for each of the workout routes
+        for route in workoutDataStore.allWorkoutRoutes {
+            var formattedLocations: [CLLocationCoordinate2D] = []
+            for location in route {
+                let newLocation = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                formattedLocations.append(newLocation)
+            }
+            polylines.append(MKPolyline(coordinates: formattedLocations, count: route.count))
+        }
+        
+        return MKMultiPolyline(polylines)
     }
 }

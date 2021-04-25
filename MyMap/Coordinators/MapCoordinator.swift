@@ -16,19 +16,20 @@ class MapCoordinator: NSObject, MKMapViewDelegate {
         self.parent = parent
     }
     
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        
+    }
+    
+    // MARK: - Map View Delegate
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         
-        guard let polyline = overlay as? MKPolyline else {
+        guard let multiPolyline = overlay as? MKMultiPolyline else {
           return MKOverlayRenderer(overlay: overlay)
         }
         
-        let renderer = MKPolylineRenderer(polyline: polyline)
-        renderer.strokeColor = .blue
+        let renderer = MKMultiPolylineRenderer(multiPolyline: multiPolyline)
+        renderer.strokeColor = .red
         renderer.lineWidth = 3
         return renderer
-    }
-    
-    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        
     }
 }
