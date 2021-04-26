@@ -210,8 +210,6 @@ class WorkoutManager: NSObject, ObservableObject {
 extension WorkoutManager: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-
-        print("User location Updated")
         
         // Only add locations during a workout session
         if state == .running {
@@ -231,7 +229,6 @@ extension WorkoutManager: CLLocationManagerDelegate {
             for location in filteredLocations {
                 // Get the distance from the previous location
                 if let lastLocation = self.newLocations.last {
-                    
                     let delta: Double = location.distance(from: lastLocation)
                     self.distance += delta
                 }
@@ -242,11 +239,9 @@ extension WorkoutManager: CLLocationManagerDelegate {
             routeBuilder.insertRouteData(filteredLocations) { (success, error) in
                 
                 if !success {
-                    
                     print("Error in inserting locations")
                 } else {
-                    
-                    print("Success in inserting locations")
+                    // Success in inserting locations
                 }
             }
         }
@@ -255,7 +250,6 @@ extension WorkoutManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         
         if let error = error as? CLError, error.code == .denied {
-            
             // Location updates are not authorized.
             manager.stopUpdatingLocation()
             return

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EndButton: View {
     
+    @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     
     @Binding var workoutState: WorkoutState

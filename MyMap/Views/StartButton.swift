@@ -11,6 +11,7 @@ import HealthKit
 
 struct StartButton: View {
     
+    @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     
     @Binding var workoutState: WorkoutState

@@ -11,9 +11,15 @@ import MapKit
 struct MapSettings: View {
     
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
+    @EnvironmentObject var workoutManager: WorkoutManager
     
     @Binding var mapType: MKMapType
-    @Binding var showAllWorkouts: Bool
+    
+    @Binding var workoutsFilter: WorkoutsFilter
+    @Binding var workoutsSortBy: WorkoutsSortBy
+    
+    @State var numberOfworkoutsShown: String = "5"
+    let numbersOfWorkoutsShown: [String] = ["None", "5", "10", "All"]
     
     let mapTypeNames: [String] = ["Standard", "Satellite", "Hybrid"]
     let mapTypes: [MKMapType] = [.standard, .satellite, .hybrid]
@@ -30,11 +36,15 @@ struct MapSettings: View {
                     .pickerStyle(SegmentedPickerStyle())
                 }
                 
-                Section(header: Text("Workouts")) {
-                    Toggle(isOn: $showAllWorkouts, label: {
-                        Text("Show Workout Routes")
-                    })
-                    if showAllWorkouts && !workoutDataStore.finishedLoadingWorkoutRoutes {
+                Section(header: Text("Filter Workouts")) {
+                    Picker("Select The Number of Workouts Shown", selection: $numberOfworkoutsShown) {
+                        ForEach(numbersOfWorkoutsShown, id: \.self) { number in
+                            Text(number)
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    
+                    if workoutsFilter.isShowingWorkouts && !workoutDataStore.finishedLoadingWorkoutRoutes {
                         HStack {
                             Spinner()
                             Text("Loading Workouts...")

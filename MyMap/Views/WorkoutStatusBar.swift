@@ -10,6 +10,7 @@ import MapKit
 
 struct WorkoutStatusBar: View {
     
+    @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     
     @Binding var userTrackingMode: MKUserTrackingMode

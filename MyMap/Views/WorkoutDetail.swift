@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WorkoutDetail: View {
     
+    @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     
     var body: some View {

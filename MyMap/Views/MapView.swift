@@ -10,16 +10,16 @@ import MapKit
 
 struct MapView: UIViewRepresentable {
     
-    // Access environment object workout manager
+    @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     
-    // Access workout data store
-    @EnvironmentObject var workoutDataStore: WorkoutDataStore
+    @Binding var workoutState: WorkoutState
     
     @Binding var mapType: MKMapType
     @Binding var userTrackingMode: MKUserTrackingMode
-    @Binding var showAllWorkouts: Bool
-    @Binding var workoutState: WorkoutState
+    
+    @Binding var workoutsFilter: WorkoutsFilter
+    @Binding var workoutsSortBy: WorkoutsSortBy
     
     var mapView = MKMapView()
     
@@ -52,10 +52,10 @@ struct MapView: UIViewRepresentable {
         
         mapView.removeOverlays(mapView.overlays)
         // Add all workout overlays
-        if showAllWorkouts && workoutDataStore.finishedLoadingWorkoutRoutes {
+        if workoutsFilter.isShowingWorkouts && workoutDataStore.finishedLoadingWorkoutRoutes {
             mapView.addOverlay(MKMultiPolyline(workoutDataStore.allWorkoutRoutePolylines))
         }
-        
+        // Add current workout overlays
         if workoutState != .notStarted {
             mapView.addOverlay(getCurrentWorkoutMultiPolyline())
         }
