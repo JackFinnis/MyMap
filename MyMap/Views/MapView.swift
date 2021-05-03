@@ -12,14 +12,13 @@ struct MapView: UIViewRepresentable {
     
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
+    @EnvironmentObject var workoutsFilter: WorkoutsFilter
+    @EnvironmentObject var workoutsSortBy: WorkoutsSortBy
     
     @Binding var workoutState: WorkoutState
     
     @Binding var mapType: MKMapType
     @Binding var userTrackingMode: MKUserTrackingMode
-    
-    @Binding var workoutsFilter: WorkoutsFilter
-    @Binding var workoutsSortBy: WorkoutsSortBy
     
     var mapView = MKMapView()
     

@@ -152,10 +152,10 @@
 				F4D80C9F2635EE3B00E23847 /* Spinner.swift */,
 				F425805F25F1270300624875 /* WorkoutStatusBar.swift */,
 				F4D80C9B2635A4EE00E23847 /* WorkoutDetail.swift */,
-				F409676225D9CB4B00E5FBC6 /* Blur.swift */,
 				F409675325D94D0500E5FBC6 /* StartButton.swift */,
 				F409675925D950BA00E5FBC6 /* ToggleStateButton.swift */,
 				F409675C25D9519E00E5FBC6 /* EndButton.swift */,
+				F409676225D9CB4B00E5FBC6 /* Blur.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

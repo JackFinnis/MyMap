@@ -13,7 +13,7 @@ enum SortStyle: String, CaseIterable {
     case none = "None"
 }
 
-class WorkoutsSortBy {
+class WorkoutsSortBy: ObservableObject {
     var date: SortStyle = .ascending
     var duration: SortStyle = .none
     var distance: SortStyle = .none

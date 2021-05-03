@@ -7,40 +7,16 @@
 
 import Foundation
 
-enum workoutsShown: String, CaseIterable {
+enum WorkoutsShown: String, CaseIterable {
     case none = "None";
     case five = "5";
     case ten = "10";
     case all = "All"
 }
 
-enum workoutType: String, CaseIterable {
-    case walking = "Walking";
-    case running = "Running";
-    case cycling = "Cycling";
-    case other = "Other";
-    case all = "All"
-}
-
-class WorkoutsFilter {
-    var numberShown: workoutsShown = .five
-    var type: workoutType = .all
+class WorkoutsFilter: ObservableObject {
     
-    var startDate: Date?
-    var endDate: Date?
-    
-    var minimumDuration: Double?
-    var maximumDuration: Double?
-    
-    var minimumDistance: Double?
-    var maximumDistance: Double?
-    
-    var minimumCalories: Double?
-    var maximumCalories: Double?
-    
-    var minimumElevation: Double?
-    var maximumElevation: Double?
-    
+    @Published var numberShown: WorkoutsShown = .five
     var isShowingWorkouts: Bool {
         if numberShown == .none {
             return false
@@ -48,4 +24,30 @@ class WorkoutsFilter {
             return true
         }
     }
+    
+    @Published var filterByType: Bool = false
+    @Published var displayWalks: Bool = true
+    @Published var displayRuns: Bool = true
+    @Published var displayCycles: Bool = true
+    @Published var displayOther: Bool = true
+    
+    @Published var filterByDistance: Bool = false
+    @Published var minimumDistance: Double = 0
+    @Published var maximumDistance: Double = 0
+    
+    @Published var filterByDuration: Bool = false
+    @Published var minimumDuration: Double = 0
+    @Published var maximumDuration: Double = 0
+    
+    @Published var filterByDate: Bool = false
+    @Published var startDate = Date()
+    @Published var endDate = Date()
+    
+    @Published var filterByCalories: Bool = false
+    @Published var minimumCalories: Double = 0
+    @Published var maximumCalories: Double = 0
+    
+    @Published var filterByElevation: Bool = false
+    @Published var minimumElevation: Double = 0
+    @Published var maximumElevation: Double = 0
 }

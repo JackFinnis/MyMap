@@ -16,11 +16,17 @@ struct MyMapApp: App {
     // Access heath store data
     @ObservedObject var workoutDataStore = WorkoutDataStore()
     
+    // Workout filters and sorts
+    @ObservedObject var workoutsFilter = WorkoutsFilter()
+    @ObservedObject var workoutsSortBy = WorkoutsSortBy()
+    
     var body: some Scene {
         WindowGroup {
             WorkoutView()
                 .environmentObject(workoutManager)
                 .environmentObject(workoutDataStore)
+                .environmentObject(workoutsFilter)
+                .environmentObject(workoutsSortBy)
         }
     }
 }

@@ -16,6 +16,10 @@ struct WorkoutView: View {
     // Access workout data store
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     
+    // Workout filters and sorts
+    @EnvironmentObject var workoutsFilter: WorkoutsFilter
+    @EnvironmentObject var workoutsSortBy: WorkoutsSortBy
+    
     // Workout State
     @State var workoutState: WorkoutState = .notStarted
     
@@ -23,25 +27,22 @@ struct WorkoutView: View {
     @State var userTrackingMode: MKUserTrackingMode = .follow
     @State var mapType: MKMapType = .standard
     
-    // Workout filters and sorts
-    @State var workoutsFilter = WorkoutsFilter()
-    @State var workoutsSortBy = WorkoutsSortBy()
-    
     // Setup HealthKit
     var healthKitSetupAssistant = HealthKitSetupAssistant()
     
     var body: some View {
         ZStack {
-            MapView(workoutState: $workoutState, mapType: $mapType, userTrackingMode: $userTrackingMode, workoutsFilter: $workoutsFilter, workoutsSortBy: $workoutsSortBy)
+            MapView(workoutState: $workoutState, mapType: $mapType, userTrackingMode: $userTrackingMode)
                 .ignoresSafeArea()
             
-            FloatingMapButtons(workoutState: $workoutState, mapType: $mapType, userTrackingMode: $userTrackingMode, workoutsFilter: $workoutsFilter, workoutsSortBy: $workoutsSortBy)
+            FloatingMapButtons(workoutState: $workoutState, mapType: $mapType, userTrackingMode: $userTrackingMode)
             
             WorkoutStatusBar(userTrackingMode: $userTrackingMode, workoutState: $workoutState)
         }
         .onAppear {
             // Setup HealthKit
             healthKitSetupAssistant.requestAuthorisation()
+            
             // Setup workout data store
             workoutDataStore.loadAllWorkoutRoutes()
         }

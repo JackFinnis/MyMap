@@ -12,14 +12,13 @@ struct FloatingMapButtons: View {
     
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
+    @EnvironmentObject var workoutsFilter: WorkoutsFilter
+    @EnvironmentObject var workoutsSortBy: WorkoutsSortBy
     
     @Binding var workoutState: WorkoutState
     
     @Binding var mapType: MKMapType
     @Binding var userTrackingMode: MKUserTrackingMode
-    
-    @Binding var workoutsFilter: WorkoutsFilter
-    @Binding var workoutsSortBy: WorkoutsSortBy
     
     @State var advancedSettingsShowing: Bool = false
     
@@ -68,8 +67,10 @@ struct FloatingMapButtons: View {
             Spacer()
         }
         .sheet(isPresented: $advancedSettingsShowing) {
-            MapSettings(mapType: $mapType, workoutsFilter: $workoutsFilter, workoutsSortBy: $workoutsSortBy)
+            MapSettings(mapType: $mapType)
                 .environmentObject(workoutDataStore)
+                .environmentObject(workoutsFilter)
+                .environmentObject(workoutsSortBy)
         }
     }
     
