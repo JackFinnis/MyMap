@@ -13,7 +13,6 @@ struct MapSettings: View {
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var workoutsFilter: WorkoutsFilter
-    @EnvironmentObject var workoutsSortBy: WorkoutsSortBy
     
     @Binding var mapType: MKMapType
     
@@ -32,24 +31,35 @@ struct MapSettings: View {
                     .pickerStyle(SegmentedPickerStyle())
                 }
                 
-                Group {
-                    Section(header: Text("Filter Workouts")) {
-                        Text("Number of Workouts Shown")
-                        Picker("Number of Workouts Shown", selection: $workoutsFilter.numberShown) {
-                            ForEach(WorkoutsShown.allCases, id: \.self) { number in
-                                Text(number.rawValue)
-                            }
+                Section(header: Text("Display Workouts")) {
+                    Picker("Number of Workouts Shown", selection: $workoutsFilter.numberShown.animation()) {
+                        ForEach(WorkoutsShown.allCases, id: \.self) { number in
+                            Text(number.rawValue)
                         }
-                        .pickerStyle(SegmentedPickerStyle())
-                        if workoutsFilter.isShowingWorkouts && !workoutDataStore.finishedLoadingWorkoutRoutes {
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    
+                    if workoutsFilter.isShowingWorkouts {
+                        if !workoutDataStore.finishedLoadingWorkoutRoutes {
                             HStack {
                                 Spinner()
                                 Text("Loading Workouts...")
+                                    .font(.subheadline)
+                            }
+                        }
+                        
+                        if workoutsFilter.numberShown != .all {
+                            Picker("Sort By", selection: $workoutsFilter.sortBy) {
+                                ForEach(WorkoutsSortBy.allCases, id: \.self) { sortBy in
+                                    Text(sortBy.rawValue)
+                                }
                             }
                         }
                     }
-                    
-                    Section {
+                }
+                
+                Group {
+                    Section(header: Text("Advanced Filters")) {
                         Toggle("Filter by Type", isOn: $workoutsFilter.filterByType.animation())
                         if workoutsFilter.filterByType {
                             Toggle("Display Walks", isOn: $workoutsFilter.displayWalks)

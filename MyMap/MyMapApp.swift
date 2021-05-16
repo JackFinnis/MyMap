@@ -16,9 +16,8 @@ struct MyMapApp: App {
     // Access heath store data
     @ObservedObject var workoutDataStore = WorkoutDataStore()
     
-    // Workout filters and sorts
+    // Workout filters
     @ObservedObject var workoutsFilter = WorkoutsFilter()
-    @ObservedObject var workoutsSortBy = WorkoutsSortBy()
     
     var body: some Scene {
         WindowGroup {
@@ -26,7 +25,6 @@ struct MyMapApp: App {
                 .environmentObject(workoutManager)
                 .environmentObject(workoutDataStore)
                 .environmentObject(workoutsFilter)
-                .environmentObject(workoutsSortBy)
         }
     }
 }

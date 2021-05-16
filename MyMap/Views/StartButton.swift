@@ -14,7 +14,6 @@ struct StartButton: View {
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var workoutsFilter: WorkoutsFilter
-    @EnvironmentObject var workoutsSortBy: WorkoutsSortBy
     
     @Binding var workoutState: WorkoutState
     @Binding var userTrackingMode: MKUserTrackingMode

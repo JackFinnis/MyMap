@@ -13,7 +13,6 @@ struct WorkoutStatusBar: View {
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var workoutsFilter: WorkoutsFilter
-    @EnvironmentObject var workoutsSortBy: WorkoutsSortBy
     
     @Binding var userTrackingMode: MKUserTrackingMode
     @Binding var workoutState: WorkoutState

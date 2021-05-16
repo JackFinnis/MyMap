@@ -16,9 +16,8 @@ struct WorkoutView: View {
     // Access workout data store
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     
-    // Workout filters and sorts
+    // Workout filters
     @EnvironmentObject var workoutsFilter: WorkoutsFilter
-    @EnvironmentObject var workoutsSortBy: WorkoutsSortBy
     
     // Workout State
     @State var workoutState: WorkoutState = .notStarted
@@ -27,13 +26,20 @@ struct WorkoutView: View {
     @State var userTrackingMode: MKUserTrackingMode = .follow
     @State var mapType: MKMapType = .standard
     
+    // Find closest route
+    @State var findClosestRoute: Bool = false
+    
     // Setup HealthKit
     var healthKitSetupAssistant = HealthKitSetupAssistant()
     
     var body: some View {
         ZStack {
-            MapView(workoutState: $workoutState, mapType: $mapType, userTrackingMode: $userTrackingMode)
+            MapView(workoutState: $workoutState, mapType: $mapType, userTrackingMode: $userTrackingMode, findClosestRoute: $findClosestRoute)
                 .ignoresSafeArea()
+            
+            Button("Find Closest Route") {
+                findClosestRoute.toggle()
+            }
             
             FloatingMapButtons(workoutState: $workoutState, mapType: $mapType, userTrackingMode: $userTrackingMode)
             

@@ -11,19 +11,31 @@ enum WorkoutsShown: String, CaseIterable {
     case none = "None";
     case five = "5";
     case ten = "10";
-    case all = "All"
+    case all = "All";
+}
+
+enum WorkoutsSortBy: String, CaseIterable {
+    case startDate = "Start Date";
+    case endDate = "End Date";
+    
+    case shortestDistance = "Shortest Distance";
+    case longestDistance = "Longest Distance";
+    
+    case shortestDuration = "Shortest Duration";
+    case longestDuration = "Longest Duration";
 }
 
 class WorkoutsFilter: ObservableObject {
     
-    @Published var numberShown: WorkoutsShown = .five
+    @Published var numberShown: WorkoutsShown = .none
     var isShowingWorkouts: Bool {
-        if numberShown == .none {
-            return false
-        } else {
+        if numberShown != .none {
             return true
+        } else {
+            return false
         }
     }
+    @Published var sortBy: WorkoutsSortBy = .endDate
     
     @Published var filterByType: Bool = false
     @Published var displayWalks: Bool = true

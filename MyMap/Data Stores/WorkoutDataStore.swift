@@ -25,6 +25,8 @@ class WorkoutDataStore: ObservableObject {
     // All workout route polylines
     @Published var allWorkoutRoutePolylines: [MKPolyline] = []
     
+    @Published var workouts: [Workout] = []
+    
     // Load all workout routes into array
     public func loadAllWorkoutRoutes() {
 
@@ -52,10 +54,14 @@ class WorkoutDataStore: ObservableObject {
                         let newLocation = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
                         formattedLocations.append(newLocation)
                     }
+                    let workoutPolyline = MKPolyline(coordinates: formattedLocations, count: formattedLocations.count)
+                    
+                    let newWorkout = Workout(workout: workout, routeLocations: workoutRouteLocations!, routePolyline: workoutPolyline)
                                         
                     DispatchQueue.main.async {
                         self.allWorkoutRoutes.append(workoutRouteLocations!)
-                        self.allWorkoutRoutePolylines.append(MKPolyline(coordinates: formattedLocations, count: formattedLocations.count))
+                        self.allWorkoutRoutePolylines.append(workoutPolyline)
+                        self.workouts.append(newWorkout)
                         
                         if workout == workouts!.last {
                             self.finishedLoadingWorkoutRoutes = true
