@@ -37,6 +37,21 @@ class WorkoutManager: NSObject, ObservableObject {
     private var accumulatedLocations: [[CLLocation]] = []
     private var newLocations: [CLLocation] = []
     
+    // Display formatting
+    var elapsedSecondsString: String {
+        String(format: "%02d:%02d", elapsedSeconds / 60, elapsedSeconds % 60)
+    }
+    var totalDistanceString: String {
+        String("\(distance / 1000).\(Int(distance) % 1000) km")
+    }
+    var toggleStateImageName: String {
+        if workoutState == .running {
+            return "pause.fill"
+        } else {
+            return "play.fill"
+        }
+    }
+    
     // MARK: - Initialiser
     override init() {
         super.init()
@@ -137,6 +152,15 @@ class WorkoutManager: NSObject, ObservableObject {
 
         // Workout started
         workoutState = .running
+    }
+    
+    public func toggleWorkoutState() {
+        // Toggle state button pressed
+        if workoutState == .running {
+            pauseWorkout()
+        } else {
+            resumeWorkout()
+        }
     }
     
     public func pauseWorkout() {

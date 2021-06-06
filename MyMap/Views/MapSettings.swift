@@ -12,20 +12,17 @@ struct MapSettings: View {
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var workoutsFilter: WorkoutsFilter
+    @EnvironmentObject var mapManager: MapManager
     
-    @Binding var mapType: MKMapType
-    @Binding var showSettingsSheet: Bool
-    
-    let mapTypeNames: [String] = ["Standard", "Satellite", "Hybrid"]
-    let mapTypes: [MKMapType] = [.standard, .satellite, .hybrid]
+    @Binding var showMapSettingsSheet: Bool
     
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("Map Type")) {
-                    Picker("Select a Map Type", selection: $mapType) {
-                        ForEach(mapTypes, id: \.self) { type in
-                            Text(mapTypeNames[mapTypes.firstIndex(of: type)!])
+                    Picker("Select a Map Type", selection: $mapManager.mapType) {
+                        ForEach(mapManager.mapTypes, id: \.self) { type in
+                            Text(mapManager.mapTypeNames[mapManager.mapTypes.firstIndex(of: type)!])
                         }
                     }
                     .pickerStyle(SegmentedPickerStyle())
@@ -47,7 +44,6 @@ struct MapSettings: View {
                                     .font(.subheadline)
                             }
                         }
-                        
                         if workoutsFilter.numberShown != .all {
                             Picker("Sort By", selection: $workoutsFilter.sortBy) {
                                 ForEach(WorkoutsSortBy.allCases, id: \.self) { sortBy in
@@ -156,9 +152,9 @@ struct MapSettings: View {
             }
             .navigationTitle("Map Settings")
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
+                ToolbarItem(placement: .confirmationAction) {
                     Button(action: {
-                        showSettingsSheet = false
+                        showMapSettingsSheet = false
                     }, label: {
                         Text("Done")
                     })

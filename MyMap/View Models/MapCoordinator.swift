@@ -8,16 +8,18 @@
 import Foundation
 import MapKit
 
-class MapCoordinator: NSObject, MKMapViewDelegate {
+class MapCoordinator: NSObject {
     // MARK: - Properties
     let parent: MapView
     
     // MARK: - Initialiser
-    init(_ parent: MapView) {
+    init(parent: MapView) {
         self.parent = parent
     }
-    
-    // MARK: - MKMapView Delegate
+}
+
+// MARK: - MKMapView Delegate
+extension MapCoordinator: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         guard let multiPolyline = overlay as? MKMultiPolyline else {
           return MKOverlayRenderer(overlay: overlay)

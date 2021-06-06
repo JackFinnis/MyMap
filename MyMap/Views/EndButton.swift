@@ -11,6 +11,7 @@ struct EndButton: View {
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var workoutsFilter: WorkoutsFilter
+    @EnvironmentObject var mapManager: MapManager
     
     @State var showEndWorkoutAlert: Bool = false
     

@@ -9,30 +9,31 @@ import SwiftUI
 import MapKit
 
 struct WorkoutView: View {
-    @EnvironmentObject var workoutManager: WorkoutManager
-    @EnvironmentObject var workoutDataStore: WorkoutDataStore
-    @EnvironmentObject var workoutsFilter: WorkoutsFilter
-    
-    // Map Settings
-    @State var userTrackingMode: MKUserTrackingMode = .follow
-    @State var mapType: MKMapType = .standard
-    @State var searchState: WorkoutSearchState = .none
+    // Workout manager business logic
+    @StateObject var workoutManager = WorkoutManager()
+    // Heath store data
+    @StateObject var workoutDataStore = WorkoutDataStore()
+    // Workout filters
+    @StateObject var workoutsFilter = WorkoutsFilter()
+    // Map settings manager
+    @StateObject var mapManager = MapManager()
     
     var body: some View {
         ZStack {
-            MapView(mapType: $mapType, userTrackingMode: $userTrackingMode, searchState: $searchState)
+            MapView()
                 .ignoresSafeArea()
-            
-            FloatingMapButtons(mapType: $mapType, userTrackingMode: $userTrackingMode, searchState: $searchState)
-            
-            WorkoutStatusBar(userTrackingMode: $userTrackingMode)
+            FloatingMapButtons()
+            WorkoutStatusBar()
         }
         .onAppear {
             // Setup HealthKit
             HealthKitSetupAssistant().requestAuthorisation()
-            
             // Setup workout data store
-            workoutDataStore.loadAllWorkoutRoutes()
+            workoutDataStore.loadWorkoutsData()
         }
+        .environmentObject(workoutManager)
+        .environmentObject(workoutDataStore)
+        .environmentObject(workoutsFilter)
+        .environmentObject(mapManager)
     }
 }

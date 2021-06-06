@@ -13,10 +13,7 @@ struct MapView: UIViewRepresentable {
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var workoutsFilter: WorkoutsFilter
-    
-    @Binding var mapType: MKMapType
-    @Binding var userTrackingMode: MKUserTrackingMode
-    @Binding var searchState: WorkoutSearchState
+    @EnvironmentObject var mapManager: MapManager
     
     var mapView = MKMapView()
     
@@ -27,7 +24,7 @@ struct MapView: UIViewRepresentable {
     
     // MARK: - Make Coordinator
     func makeCoordinator() -> MapCoordinator {
-        return MapCoordinator(self)
+        return MapCoordinator(parent: self)
     }
     
     // MARK: - View State
@@ -45,19 +42,19 @@ struct MapView: UIViewRepresentable {
     
     func updateUIView(_ mapView: MKMapView, context: Context) {
         // Set user tracking mode
-        if mapView.userTrackingMode != userTrackingMode {
-            mapView.setUserTrackingMode(userTrackingMode, animated: true)
+        if mapView.userTrackingMode != mapManager.userTrackingMode {
+            mapView.setUserTrackingMode(mapManager.userTrackingMode, animated: true)
         }
         
         // Set map type
-        if mapView.mapType != mapType {
-            mapView.mapType = mapType
+        if mapView.mapType != mapManager.mapType {
+            mapView.mapType = mapManager.mapType
         }
         
         // Add overlays
         mapView.removeOverlays(mapView.overlays)
         // Add nearest workout
-        if searchState == .found {
+        if mapManager.searchState == .found {
             mapView.addOverlay(getClosestRoute(center: mapView.centerCoordinate))
         }
         // Add current workout
@@ -87,7 +84,6 @@ struct MapView: UIViewRepresentable {
                 }
             }
         }
-        
         return MKMultiPolyline(closestWorkout.routePolylines)
     }
     

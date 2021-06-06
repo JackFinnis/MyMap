@@ -13,8 +13,7 @@ struct StartButton: View {
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var workoutsFilter: WorkoutsFilter
-    
-    @Binding var userTrackingMode: MKUserTrackingMode
+    @EnvironmentObject var mapManager: MapManager
     
     @State var showActionSheet: Bool = false
     
@@ -55,6 +54,6 @@ struct StartButton: View {
     
     func recordWorkout(workoutType: HKWorkoutActivityType) {
         workoutManager.startWorkout(workoutType: workoutType)
-        userTrackingMode = .followWithHeading
+        mapManager.userTrackingMode = .followWithHeading
     }
 }

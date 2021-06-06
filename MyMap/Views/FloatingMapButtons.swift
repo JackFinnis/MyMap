@@ -12,33 +12,9 @@ struct FloatingMapButtons: View {
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var workoutsFilter: WorkoutsFilter
+    @EnvironmentObject var mapManager: MapManager
     
-    @Binding var mapType: MKMapType
-    @Binding var userTrackingMode: MKUserTrackingMode
-    @Binding var searchState: WorkoutSearchState
-    
-    @State var showSettingsSheet: Bool = false
-    
-    var userTrackingModeImageName: String {
-        switch userTrackingMode {
-        case .none:
-            return "location"
-        case .follow:
-            return "location.fill"
-        default:
-            return "location.north.line.fill"
-        }
-    }
-    var searchStateImageName: String {
-        switch searchState {
-        case .none:
-            return "magnifyingglass"
-        case .finding:
-            return "magnifyingglass"
-        default:
-            return "magnifyingglass"
-        }
-    }
+    @State var showMapSettingsSheet: Bool = false
     
     var body: some View {
         VStack {
@@ -46,21 +22,21 @@ struct FloatingMapButtons: View {
                 Spacer()
                 VStack {
                     Button(action: {
-                        showSettingsSheet = true
+                        showMapSettingsSheet = true
                     }, label: {
                         Image(systemName: "info.circle")
                     })
                     Divider()
                     Button(action: {
-                        updateUserTrackingMode()
+                        mapManager.updateUserTrackingMode()
                     }, label: {
-                        Image(systemName: userTrackingModeImageName)
+                        Image(systemName: mapManager.userTrackingModeImageName)
                     })
                     Divider()
                     Button(action: {
-                        updateSearchState()
+                        mapManager.updateSearchState()
                     }, label: {
-                        Image(systemName: searchStateImageName)
+                        Image(systemName: mapManager.searchStateImageName)
                     })
                 }
                 .buttonStyle(FloatingButtonStyle())
@@ -72,32 +48,11 @@ struct FloatingMapButtons: View {
             }
             Spacer()
         }
-        .sheet(isPresented: $showSettingsSheet) {
-            MapSettings(mapType: $mapType, showSettingsSheet: $showSettingsSheet)
+        .sheet(isPresented: $showMapSettingsSheet) {
+            MapSettings(showMapSettingsSheet: $showMapSettingsSheet)
                 .environmentObject(workoutDataStore)
                 .environmentObject(workoutsFilter)
-        }
-    }
-    
-    func updateUserTrackingMode() {
-        switch userTrackingMode {
-        case .none:
-            userTrackingMode = .follow
-        case .follow:
-            userTrackingMode = .followWithHeading
-        default:
-            userTrackingMode = .none
-        }
-    }
-    
-    func updateSearchState() {
-        switch searchState {
-        case .none:
-            searchState = .finding
-        case .finding:
-            searchState = .found
-        default:
-            searchState = .none
+                .environmentObject(mapManager)
         }
     }
 }
