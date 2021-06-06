@@ -9,21 +9,28 @@ import SwiftUI
 import MapKit
 
 struct MapView: UIViewRepresentable {
+    // MARK: - Properties
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var workoutsFilter: WorkoutsFilter
     
-    @Binding var workoutState: WorkoutState
     @Binding var mapType: MKMapType
     @Binding var userTrackingMode: MKUserTrackingMode
-    @Binding var findClosestRoute: Bool
+    @Binding var searchState: WorkoutSearchState
     
     var mapView = MKMapView()
     
+    // Filtered workouts
+    var filteredWorkouts: [Workout] {
+        workoutDataStore.workouts
+    }
+    
+    // MARK: - Make Coordinator
     func makeCoordinator() -> MapCoordinator {
         return MapCoordinator(self)
     }
     
+    // MARK: - View State
     func makeUIView(context: Context) -> MKMapView {
         // Set coordinator
         mapView.delegate = context.coordinator
@@ -37,7 +44,6 @@ struct MapView: UIViewRepresentable {
     }
     
     func updateUIView(_ mapView: MKMapView, context: Context) {
-
         // Set user tracking mode
         if mapView.userTrackingMode != userTrackingMode {
             mapView.setUserTrackingMode(userTrackingMode, animated: true)
@@ -51,26 +57,28 @@ struct MapView: UIViewRepresentable {
         // Add overlays
         mapView.removeOverlays(mapView.overlays)
         // Add nearest workout
-        if findClosestRoute {
-            mapView.addOverlay(getClosestRoute(mapViewCenterCoordinate: mapView.centerCoordinate))
-        }
-        // Add previous workouts
-        if workoutsFilter.isShowingWorkouts && workoutDataStore.finishedLoadingWorkoutRoutes {
-            mapView.addOverlay(getFilteredWorkoutsMultiPolyline())
+        if searchState == .found {
+            mapView.addOverlay(getClosestRoute(center: mapView.centerCoordinate))
         }
         // Add current workout
-        if workoutState != .notStarted {
+        if workoutManager.workoutState != .notStarted {
             mapView.addOverlay(getCurrentWorkoutMultiPolyline())
+        }
+        // Add previous filtered workouts
+        if workoutsFilter.showWorkouts && workoutDataStore.finishedLoading {
+            mapView.addOverlay(getFilteredWorkoutsMultiPolyline())
         }
     }
     
-    func getClosestRoute(mapViewCenterCoordinate: CLLocationCoordinate2D) -> MKMultiPolyline {
-        let centerCoordinate = CLLocation(latitude: mapViewCenterCoordinate.latitude, longitude: mapViewCenterCoordinate.longitude)
+    // MARK: - Helper Functions
+    // Find the closest route to the center coordinate
+    func getClosestRoute(center: CLLocationCoordinate2D) -> MKMultiPolyline {
+        let centerCoordinate = CLLocation(latitude: center.latitude, longitude: center.longitude)
         
         var minimumDistance: Double = .greatestFiniteMagnitude
-        var closestWorkout: Workout?
+        var closestWorkout: Workout!
         
-        for workout in workoutDataStore.workouts {
+        for workout in filteredWorkouts {
             for location in workout.routeLocations {
                 let delta = location.distance(from: centerCoordinate)
                 if delta < minimumDistance {
@@ -80,36 +88,28 @@ struct MapView: UIViewRepresentable {
             }
         }
         
-        if closestWorkout != nil {
-            return closestWorkout!.routeMultiPolyline
-        } else {
-            return MKMultiPolyline()
-        }
+        return MKMultiPolyline(closestWorkout.routePolylines)
     }
     
-    func getFilteredWorkoutsMultiPolyline() -> MKMultiPolyline {
-        return MKMultiPolyline(workoutDataStore.allWorkoutRoutePolylines)
-    }
-    
+    // Return the current workout polyline
     func getCurrentWorkoutMultiPolyline() -> MKMultiPolyline {
         var polylines: [MKPolyline] = []
         
-        for route in workoutManager.accumulatedLocations {
-            var formattedLocations: [CLLocationCoordinate2D] = []
-            for location in route {
-                let newLocation = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-                formattedLocations.append(newLocation)
-            }
-            polylines.append(MKPolyline(coordinates: formattedLocations, count: formattedLocations.count))
+        polylines.append(MKPolyline(coordinates: workoutManager.formattedNewLocations, count: workoutManager.formattedNewLocations.count))
+        for segmentRouteLocations in workoutManager.formattedAccumulatedLocations {
+            polylines.append(MKPolyline(coordinates: segmentRouteLocations, count: segmentRouteLocations.count))
         }
         
-        var formattedLocations: [CLLocationCoordinate2D] = []
+        return MKMultiPolyline(polylines)
+    }
+    
+    // Return the filtered workouts multi polyline
+    func getFilteredWorkoutsMultiPolyline() -> MKMultiPolyline {
+        var polylines: [MKPolyline] = []
         
-        for location in workoutManager.newLocations {
-            let newLocation = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            formattedLocations.append(newLocation)
+        for workout in filteredWorkouts {
+            polylines.append(contentsOf: workout.routePolylines)
         }
-        polylines.append(MKPolyline(coordinates: formattedLocations, count: formattedLocations.count))
         
         return MKMultiPolyline(polylines)
     }

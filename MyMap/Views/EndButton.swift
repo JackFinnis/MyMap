@@ -8,18 +8,15 @@
 import SwiftUI
 
 struct EndButton: View {
-    
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var workoutsFilter: WorkoutsFilter
     
-    @Binding var workoutState: WorkoutState
-    
-    @State var showingAlert: Bool = false
+    @State var showEndWorkoutAlert: Bool = false
     
     var body: some View {
         Button(action: {
-            showingAlert = true
+            showEndWorkoutAlert = true
         }, label: {
             Image(systemName: "stop.fill")
                 .font(.title)
@@ -28,12 +25,10 @@ struct EndButton: View {
                 .padding(.trailing, 15)
         })
         .foregroundColor(Color(UIColor.systemRed))
-        .alert(isPresented: $showingAlert) {
+        .alert(isPresented: $showEndWorkoutAlert) {
             Alert(
                 title: Text("Finish Workout?"),
                 primaryButton: .default(Text("Confirm")) {
-                    // End workout
-                    workoutState = .notStarted
                     workoutManager.endWorkout()
                 },
                 secondaryButton: .cancel()

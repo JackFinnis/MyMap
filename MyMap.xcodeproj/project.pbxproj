@@ -21,6 +21,8 @@
 		F454DD9225CAF76D00749542 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F454DD9125CAF76D00749542 /* HealthKit.framework */; };
 		F46526BD266C8A0500CF5D41 /* WorkoutsShown.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46526BC266C8A0500CF5D41 /* WorkoutsShown.swift */; };
 		F46526C2266C8A2A00CF5D41 /* WorkoutsSortBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46526C1266C8A2A00CF5D41 /* WorkoutsSortBy.swift */; };
+		F46526CB266CE00700CF5D41 /* WorkoutSearchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46526CA266CE00700CF5D41 /* WorkoutSearchState.swift */; };
+		F46526CF266D477F00CF5D41 /* FloatingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46526CE266D477F00CF5D41 /* FloatingButtonStyle.swift */; };
 		F469552725DBE7E6000FA605 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F469552625DBE7E6000FA605 /* MapCoordinator.swift */; };
 		F46998842636F1E80060E010 /* WorkoutsFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46998832636F1E80060E010 /* WorkoutsFilter.swift */; };
 		F4D80C7726354CBB00E23847 /* FloatingMapButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D80C7626354CBB00E23847 /* FloatingMapButtons.swift */; };
@@ -48,6 +50,8 @@
 		F454DD9125CAF76D00749542 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		F46526BC266C8A0500CF5D41 /* WorkoutsShown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsShown.swift; sourceTree = "<group>"; };
 		F46526C1266C8A2A00CF5D41 /* WorkoutsSortBy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsSortBy.swift; sourceTree = "<group>"; };
+		F46526CA266CE00700CF5D41 /* WorkoutSearchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSearchState.swift; sourceTree = "<group>"; };
+		F46526CE266D477F00CF5D41 /* FloatingButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButtonStyle.swift; sourceTree = "<group>"; };
 		F469552625DBE7E6000FA605 /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		F46998832636F1E80060E010 /* WorkoutsFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsFilter.swift; sourceTree = "<group>"; };
 		F4D80C7626354CBB00E23847 /* FloatingMapButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingMapButtons.swift; sourceTree = "<group>"; };
@@ -138,6 +142,7 @@
 				F4FFF8B225D7EB6000D2BE6C /* WorkoutView.swift */,
 				F409675F25D9554000E5FBC6 /* MapView.swift */,
 				F4D80C7626354CBB00E23847 /* FloatingMapButtons.swift */,
+				F46526CE266D477F00CF5D41 /* FloatingButtonStyle.swift */,
 				F4D80C82263558AB00E23847 /* MapSettings.swift */,
 				F4D80C9F2635EE3B00E23847 /* Spinner.swift */,
 				F425805F25F1270300624875 /* WorkoutStatusBar.swift */,
@@ -157,6 +162,7 @@
 				F409675025D94C1000E5FBC6 /* WorkoutState.swift */,
 				F46526BC266C8A0500CF5D41 /* WorkoutsShown.swift */,
 				F46526C1266C8A2A00CF5D41 /* WorkoutsSortBy.swift */,
+				F46526CA266CE00700CF5D41 /* WorkoutSearchState.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -241,6 +247,7 @@
 				F409675D25D9519E00E5FBC6 /* EndButton.swift in Sources */,
 				F409674725D8022900E5FBC6 /* WorkoutDataStore.swift in Sources */,
 				F4D80C83263558AB00E23847 /* MapSettings.swift in Sources */,
+				F46526CF266D477F00CF5D41 /* FloatingButtonStyle.swift in Sources */,
 				F46526BD266C8A0500CF5D41 /* WorkoutsShown.swift in Sources */,
 				F469552725DBE7E6000FA605 /* MapCoordinator.swift in Sources */,
 				F4FFF8B325D7EB6000D2BE6C /* WorkoutView.swift in Sources */,
@@ -248,6 +255,7 @@
 				F409674025D7FA7A00E5FBC6 /* HealthKitSetupAssistant.swift in Sources */,
 				F409673C25D7ED7700E5FBC6 /* WorkoutManager.swift in Sources */,
 				F409675125D94C1000E5FBC6 /* WorkoutState.swift in Sources */,
+				F46526CB266CE00700CF5D41 /* WorkoutSearchState.swift in Sources */,
 				F413658D26504FBD000CFD54 /* Workout.swift in Sources */,
 				F4D80CA02635EE3B00E23847 /* Spinner.swift in Sources */,
 			);

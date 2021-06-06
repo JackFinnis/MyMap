@@ -10,20 +10,17 @@ import MapKit
 import HealthKit
 
 struct StartButton: View {
-    
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var workoutsFilter: WorkoutsFilter
     
-    @Binding var workoutState: WorkoutState
     @Binding var userTrackingMode: MKUserTrackingMode
     
-    @State var actionSheetIsPresented: Bool = false
-    @State var workoutsSheetIsPresented: Bool = false
+    @State var showActionSheet: Bool = false
     
     var body: some View {
         Button(action: {
-            actionSheetIsPresented = true
+            showActionSheet = true
         }, label: {
             Image(systemName: "record.circle")
                 .font(.largeTitle)
@@ -34,7 +31,7 @@ struct StartButton: View {
         .cornerRadius(.greatestFiniteMagnitude)
         .compositingGroup()
         .shadow(radius: 2, y: 2)
-        .actionSheet(isPresented: $actionSheetIsPresented) {
+        .actionSheet(isPresented: $showActionSheet) {
             ActionSheet(
                 title: Text("Record a Workout"),
                 buttons: [
@@ -57,7 +54,6 @@ struct StartButton: View {
     }
     
     func recordWorkout(workoutType: HKWorkoutActivityType) {
-        workoutState = .running
         workoutManager.startWorkout(workoutType: workoutType)
         userTrackingMode = .followWithHeading
     }

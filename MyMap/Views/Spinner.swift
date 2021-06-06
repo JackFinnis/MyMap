@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct Spinner: UIViewRepresentable {
-
     func makeUIView(context: UIViewRepresentableContext<Spinner>) -> UIActivityIndicatorView {
         let spinner = UIActivityIndicatorView(style: .medium)
         spinner.hidesWhenStopped = true

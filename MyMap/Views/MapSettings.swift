@@ -14,7 +14,7 @@ struct MapSettings: View {
     @EnvironmentObject var workoutsFilter: WorkoutsFilter
     
     @Binding var mapType: MKMapType
-    @Binding var advancedSettingsShowing: Bool
+    @Binding var showSettingsSheet: Bool
     
     let mapTypeNames: [String] = ["Standard", "Satellite", "Hybrid"]
     let mapTypes: [MKMapType] = [.standard, .satellite, .hybrid]
@@ -39,8 +39,8 @@ struct MapSettings: View {
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     
-                    if workoutsFilter.isShowingWorkouts {
-                        if !workoutDataStore.finishedLoadingWorkoutRoutes {
+                    if workoutsFilter.showWorkouts {
+                        if !workoutDataStore.finishedLoading {
                             HStack {
                                 Spinner()
                                 Text("Loading Workouts...")
@@ -158,7 +158,7 @@ struct MapSettings: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: {
-                        advancedSettingsShowing = false
+                        showSettingsSheet = false
                     }, label: {
                         Text("Done")
                     })

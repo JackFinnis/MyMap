@@ -10,7 +10,7 @@ import Foundation
 class WorkoutsFilter: ObservableObject {
     @Published var sortBy: WorkoutsSortBy = .endDate
     @Published var numberShown: WorkoutsShown = .none
-    var isShowingWorkouts: Bool {
+    var showWorkouts: Bool {
         if numberShown == .none {
             return false
         } else {

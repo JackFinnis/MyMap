@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct WorkoutDetail: View {
-    
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var workoutsFilter: WorkoutsFilter

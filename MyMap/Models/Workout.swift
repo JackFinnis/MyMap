@@ -14,7 +14,7 @@ struct Workout {
     let workout: HKWorkout
     let workoutType: HKWorkoutActivityType
     let routeLocations: [CLLocation]
-    let routeMultiPolyline: MKMultiPolyline
+    let routePolylines: [MKPolyline]
     let date: Date?
     let distance: Double?
     let duration: Double

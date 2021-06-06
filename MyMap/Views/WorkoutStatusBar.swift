@@ -9,23 +9,21 @@ import SwiftUI
 import MapKit
 
 struct WorkoutStatusBar: View {
-    
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var workoutsFilter: WorkoutsFilter
     
     @Binding var userTrackingMode: MKUserTrackingMode
-    @Binding var workoutState: WorkoutState
     
-    @State var workoutDetailIsPresented: Bool = false
+    @State var showWorkoutDetailSheet: Bool = false
     
     var body: some View {
         VStack {
             Spacer()
             
             Button(action: {
-                if workoutManager.state != .notStarted {
-                    workoutDetailIsPresented = true
+                if workoutManager.workoutState != .notStarted {
+                    showWorkoutDetailSheet = true
                 }
             }, label: {
                 VStack {
@@ -37,15 +35,15 @@ struct WorkoutStatusBar: View {
                             Spacer()
                         }
                         
-                        if workoutState == .notStarted {
+                        if workoutManager.workoutState == .notStarted {
                             // Just display start button
-                            StartButton(workoutState: $workoutState, userTrackingMode: $userTrackingMode)
+                            StartButton(userTrackingMode: $userTrackingMode)
                         } else {
                             HStack {
-                                ToggleStateButton(workoutState: $workoutState)
+                                ToggleStateButton()
                                 Divider()
                                     .frame(height: 62)
-                                EndButton(workoutState: $workoutState)
+                                EndButton()
                             }
                             .background(Color(UIColor.systemBackground))
                             .cornerRadius(11)
@@ -66,21 +64,23 @@ struct WorkoutStatusBar: View {
             .shadow(radius: 2)
             .buttonStyle(PlainButtonStyle())
         }
-        .sheet(isPresented: $workoutDetailIsPresented) {
+        .sheet(isPresented: $showWorkoutDetailSheet) {
             WorkoutDetail()
         }
     }
     
-    // Convert the seconds into seconds and minutes
+    // MARK: - Helper Functions
+    // Convert seconds to seconds and minutes
     func secondsToMinutesSeconds(seconds: Int) -> (Int, Int) {
         return (seconds / 60, seconds % 60)
     }
     
-    // Convert the seconds, minutes, hours into a string.
+    // Convert seconds, minutes and hours to a string.
     func elapsedTimeString(elapsed: (m: Int, s: Int)) -> String {
         return String(format: "%02d:%02d", elapsed.m, elapsed.s)
     }
     
+    // Convert metres to a string
     func totalDistanceString(metres: Int) -> String {
         return String("\(metres / 1000).\(metres % 1000) km")
     }

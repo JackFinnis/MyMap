@@ -8,26 +8,23 @@
 import SwiftUI
 
 struct ToggleStateButton: View {
-    
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var workoutsFilter: WorkoutsFilter
     
-    @Binding var workoutState: WorkoutState
+    var toggleStateImageName: String {
+        if workoutManager.workoutState == .running {
+            return "pause.fill"
+        } else {
+            return "play.fill"
+        }
+    }
     
     var body: some View {
         Button(action: {
             updateWorkoutState()
         }, label: {
-            HStack {
-                if workoutState == .running {
-                    // Show pause button
-                    Image(systemName: "pause.fill")
-                } else {
-                    // Show play button
-                    Image(systemName: "play.fill")
-                }
-            }
+            Image(systemName: toggleStateImageName)
             .font(.title)
             .padding(.vertical, 15)
             .padding(.leading, 15)
@@ -37,13 +34,9 @@ struct ToggleStateButton: View {
     }
     
     func updateWorkoutState() {
-        if workoutState == .running {
-            // Pause workout
-            workoutState = .paused
+        if workoutManager.workoutState == .running {
             workoutManager.pauseWorkout()
         } else {
-            // Resume workout
-            workoutState = .running
             workoutManager.resumeWorkout()
         }
     }

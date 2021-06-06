@@ -12,11 +12,6 @@ import CoreLocation
 
 class WorkoutManager: NSObject, ObservableObject {
     // MARK: - Properties
-    private let healthStore = HKHealthStore()
-    private var workoutBuilder: HKWorkoutBuilder!
-    private var routeBuilder: HKWorkoutRouteBuilder!
-    private var locationManager: CLLocationManager!
-    
     // Publish the following:
     // - Elapsed seconds
     // - Total distance travelled
@@ -25,14 +20,22 @@ class WorkoutManager: NSObject, ObservableObject {
     // - Workout State
     @Published var elapsedSeconds: Int = 0
     @Published var distance: Double = 0
-    @Published var accumulatedLocations: [[CLLocation]] = [[]]
-    @Published var newLocations: [CLLocation] = []
-    @Published var state: WorkoutState = .notStarted
+    @Published var workoutState: WorkoutState = .notStarted
+    @Published var formattedAccumulatedLocations: [[CLLocationCoordinate2D]] = []
+    @Published var formattedNewLocations: [CLLocationCoordinate2D] = []
+    
+    // Workout builders
+    private let healthStore = HKHealthStore()
+    private var workoutBuilder: HKWorkoutBuilder!
+    private var routeBuilder: HKWorkoutRouteBuilder!
+    private var locationManager: CLLocationManager!
     
     // Cancellable holds the timer publisher
     private var cancellable: Cancellable?
     private var startDate: Date = Date()
     private var accumulatedTime: Int = 0
+    private var accumulatedLocations: [[CLLocation]] = []
+    private var newLocations: [CLLocation] = []
     
     // MARK: - Initialiser
     override init() {
@@ -63,8 +66,10 @@ class WorkoutManager: NSObject, ObservableObject {
     private func saveNewLocations() {
         // Save new locations when the workout is paused
         accumulatedLocations.append(newLocations)
+        formattedAccumulatedLocations.append(formattedNewLocations)
         // Empty the new locations
         newLocations = []
+        formattedNewLocations = []
     }
     
     // Setup the location manager to be used
@@ -96,24 +101,19 @@ class WorkoutManager: NSObject, ObservableObject {
     private func endWorkoutBuilderSession() {
         // End workout data collection
         workoutBuilder.endCollection(withEnd: Date()) { (success, error) in
-            if success {
-                
-                // Finish workout and save it to the health store
-                self.workoutBuilder.finishWorkout { (workout, error) in
+            if error != nil {
+                print("Error building workout")
+                return
+            }
+            // Finish workout and save it to the health store
+            self.workoutBuilder.finishWorkout { (workout, error) in
+                if error != nil {
+                    print("Error saving workout to health store")
+                }
+                // Create, save, and associate the route with the provided workout
+                self.routeBuilder.finishRoute(with: workout!, metadata: nil) { (newRoute, error) in
                     if error != nil {
-                        print("Error saving workout to health store")
-                    } else {
-                        print("Workout saved to health store")
-                        
-                        // Create, save, and associate the route with the provided workout
-                        self.routeBuilder.finishRoute(with: workout!, metadata: nil) { (newRoute, error) in
-                            if newRoute == nil {
-                                print("Error associating workout route")
-                            } else {
-                                // Do something with the route here
-                                print("Route data associated with workout")
-                            }
-                        }
+                        print("Error associating workout route")
                     }
                 }
             }
@@ -125,24 +125,18 @@ class WorkoutManager: NSObject, ObservableObject {
         // Start the timer
         startTimer()
         
-        // Create the workout builder
+        // Setup the workout and route builders
         workoutBuilder = HKWorkoutBuilder(healthStore: healthStore, configuration: workoutConfiguration(workoutType: workoutType), device: .local())
-        // Create the route builder
         routeBuilder = HKWorkoutRouteBuilder(healthStore: healthStore, device: nil)
-        
-        // Request location services authorisation
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestAlwaysAuthorization()
-        
-        // Allow updates to occur in the background
-        locationManager.allowsBackgroundLocationUpdates = true
-        
-        // Start the workout session and begin data collection
         workoutBuilder.beginCollection(withStart: Date()) { (success, error) in }
         
-        // The workout has started
-        state = .running
-        print("Workout Started")
+        // Setup location manager
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
+        locationManager.allowsBackgroundLocationUpdates = true
+
+        // Workout started
+        workoutState = .running
     }
     
     public func pauseWorkout() {
@@ -155,9 +149,8 @@ class WorkoutManager: NSObject, ObservableObject {
         // Save the new locations
         saveNewLocations()
         
-        // Workout paused
-        state = .paused
-        print("Workout Paused")
+        // Workout
+        workoutState = .paused
     }
     
     public func resumeWorkout() {
@@ -167,8 +160,7 @@ class WorkoutManager: NSObject, ObservableObject {
         locationManager.allowsBackgroundLocationUpdates = true
         
         // Workout resumed
-        state = .running
-        print("Workout Resumed")
+        workoutState = .running
     }
     
     public func endWorkout() {
@@ -178,13 +170,11 @@ class WorkoutManager: NSObject, ObservableObject {
         locationManager.allowsBackgroundLocationUpdates = false
         // End the workout session
         endWorkoutBuilderSession()
-        
         // Reset workout
         resetWorkout()
         
         // Workout ended
-        state = .notStarted
-        print("Workout Ended")
+        workoutState = .notStarted
     }
     
     private func resetWorkout() {
@@ -192,41 +182,36 @@ class WorkoutManager: NSObject, ObservableObject {
         elapsedSeconds = 0
         distance = 0
         accumulatedTime = 0
-        
-        // Workout reset
-        print("Workout Reset")
     }
 }
 
 // MARK: - CLLocationManager Delegate
 extension WorkoutManager: CLLocationManagerDelegate {
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
         // Only add locations during a workout session
-        if state == .running {
-            guard locations != [] else {
-                print("Locations discarded")
-                return
+        if workoutState != .running { return }
+
+        // Format and add the locations to the new locations arrays
+        for location in locations {
+            // Get the distance from the previous location
+            if let lastLocation = newLocations.last {
+                let delta: Double = location.distance(from: lastLocation)
+                distance += delta
             }
             
-            // Add the locations to the new locations array
-            for location in locations {
-                // Get the distance from the previous location
-                if let lastLocation = self.newLocations.last {
-                    let delta: Double = location.distance(from: lastLocation)
-                    self.distance += delta
-                }
-                newLocations.append(location)
-            }
-            
-            // Add the locations to the route
-            routeBuilder.insertRouteData(locations) { (success, error) in
-                if !success {
-                    print("Error inserting locations")
-                } else {
-                    // Success inserting locations
-                }
+            // Format locations
+            let formattedLocation = CLLocationCoordinate2D(
+                latitude: location.coordinate.latitude,
+                longitude: location.coordinate.longitude
+            )
+            newLocations.append(location)
+            formattedNewLocations.append(formattedLocation)
+        }
+        
+        // Add the locations to the route
+        routeBuilder.insertRouteData(locations) { (success, error) in
+            if error != nil {
+                print("Error inserting locations")
             }
         }
     }
