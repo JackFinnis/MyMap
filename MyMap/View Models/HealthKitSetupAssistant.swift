@@ -9,7 +9,6 @@ import Foundation
 import HealthKit
 
 class HealthKitSetupAssistant {
-    
     let healthStore = HKHealthStore()
     
     // Request authorisation to access HealthKit

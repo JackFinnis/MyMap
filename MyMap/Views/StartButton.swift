@@ -36,18 +36,18 @@ struct StartButton: View {
         .shadow(radius: 2, y: 2)
         .actionSheet(isPresented: $actionSheetIsPresented) {
             ActionSheet(
-                title: Text("Choose a Workout Type"),
+                title: Text("Record a Workout"),
                 buttons: [
-                    .default(Text("Record Walk")) {
+                    .default(Text("Walk")) {
                         recordWorkout(workoutType: .walking)
                     },
-                    .default(Text("Record Run")) {
+                    .default(Text("Run")) {
                         recordWorkout(workoutType: .running)
                     },
-                    .default(Text("Record Cycle")) {
+                    .default(Text("Cycle")) {
                         recordWorkout(workoutType: .cycling)
                     },
-                    .default(Text("Record Other")) {
+                    .default(Text("Other")) {
                         recordWorkout(workoutType: .other)
                     },
                     .cancel()

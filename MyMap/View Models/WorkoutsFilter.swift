@@ -7,35 +7,16 @@
 
 import Foundation
 
-enum WorkoutsShown: String, CaseIterable {
-    case none = "None";
-    case five = "5";
-    case ten = "10";
-    case all = "All";
-}
-
-enum WorkoutsSortBy: String, CaseIterable {
-    case startDate = "Start Date";
-    case endDate = "End Date";
-    
-    case shortestDistance = "Shortest Distance";
-    case longestDistance = "Longest Distance";
-    
-    case shortestDuration = "Shortest Duration";
-    case longestDuration = "Longest Duration";
-}
-
 class WorkoutsFilter: ObservableObject {
-    
+    @Published var sortBy: WorkoutsSortBy = .endDate
     @Published var numberShown: WorkoutsShown = .none
     var isShowingWorkouts: Bool {
-        if numberShown != .none {
-            return true
-        } else {
+        if numberShown == .none {
             return false
+        } else {
+            return true
         }
     }
-    @Published var sortBy: WorkoutsSortBy = .endDate
     
     @Published var filterByType: Bool = false
     @Published var displayWalks: Bool = true
@@ -52,8 +33,8 @@ class WorkoutsFilter: ObservableObject {
     @Published var maximumDuration: Double = 0
     
     @Published var filterByDate: Bool = false
-    @Published var startDate = Date()
-    @Published var endDate = Date()
+    @Published var startDate: Date = Date()
+    @Published var endDate: Date = Date()
     
     @Published var filterByCalories: Bool = false
     @Published var minimumCalories: Double = 0

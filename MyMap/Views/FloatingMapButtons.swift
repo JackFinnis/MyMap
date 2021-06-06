@@ -9,15 +9,14 @@ import SwiftUI
 import MapKit
 
 struct FloatingMapButtons: View {
-    
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var workoutsFilter: WorkoutsFilter
     
     @Binding var workoutState: WorkoutState
-    
     @Binding var mapType: MKMapType
     @Binding var userTrackingMode: MKUserTrackingMode
+    @Binding var findClosestRoute: Bool
     
     @State var advancedSettingsShowing: Bool = false
     
@@ -54,7 +53,19 @@ struct FloatingMapButtons: View {
                         }
                         .padding(.top, 5)
                         .padding(.horizontal, 10)
-                        .padding(.bottom, 10)
+                        .padding(.bottom, 5)
+                    })
+                    
+                    Divider()
+                        .frame(width: 25)
+                    
+                    Button(action: {
+                        findClosestRoute.toggle()
+                    }, label: {
+                        Image(systemName: "magnifyingglass")
+                            .padding(.top, 5)
+                            .padding(.horizontal, 10)
+                            .padding(.bottom, 10)
                     })
                 }
                 .background(Blur())
@@ -66,7 +77,7 @@ struct FloatingMapButtons: View {
             Spacer()
         }
         .sheet(isPresented: $advancedSettingsShowing) {
-            MapSettings(mapType: $mapType)
+            MapSettings(mapType: $mapType, advancedSettingsShowing: $advancedSettingsShowing)
                 .environmentObject(workoutDataStore)
                 .environmentObject(workoutsFilter)
         }

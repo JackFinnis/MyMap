@@ -9,16 +9,13 @@ import SwiftUI
 import MapKit
 
 struct MapView: UIViewRepresentable {
-    
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var workoutsFilter: WorkoutsFilter
     
     @Binding var workoutState: WorkoutState
-    
     @Binding var mapType: MKMapType
     @Binding var userTrackingMode: MKUserTrackingMode
-    
     @Binding var findClosestRoute: Bool
     
     var mapView = MKMapView()
@@ -71,19 +68,23 @@ struct MapView: UIViewRepresentable {
         let centerCoordinate = CLLocation(latitude: mapViewCenterCoordinate.latitude, longitude: mapViewCenterCoordinate.longitude)
         
         var minimumDistance: Double = .greatestFiniteMagnitude
-        var closestPolyline = MKPolyline()
+        var closestWorkout: Workout?
         
         for workout in workoutDataStore.workouts {
             for location in workout.routeLocations {
                 let delta = location.distance(from: centerCoordinate)
                 if delta < minimumDistance {
                     minimumDistance = delta
-                    closestPolyline = workout.routePolyline
+                    closestWorkout = workout
                 }
             }
         }
         
-        return MKMultiPolyline([closestPolyline])
+        if closestWorkout != nil {
+            return closestWorkout!.routeMultiPolyline
+        } else {
+            return MKMultiPolyline()
+        }
     }
     
     func getFilteredWorkoutsMultiPolyline() -> MKMultiPolyline {

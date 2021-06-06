@@ -12,6 +12,12 @@ import CoreLocation
 
 struct Workout {
     let workout: HKWorkout
+    let workoutType: HKWorkoutActivityType
     let routeLocations: [CLLocation]
-    let routePolyline: MKPolyline
+    let routeMultiPolyline: MKMultiPolyline
+    let date: Date?
+    let distance: Double?
+    let duration: Double
+    let elevation: Double?
+    let calories: Double?
 }

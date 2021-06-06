@@ -9,12 +9,12 @@ import SwiftUI
 import MapKit
 
 struct MapSettings: View {
-    
     @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var workoutsFilter: WorkoutsFilter
     
     @Binding var mapType: MKMapType
+    @Binding var advancedSettingsShowing: Bool
     
     let mapTypeNames: [String] = ["Standard", "Satellite", "Hybrid"]
     let mapTypes: [MKMapType] = [.standard, .satellite, .hybrid]
@@ -155,6 +155,15 @@ struct MapSettings: View {
                 }
             }
             .navigationTitle("Map Settings")
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(action: {
+                        advancedSettingsShowing = false
+                    }, label: {
+                        Text("Done")
+                    })
+                }
+            }
         }
     }
 }
