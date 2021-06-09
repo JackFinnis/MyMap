@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct WorkoutView: View {
-    // Records new workouts
+    // Responsible for recording new workouts
     @StateObject var workoutManager = WorkoutManager()
-    // Loads and displays workouts on map
+    // Responsible for displaying workouts on map
     @StateObject var mapManager = MapManager()
     
     var body: some View {

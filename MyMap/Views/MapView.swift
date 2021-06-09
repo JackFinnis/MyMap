@@ -9,18 +9,15 @@ import SwiftUI
 import MapKit
 
 struct MapView: UIViewRepresentable {
-    // MARK: - Properties
     @EnvironmentObject var workoutManager: WorkoutManager
     @EnvironmentObject var mapManager: MapManager
     
     var mapView = MKMapView()
-    
-    // MARK: - Make Coordinator
+
     func makeCoordinator() -> MapManager {
         return mapManager
     }
-    
-    // MARK: - View State
+
     func makeUIView(context: Context) -> MKMapView {
         // Set delegate
         mapView.delegate = context.coordinator
