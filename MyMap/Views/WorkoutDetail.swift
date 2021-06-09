@@ -8,10 +8,7 @@
 import SwiftUI
 
 struct WorkoutDetail: View {
-    @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
-    @EnvironmentObject var workoutsFilter: WorkoutsFilter
-    @EnvironmentObject var mapManager: MapManager
     
     var body: some View {
         Text("Workout Detail")

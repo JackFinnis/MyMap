@@ -6,20 +6,17 @@
 //
 
 import SwiftUI
-import MapKit
 
 struct WorkoutStatusBar: View {
-    @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
-    @EnvironmentObject var workoutsFilter: WorkoutsFilter
     @EnvironmentObject var mapManager: MapManager
     
     @State var showWorkoutDetailSheet: Bool = false
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             Spacer()
-            HStack {
+            HStack(spacing: 0) {
                 Spacer()
                 Text(workoutManager.elapsedSecondsString)
                     .font(.headline)
@@ -28,7 +25,7 @@ struct WorkoutStatusBar: View {
                 if workoutManager.workoutState == .notStarted {
                     StartButton()
                 } else {
-                    HStack {
+                    HStack(spacing: 0) {
                         ToggleStateButton()
                         Divider()
                             .frame(height: 62)
@@ -47,13 +44,13 @@ struct WorkoutStatusBar: View {
             .background(Blur())
             .compositingGroup()
             .shadow(radius: 2)
-            .buttonStyle(PlainButtonStyle())
             .onTapGesture {
                 showWorkoutDetailSheet = true
             }
         }
         .sheet(isPresented: $showWorkoutDetailSheet) {
             WorkoutDetail()
+                .environmentObject(workoutManager)
         }
     }
 }

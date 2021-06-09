@@ -8,10 +8,7 @@
 import SwiftUI
 
 struct ToggleStateButton: View {
-    @EnvironmentObject var workoutDataStore: WorkoutDataStore
     @EnvironmentObject var workoutManager: WorkoutManager
-    @EnvironmentObject var workoutsFilter: WorkoutsFilter
-    @EnvironmentObject var mapManager: MapManager
     
     var body: some View {
         Button(action: {
@@ -23,6 +20,5 @@ struct ToggleStateButton: View {
                 .padding(.leading, 15)
                 .padding(.trailing, 10)
         })
-        .buttonStyle(PlainButtonStyle())
     }
 }

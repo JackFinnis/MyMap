@@ -6,16 +6,11 @@
 //
 
 import SwiftUI
-import MapKit
 
 struct WorkoutView: View {
-    // Workout manager business logic
+    // Records new workouts
     @StateObject var workoutManager = WorkoutManager()
-    // Heath store data
-    @StateObject var workoutDataStore = WorkoutDataStore()
-    // Workout filters
-    @StateObject var workoutsFilter = WorkoutsFilter()
-    // Map settings manager
+    // Loads and displays workouts on map
     @StateObject var mapManager = MapManager()
     
     var body: some View {
@@ -25,15 +20,7 @@ struct WorkoutView: View {
             FloatingMapButtons()
             WorkoutStatusBar()
         }
-        .onAppear {
-            // Setup HealthKit
-            HealthKitSetupAssistant().requestAuthorisation()
-            // Setup workout data store
-            workoutDataStore.loadWorkoutsData()
-        }
         .environmentObject(workoutManager)
-        .environmentObject(workoutDataStore)
-        .environmentObject(workoutsFilter)
         .environmentObject(mapManager)
     }
 }

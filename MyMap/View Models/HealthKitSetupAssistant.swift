@@ -9,10 +9,12 @@ import Foundation
 import HealthKit
 
 class HealthKitSetupAssistant {
-    let healthStore = HKHealthStore()
+    // MARK: - Properties
+    private let healthStore = HKHealthStore()
     
+    // MARK: - Public Methods
     // Request authorisation to access HealthKit
-    func requestAuthorisation() {
+    public func requestAuthorisation() {
         // The quantity type to write to the health store
         let typesToShare: Set = [
             HKObjectType.workoutType(),

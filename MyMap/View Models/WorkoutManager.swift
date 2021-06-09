@@ -7,6 +7,7 @@
 
 import Foundation
 import HealthKit
+import MapKit
 import Combine
 import CoreLocation
 
@@ -24,7 +25,6 @@ class WorkoutManager: NSObject, ObservableObject {
     @Published var formattedAccumulatedLocations: [[CLLocationCoordinate2D]] = []
     @Published var formattedNewLocations: [CLLocationCoordinate2D] = []
     
-    // Workout builders
     private let healthStore = HKHealthStore()
     private var workoutBuilder: HKWorkoutBuilder!
     private var routeBuilder: HKWorkoutRouteBuilder!
@@ -42,7 +42,7 @@ class WorkoutManager: NSObject, ObservableObject {
         String(format: "%02d:%02d", elapsedSeconds / 60, elapsedSeconds % 60)
     }
     var totalDistanceString: String {
-        String("\(distance / 1000).\(Int(distance) % 1000) km")
+        String("\(Int(distance) / 1000).\(Int(distance) % 1000) km")
     }
     var toggleStateImageName: String {
         if workoutState == .running {
@@ -113,8 +113,8 @@ class WorkoutManager: NSObject, ObservableObject {
         return configuration
     }
     
+    // End workout data collection
     private func endWorkoutBuilderSession() {
-        // End workout data collection
         workoutBuilder.endCollection(withEnd: Date()) { (success, error) in
             if error != nil {
                 print("Error building workout")
@@ -206,6 +206,19 @@ class WorkoutManager: NSObject, ObservableObject {
         elapsedSeconds = 0
         distance = 0
         accumulatedTime = 0
+    }
+    
+    // MARK: - Map Helper Methods
+    // Return the current workout polyline
+    public func getCurrentWorkoutMultiPolyline() -> MKMultiPolyline {
+        var polylines: [MKPolyline] = []
+        
+        polylines.append(MKPolyline(coordinates: formattedNewLocations, count: formattedNewLocations.count))
+        for segmentRouteLocations in formattedAccumulatedLocations {
+            polylines.append(MKPolyline(coordinates: segmentRouteLocations, count: segmentRouteLocations.count))
+        }
+        
+        return MKMultiPolyline(polylines)
     }
 }
 
