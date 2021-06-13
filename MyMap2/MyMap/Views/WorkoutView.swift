@@ -17,11 +17,11 @@ struct WorkoutView: View {
     
     var body: some View {
         ZStack {
-//            MapView()
-//                .ignoresSafeArea()
-//            FindWorkoutPointer()
-//            FloatingMapButtons()
-//            WorkoutDetailBar()
+            MapView()
+                .ignoresSafeArea()
+            FindWorkoutPointer()
+            FloatingMapButtons()
+            WorkoutDetailBar()
         }
         .environmentObject(newWorkoutManager)
         .environmentObject(workoutsManager)

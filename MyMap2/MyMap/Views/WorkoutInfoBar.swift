@@ -17,28 +17,34 @@ struct WorkoutInfoBar: View {
     var body: some View {
         VStack {
             Spacer()
-            StartButton()
-                .offset(y: 20)
-            if workoutsManager.selectedWorkout != nil {
-                HStack {
+            HStack {
+                if workoutsManager.selectedWorkout != nil {
                     Button(action: {
                         workoutsManager.previousWorkout()
                     }, label: {
                         Image(systemName: "arrow.left")
                     })
+                }
+                Spacer()
+                StartButton()
+                Spacer()
+                if workoutsManager.selectedWorkout != nil {
                     Button(action: {
                         workoutsManager.nextWorkout()
                     }, label: {
                         Image(systemName: "arrow.right")
                     })
                 }
-                .padding(10)
-                .background(Blur())
-                .compositingGroup()
-                .shadow(radius: 2, y: 2)
-                .onTapGesture {
-                    showWorkoutDetailSheet = true
-                }
+            }
+            .buttonStyle(FloatingButtonStyle())
+            .frame(height: 40)
+            .background(Blur())
+            .padding(10)
+            .cornerRadius(20)
+            .compositingGroup()
+            .shadow(radius: 2, y: 2)
+            .onTapGesture {
+                showWorkoutDetailSheet = true
             }
         }
         .sheet(isPresented: $showWorkoutDetailSheet) {

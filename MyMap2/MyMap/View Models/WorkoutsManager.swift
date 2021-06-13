@@ -23,8 +23,6 @@ class WorkoutsManager: NSObject, ObservableObject {
     @Published var workouts: [Workout] = []
     @Published var finishedLoading: Bool = false
     
-    private let workoutDataStore = WorkoutDataStore()
-    
     // MARK: - Workout Filters
     @Published var distanceFilter = WorkoutFilter(type: .distance)
     @Published var durationFilter = WorkoutFilter(type: .duration)
@@ -90,7 +88,6 @@ class WorkoutsManager: NSObject, ObservableObject {
     // MARK: - Filtered workouts
     // Filter and sort all workouts based on previous properties
     public var filteredWorkouts: [Workout] {
-        selectedIndex = 0
         // Only calculate if workouts need to be shown
         if !showWorkouts {
             return []
@@ -316,6 +313,7 @@ class WorkoutsManager: NSObject, ObservableObject {
     // MARK: - Workouts Data Store Interface
     // Load all workouts and associated data
     public func loadWorkoutsData() {
+        let workoutDataStore = WorkoutDataStore()
         // Load array of workouts from health store
         workoutDataStore.loadWorkouts { (workouts, error) in
             if error == true || workouts!.isEmpty {
@@ -327,7 +325,7 @@ class WorkoutsManager: NSObject, ObservableObject {
             }
             // Load each workout route's data
             for workout in workouts! {
-                self.workoutDataStore.loadWorkoutRoute(workout: workout) { (locations, formattedLocations, error) in
+                workoutDataStore.loadWorkoutRoute(workout: workout) { (locations, formattedLocations, error) in
                     if error == true {
                         // Workout has no route
                         return
