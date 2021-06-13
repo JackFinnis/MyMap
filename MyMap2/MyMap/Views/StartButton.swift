@@ -25,7 +25,7 @@ struct StartButton: View {
         })
         .foregroundColor(.white)
         .background(Color(UIColor.systemRed))
-        .cornerRadius(.greatestFiniteMagnitude)
+        .clipShape(Circle())
         .compositingGroup()
         .shadow(radius: 2, y: 2)
         .actionSheet(isPresented: $showActionSheet) {

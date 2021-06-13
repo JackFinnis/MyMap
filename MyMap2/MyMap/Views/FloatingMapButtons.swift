@@ -35,7 +35,7 @@ struct FloatingMapButtons: View {
                     Button(action: {
                         showFilterWorkoutsSheet = true
                     }, label: {
-                        Image(systemName: "line.horizontal.3.decrease.circle")
+                        Image(systemName: "figure.walk")
                     })
                     Divider()
                         .frame(width: 40)
@@ -47,11 +47,11 @@ struct FloatingMapButtons: View {
                 }
                 .buttonStyle(FloatingButtonStyle())
                 .background(Blur())
-                .compositingGroup()
-                .shadow(radius: 1)
                 .cornerRadius(10)
-                .padding(.trailing, 10)
-                .padding(.top, 50)
+                .compositingGroup()
+                .shadow(radius: 2, y: 2)
+                .padding(.trailing)
+                .padding(.top, 60)
             }
             Spacer()
         }

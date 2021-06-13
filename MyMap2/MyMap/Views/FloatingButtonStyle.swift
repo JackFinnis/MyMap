@@ -15,5 +15,6 @@ struct FloatingButtonStyle: ButtonStyle {
             .animation(.easeIn(duration: 0.1))
             .frame(width: 40, height: 40, alignment: .center)
             .foregroundColor(.accentColor)
+            .contentShape(Rectangle())
     }
 }

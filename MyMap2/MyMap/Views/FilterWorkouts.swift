@@ -16,17 +16,6 @@ struct FilterWorkouts: View {
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Workout Source")) {
-                    Toggle("Local", isOn: $workoutsManager.showHealthKitWorkouts.animation())
-                    if !workoutsManager.finishedLoading {
-                        HStack {
-                            Spinner()
-                            Text("Loading Local Workouts...")
-                                .font(.subheadline)
-                        }
-                    }
-                    Toggle("Strava", isOn: $workoutsManager.showStravaWorkouts.animation())
-                }
                 Section(header: Text("Workouts Shown")) {
                     Picker("Number of Workouts Shown", selection: $workoutsManager.numberShown.animation()) {
                         ForEach(WorkoutsShown.allCases, id: \.self) { number in
@@ -36,6 +25,13 @@ struct FilterWorkouts: View {
                     .pickerStyle(SegmentedPickerStyle())
                     
                     if workoutsManager.numberShown != .none {
+                        if !workoutsManager.finishedLoading {
+                            HStack {
+                                Spinner()
+                                Text("Loading Workouts...")
+                                    .font(.subheadline)
+                            }
+                        }
                         Picker("Sort By", selection: $workoutsManager.sortBy) {
                             ForEach(WorkoutsSortBy.allCases, id: \.self) { sortBy in
                                 Text(sortBy.rawValue)
@@ -43,7 +39,6 @@ struct FilterWorkouts: View {
                         }
                     }
                 }
-                
                 AdvancedFilters()
             }
             .navigationTitle("Workouts")

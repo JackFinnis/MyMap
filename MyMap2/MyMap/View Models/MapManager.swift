@@ -12,7 +12,7 @@ class MapManager: NSObject, ObservableObject {
     // MARK: - Properties
     @Published var userTrackingMode: MKUserTrackingMode = .follow
     @Published var mapType: MKMapType = .standard
-    @Published var searchState: WorkoutSearchState = .none
+    @Published var searchState: WorkoutSearchState = .found
     
     // Display image names
     public var userTrackingModeImageName: String {
@@ -31,18 +31,18 @@ class MapManager: NSObject, ObservableObject {
         case .none:
             return "magnifyingglass"
         case .finding:
-            return "magnifyingglass"
+            return "mappin.and.ellipse"
         case .found:
-            return "magnifyingglass"
+            return "xmark"
         }
     }
     
     public var mapTypeImageName: String {
         switch mapType {
         case .standard:
-            return "map"
-        default:
             return "globe"
+        default:
+            return "map"
         }
     }
     
