@@ -10,7 +10,7 @@ import MapKit
 import HealthKit
 
 struct StartButton: View {
-    @EnvironmentObject var workoutManager: WorkoutManager
+    @EnvironmentObject var newWorkoutManager: NewWorkoutManager
     @EnvironmentObject var mapManager: MapManager
     
     @State var showActionSheet: Bool = false
@@ -51,7 +51,7 @@ struct StartButton: View {
     }
     
     func recordWorkout(workoutType: HKWorkoutActivityType) {
-        workoutManager.startWorkout(workoutType: workoutType)
+        newWorkoutManager.startWorkout(workoutType: workoutType)
         mapManager.userTrackingMode = .followWithHeading
     }
 }

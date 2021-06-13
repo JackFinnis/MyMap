@@ -16,7 +16,7 @@
 		9D17EA412673671B006C2C47 /* DurationFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D17EA402673671B006C2C47 /* DurationFilterView.swift */; };
 		9D17EA4426736728006C2C47 /* CaloriesFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D17EA4326736728006C2C47 /* CaloriesFilterView.swift */; };
 		9D17EA4726736737006C2C47 /* ElevationFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D17EA4626736737006C2C47 /* ElevationFilterView.swift */; };
-		F409673C25D7ED7700E5FBC6 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409673B25D7ED7700E5FBC6 /* WorkoutManager.swift */; };
+		F409673C25D7ED7700E5FBC6 /* NewWorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409673B25D7ED7700E5FBC6 /* NewWorkoutManager.swift */; };
 		F409674025D7FA7A00E5FBC6 /* HealthKitSetupAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409673F25D7FA7A00E5FBC6 /* HealthKitSetupAssistant.swift */; };
 		F409675125D94C1000E5FBC6 /* WorkoutState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409675025D94C1000E5FBC6 /* WorkoutState.swift */; };
 		F409675425D94D0500E5FBC6 /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409675325D94D0500E5FBC6 /* StartButton.swift */; };
@@ -26,6 +26,8 @@
 		F409676325D9CB4B00E5FBC6 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409676225D9CB4B00E5FBC6 /* Blur.swift */; };
 		F413658D26504FBD000CFD54 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F413658C26504FBD000CFD54 /* Workout.swift */; };
 		F425806025F1270300624875 /* WorkoutStatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F425805F25F1270300624875 /* WorkoutStatusBar.swift */; };
+		F44930632675676B00CB8D19 /* WorkoutsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44930622675676B00CB8D19 /* WorkoutsManager.swift */; };
+		F44930672675E67700CB8D19 /* FloatingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44930662675E67700CB8D19 /* FloatingButtonStyle.swift */; };
 		F44D4C3F266D72EE00A028C1 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44D4C3E266D72EE00A028C1 /* MapManager.swift */; };
 		F44D4C4B2671379400A028C1 /* WorkoutDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44D4C4A2671379400A028C1 /* WorkoutDataStore.swift */; };
 		F454DD9225CAF76D00749542 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F454DD9125CAF76D00749542 /* HealthKit.framework */; };
@@ -33,7 +35,7 @@
 		F46526C2266C8A2A00CF5D41 /* WorkoutsSortBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46526C1266C8A2A00CF5D41 /* WorkoutsSortBy.swift */; };
 		F46526CB266CE00700CF5D41 /* WorkoutSearchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46526CA266CE00700CF5D41 /* WorkoutSearchState.swift */; };
 		F4D80C7726354CBB00E23847 /* FloatingMapButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D80C7626354CBB00E23847 /* FloatingMapButtons.swift */; };
-		F4D80C83263558AB00E23847 /* MapSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D80C82263558AB00E23847 /* MapSettings.swift */; };
+		F4D80C83263558AB00E23847 /* FilterWorkouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D80C82263558AB00E23847 /* FilterWorkouts.swift */; };
 		F4D80C9C2635A4EE00E23847 /* WorkoutDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D80C9B2635A4EE00E23847 /* WorkoutDetail.swift */; };
 		F4D80CA02635EE3B00E23847 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D80C9F2635EE3B00E23847 /* Spinner.swift */; };
 		F4EAE78325C1C552005AAEEE /* MyMapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EAE78225C1C552005AAEEE /* MyMapApp.swift */; };
@@ -51,7 +53,7 @@
 		9D17EA402673671B006C2C47 /* DurationFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationFilterView.swift; sourceTree = "<group>"; };
 		9D17EA4326736728006C2C47 /* CaloriesFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesFilterView.swift; sourceTree = "<group>"; };
 		9D17EA4626736737006C2C47 /* ElevationFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationFilterView.swift; sourceTree = "<group>"; };
-		F409673B25D7ED7700E5FBC6 /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
+		F409673B25D7ED7700E5FBC6 /* NewWorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkoutManager.swift; sourceTree = "<group>"; };
 		F409673F25D7FA7A00E5FBC6 /* HealthKitSetupAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitSetupAssistant.swift; sourceTree = "<group>"; };
 		F409675025D94C1000E5FBC6 /* WorkoutState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutState.swift; sourceTree = "<group>"; };
 		F409675325D94D0500E5FBC6 /* StartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartButton.swift; sourceTree = "<group>"; };
@@ -61,6 +63,8 @@
 		F409676225D9CB4B00E5FBC6 /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		F413658C26504FBD000CFD54 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		F425805F25F1270300624875 /* WorkoutStatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutStatusBar.swift; sourceTree = "<group>"; };
+		F44930622675676B00CB8D19 /* WorkoutsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsManager.swift; sourceTree = "<group>"; };
+		F44930662675E67700CB8D19 /* FloatingButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButtonStyle.swift; sourceTree = "<group>"; };
 		F44D4C3E266D72EE00A028C1 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		F44D4C4A2671379400A028C1 /* WorkoutDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDataStore.swift; sourceTree = "<group>"; };
 		F454DD8F25CAF76700749542 /* MyMap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyMap.entitlements; sourceTree = "<group>"; };
@@ -69,7 +73,7 @@
 		F46526C1266C8A2A00CF5D41 /* WorkoutsSortBy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsSortBy.swift; sourceTree = "<group>"; };
 		F46526CA266CE00700CF5D41 /* WorkoutSearchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSearchState.swift; sourceTree = "<group>"; };
 		F4D80C7626354CBB00E23847 /* FloatingMapButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingMapButtons.swift; sourceTree = "<group>"; };
-		F4D80C82263558AB00E23847 /* MapSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSettings.swift; sourceTree = "<group>"; };
+		F4D80C82263558AB00E23847 /* FilterWorkouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterWorkouts.swift; sourceTree = "<group>"; };
 		F4D80C9B2635A4EE00E23847 /* WorkoutDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetail.swift; sourceTree = "<group>"; };
 		F4D80C9F2635EE3B00E23847 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		F4EAE77F25C1C551005AAEEE /* MyMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,7 +119,8 @@
 		F46526BB266C87BA00CF5D41 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
-				F409673B25D7ED7700E5FBC6 /* WorkoutManager.swift */,
+				F409673B25D7ED7700E5FBC6 /* NewWorkoutManager.swift */,
+				F44930622675676B00CB8D19 /* WorkoutsManager.swift */,
 				F44D4C3E266D72EE00A028C1 /* MapManager.swift */,
 				F44D4C4A2671379400A028C1 /* WorkoutDataStore.swift */,
 				F409673F25D7FA7A00E5FBC6 /* HealthKitSetupAssistant.swift */,
@@ -168,16 +173,17 @@
 				F4FFF8B225D7EB6000D2BE6C /* WorkoutView.swift */,
 				F409675F25D9554000E5FBC6 /* MapView.swift */,
 				F4D80C7626354CBB00E23847 /* FloatingMapButtons.swift */,
-				F409676225D9CB4B00E5FBC6 /* Blur.swift */,
-				F4D80C82263558AB00E23847 /* MapSettings.swift */,
+				F44930662675E67700CB8D19 /* FloatingButtonStyle.swift */,
+				F4D80C82263558AB00E23847 /* FilterWorkouts.swift */,
 				9D17EA3326736620006C2C47 /* AdvancedFilters.swift */,
 				9D17EA37267366E3006C2C47 /* Filter Views */,
-				F4D80C9F2635EE3B00E23847 /* Spinner.swift */,
 				F425805F25F1270300624875 /* WorkoutStatusBar.swift */,
 				F409675325D94D0500E5FBC6 /* StartButton.swift */,
 				F409675925D950BA00E5FBC6 /* ToggleStateButton.swift */,
 				F409675C25D9519E00E5FBC6 /* EndButton.swift */,
 				F4D80C9B2635A4EE00E23847 /* WorkoutDetail.swift */,
+				F4D80C9F2635EE3B00E23847 /* Spinner.swift */,
+				F409676225D9CB4B00E5FBC6 /* Blur.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -280,13 +286,15 @@
 				F409676025D9554000E5FBC6 /* MapView.swift in Sources */,
 				F46526C2266C8A2A00CF5D41 /* WorkoutsSortBy.swift in Sources */,
 				F409675D25D9519E00E5FBC6 /* EndButton.swift in Sources */,
-				F4D80C83263558AB00E23847 /* MapSettings.swift in Sources */,
+				F4D80C83263558AB00E23847 /* FilterWorkouts.swift in Sources */,
 				F46526BD266C8A0500CF5D41 /* WorkoutsShown.swift in Sources */,
 				F4FFF8B325D7EB6000D2BE6C /* WorkoutView.swift in Sources */,
 				F4D80C9C2635A4EE00E23847 /* WorkoutDetail.swift in Sources */,
+				F44930632675676B00CB8D19 /* WorkoutsManager.swift in Sources */,
+				F44930672675E67700CB8D19 /* FloatingButtonStyle.swift in Sources */,
 				F409674025D7FA7A00E5FBC6 /* HealthKitSetupAssistant.swift in Sources */,
 				F44D4C4B2671379400A028C1 /* WorkoutDataStore.swift in Sources */,
-				F409673C25D7ED7700E5FBC6 /* WorkoutManager.swift in Sources */,
+				F409673C25D7ED7700E5FBC6 /* NewWorkoutManager.swift in Sources */,
 				9D17EA3E2673670B006C2C47 /* DateFilterView.swift in Sources */,
 				F409675125D94C1000E5FBC6 /* WorkoutState.swift in Sources */,
 				F46526CB266CE00700CF5D41 /* WorkoutSearchState.swift in Sources */,
@@ -351,7 +359,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -406,7 +414,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -427,7 +435,7 @@
 				DEVELOPMENT_TEAM = 4CQW4CFFYT;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "MyMap/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -450,7 +458,7 @@
 				DEVELOPMENT_TEAM = 4CQW4CFFYT;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "MyMap/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct TypeFilterView: View {
-    @EnvironmentObject var mapManager: MapManager
+    @EnvironmentObject var workoutsManager: WorkoutsManager
 
     var body: some View {
         Form {
-            Section(header: Text("Workout Type")) {
-                Toggle("Filter by Type", isOn: $mapManager.filterByType.animation())
-                if mapManager.filterByType {
-                    Toggle("Display Walks", isOn: $mapManager.displayWalks)
-                    Toggle("Display Runs", isOn: $mapManager.displayRuns)
-                    Toggle("Display Cycles", isOn: $mapManager.displayCycles)
-                    Toggle("Display Other Workouts", isOn: $mapManager.displayOther)
+            Section {
+                Toggle("Filter by Type", isOn: $workoutsManager.filterByType.animation())
+                if workoutsManager.filterByType {
+                    Toggle("Display Walks", isOn: $workoutsManager.displayWalks)
+                    Toggle("Display Runs", isOn: $workoutsManager.displayRuns)
+                    Toggle("Display Cycles", isOn: $workoutsManager.displayCycles)
+                    Toggle("Display Other Workouts", isOn: $workoutsManager.displayOther)
                 }
             }
         }

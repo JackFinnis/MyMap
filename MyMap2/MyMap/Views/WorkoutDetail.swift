@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct WorkoutDetail: View {
-    @EnvironmentObject var workoutManager: WorkoutManager
+    @EnvironmentObject var newWorkoutManager: NewWorkoutManager
+    @EnvironmentObject var workoutsManager: WorkoutsManager
     
     var body: some View {
         Text("Workout Detail")

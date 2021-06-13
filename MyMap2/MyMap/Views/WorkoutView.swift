@@ -9,8 +9,10 @@ import SwiftUI
 
 struct WorkoutView: View {
     // Responsible for recording new workouts
-    @StateObject var workoutManager = WorkoutManager()
-    // Responsible for displaying workouts on map
+    @StateObject var newWorkoutManager = NewWorkoutManager()
+    // Responsible for managing workouts
+    @StateObject var workoutsManager = WorkoutsManager()
+    // Responsible for map settings
     @StateObject var mapManager = MapManager()
     
     var body: some View {
@@ -20,7 +22,8 @@ struct WorkoutView: View {
             FloatingMapButtons()
             WorkoutStatusBar()
         }
-        .environmentObject(workoutManager)
+        .environmentObject(newWorkoutManager)
+        .environmentObject(workoutsManager)
         .environmentObject(mapManager)
     }
 }

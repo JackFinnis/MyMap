@@ -1,5 +1,5 @@
 //
-//  WorkoutManager.swift
+//  NewWorkoutManager.swift
 //  MyMap
 //
 //  Created by Finnis on 13/02/2021.
@@ -11,7 +11,7 @@ import MapKit
 import Combine
 import CoreLocation
 
-class WorkoutManager: NSObject, ObservableObject {
+class NewWorkoutManager: NSObject, ObservableObject {
     // MARK: - Properties
     // Publish the following:
     // - Elapsed seconds
@@ -223,7 +223,7 @@ class WorkoutManager: NSObject, ObservableObject {
 }
 
 // MARK: - CLLocationManager Delegate
-extension WorkoutManager: CLLocationManagerDelegate {
+extension NewWorkoutManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         // Only add locations during a workout session
         if workoutState != .running { return }

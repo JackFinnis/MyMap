@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct ToggleStateButton: View {
-    @EnvironmentObject var workoutManager: WorkoutManager
+    @EnvironmentObject var newWorkoutManager: NewWorkoutManager
     
     var body: some View {
         Button(action: {
-            workoutManager.toggleWorkoutState()
+            newWorkoutManager.toggleWorkoutState()
         }, label: {
-            Image(systemName: workoutManager.toggleStateImageName)
+            Image(systemName: newWorkoutManager.toggleStateImageName)
                 .font(.title)
                 .padding(.vertical, 15)
                 .padding(.leading, 15)

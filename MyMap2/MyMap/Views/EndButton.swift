@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EndButton: View {
-    @EnvironmentObject var workoutManager: WorkoutManager
+    @EnvironmentObject var newWorkoutManager: NewWorkoutManager
     
     @State var showEndWorkoutAlert: Bool = false
     
@@ -27,7 +27,7 @@ struct EndButton: View {
             Alert(
                 title: Text("Finish Workout?"),
                 primaryButton: .default(Text("Confirm")) {
-                    workoutManager.endWorkout()
+                    newWorkoutManager.endWorkout()
                 },
                 secondaryButton: .cancel()
             )

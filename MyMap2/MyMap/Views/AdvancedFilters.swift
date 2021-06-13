@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct AdvancedFilters: View {
+    @EnvironmentObject var workoutsManager: WorkoutsManager
     @EnvironmentObject var mapManager: MapManager
     
     var body: some View {
-        Section(header: Text("Advanced Workout Filters")) {
+        Section(header: Text("Advanced Filters")) {
             NavigationLink(destination: TypeFilterView(), label: {
                 HStack {
                     Text("Type")
                     Spacer()
-                    Text(mapManager.typeFilterSummary)
+                    Text(workoutsManager.typeFilterSummary)
                         .foregroundColor(.secondary)
                 }
             })
@@ -24,7 +25,7 @@ struct AdvancedFilters: View {
                 HStack {
                     Text("Date")
                     Spacer()
-                    Text(mapManager.dateFilterSummary)
+                    Text(workoutsManager.dateFilterSummary)
                         .foregroundColor(.secondary)
                 }
             })
@@ -32,7 +33,7 @@ struct AdvancedFilters: View {
                 HStack {
                     Text("Distance")
                     Spacer()
-                    Text(mapManager.distanceFilter.summary)
+                    Text(workoutsManager.distanceFilter.summary)
                         .foregroundColor(.secondary)
                 }
             })
@@ -40,7 +41,7 @@ struct AdvancedFilters: View {
                 HStack {
                     Text("Duration")
                     Spacer()
-                    Text(mapManager.durationFilter.summary)
+                    Text(workoutsManager.durationFilter.summary)
                         .foregroundColor(.secondary)
                 }
             })
@@ -48,7 +49,7 @@ struct AdvancedFilters: View {
                 HStack {
                     Text("Calories")
                     Spacer()
-                    Text(mapManager.caloriesFilter.summary)
+                    Text(workoutsManager.caloriesFilter.summary)
                         .foregroundColor(.secondary)
                 }
             })
@@ -56,7 +57,7 @@ struct AdvancedFilters: View {
                 HStack {
                     Text("Elevation")
                     Spacer()
-                    Text(mapManager.elevationFilter.summary)
+                    Text(workoutsManager.elevationFilter.summary)
                         .foregroundColor(.secondary)
                 }
             })

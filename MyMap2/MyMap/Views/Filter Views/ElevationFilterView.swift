@@ -8,26 +8,26 @@
 import SwiftUI
 
 struct ElevationFilterView: View {
-    @EnvironmentObject var mapManager: MapManager
+    @EnvironmentObject var workoutsManager: WorkoutsManager
     
     var body: some View {
         Form {
-            Section(header: Text("Workout Elevation")) {
-                Toggle("Filter by Elevation", isOn: $mapManager.elevationFilter.filter.animation())
-                if mapManager.elevationFilter.filter {
+            Section {
+                Toggle("Filter by Elevation", isOn: $workoutsManager.elevationFilter.filter.animation())
+                if workoutsManager.elevationFilter.filter {
                     HStack {
                         Text("Minimum Elevation")
                         Spacer()
-                        Text("\(mapManager.elevationFilter.minimum, specifier: "%.0f") m")
+                        Text("\(workoutsManager.elevationFilter.minimum, specifier: "%.0f") m")
                     }
-                    Slider(value: $mapManager.elevationFilter.minimum, in: 0...500, step: 50)
+                    Slider(value: $workoutsManager.elevationFilter.minimum, in: 0...500, step: 50)
                     
                     HStack {
                         Text("Maximum Elevation")
                         Spacer()
-                        Text("\(mapManager.elevationFilter.maximum, specifier: "%.0f") m")
+                        Text("\(workoutsManager.elevationFilter.maximum, specifier: "%.0f") m")
                     }
-                    Slider(value: $mapManager.elevationFilter.maximum, in: 0...500, step: 50)
+                    Slider(value: $workoutsManager.elevationFilter.maximum, in: 0...500, step: 50)
                 }
             }
         }

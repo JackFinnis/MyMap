@@ -8,26 +8,26 @@
 import SwiftUI
 
 struct DistanceFilterView: View {
-    @EnvironmentObject var mapManager: MapManager
+    @EnvironmentObject var workoutsManager: WorkoutsManager
     
     var body: some View {
         Form {
-            Section(header: Text("Workout Distance")) {
-                Toggle("Filter by Distance", isOn: $mapManager.distanceFilter.filter.animation())
-                if mapManager.distanceFilter.filter {
+            Section {
+                Toggle("Filter by Distance", isOn: $workoutsManager.distanceFilter.filter.animation())
+                if workoutsManager.distanceFilter.filter {
                     HStack {
                         Text("Minimum Distance")
                         Spacer()
-                        Text("\(mapManager.distanceFilter.minimum, specifier: "%.1f") km")
+                        Text("\(workoutsManager.distanceFilter.minimum, specifier: "%.1f") km")
                     }
-                    Slider(value: $mapManager.distanceFilter.minimum, in: 0...10, step: 0.5)
+                    Slider(value: $workoutsManager.distanceFilter.minimum, in: 0...10, step: 0.5)
                     
                     HStack {
                         Text("Maximum Distance")
                         Spacer()
-                        Text("\(mapManager.distanceFilter.maximum, specifier: "%.1f") km")
+                        Text("\(workoutsManager.distanceFilter.maximum, specifier: "%.1f") km")
                     }
-                    Slider(value: $mapManager.distanceFilter.maximum, in: 0...10, step: 0.5)
+                    Slider(value: $workoutsManager.distanceFilter.maximum, in: 0...10, step: 0.5)
                 }
             }
         }

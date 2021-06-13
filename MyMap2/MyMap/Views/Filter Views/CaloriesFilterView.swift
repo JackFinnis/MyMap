@@ -8,26 +8,26 @@
 import SwiftUI
 
 struct CaloriesFilterView: View {
-    @EnvironmentObject var mapManager: MapManager
+    @EnvironmentObject var workoutsManager: WorkoutsManager
     
     var body: some View {
         Form {
-            Section(header: Text("Workout Calories")) {
-                Toggle("Filter by Calories", isOn: $mapManager.caloriesFilter.filter.animation())
-                if mapManager.caloriesFilter.filter {
+            Section {
+                Toggle("Filter by Calories", isOn: $workoutsManager.caloriesFilter.filter.animation())
+                if workoutsManager.caloriesFilter.filter {
                     HStack {
                         Text("Minimum Calories")
                         Spacer()
-                        Text("\(mapManager.caloriesFilter.minimum, specifier: "%.0f") cal")
+                        Text("\(workoutsManager.caloriesFilter.minimum, specifier: "%.0f") cal")
                     }
-                    Slider(value: $mapManager.caloriesFilter.minimum, in: 0...1000, step: 50)
+                    Slider(value: $workoutsManager.caloriesFilter.minimum, in: 0...1000, step: 50)
                     
                     HStack {
                         Text("Maximum Calories")
                         Spacer()
-                        Text("\(mapManager.caloriesFilter.maximum, specifier: "%.0f") cal")
+                        Text("\(workoutsManager.caloriesFilter.maximum, specifier: "%.0f") cal")
                     }
-                    Slider(value: $mapManager.caloriesFilter.maximum, in: 0...1000, step: 50)
+                    Slider(value: $workoutsManager.caloriesFilter.maximum, in: 0...1000, step: 50)
                 }
             }
         }

@@ -8,26 +8,26 @@
 import SwiftUI
 
 struct DurationFilterView: View {
-    @EnvironmentObject var mapManager: MapManager
+    @EnvironmentObject var workoutsManager: WorkoutsManager
     
     var body: some View {
         Form {
-            Section(header: Text("Workout Duration")) {
-                Toggle("Filter by Duration", isOn: $mapManager.durationFilter.filter.animation())
-                if mapManager.durationFilter.filter {
+            Section {
+                Toggle("Filter by Duration", isOn: $workoutsManager.durationFilter.filter.animation())
+                if workoutsManager.durationFilter.filter {
                     HStack {
                         Text("Minimum Duration")
                         Spacer()
-                        Text("\(mapManager.durationFilter.minimum, specifier: "%.0f") min")
+                        Text("\(workoutsManager.durationFilter.minimum, specifier: "%.0f") min")
                     }
-                    Slider(value: $mapManager.durationFilter.minimum, in: 0...120, step: 5)
+                    Slider(value: $workoutsManager.durationFilter.minimum, in: 0...120, step: 5)
                     
                     HStack {
                         Text("Maximum Duration")
                         Spacer()
-                        Text("\(mapManager.durationFilter.maximum, specifier: "%.0f") min")
+                        Text("\(workoutsManager.durationFilter.maximum, specifier: "%.0f") min")
                     }
-                    Slider(value: $mapManager.durationFilter.maximum, in: 0...120, step: 5)
+                    Slider(value: $workoutsManager.durationFilter.maximum, in: 0...120, step: 5)
                 }
             }
         }

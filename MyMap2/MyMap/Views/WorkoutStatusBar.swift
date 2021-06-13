@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct WorkoutStatusBar: View {
-    @EnvironmentObject var workoutManager: WorkoutManager
+    @EnvironmentObject var newWorkoutManager: NewWorkoutManager
+    @EnvironmentObject var workoutsManager: WorkoutsManager
     @EnvironmentObject var mapManager: MapManager
     
     @State var showWorkoutDetailSheet: Bool = false
@@ -18,11 +19,11 @@ struct WorkoutStatusBar: View {
             Spacer()
             HStack(spacing: 0) {
                 Spacer()
-                Text(workoutManager.elapsedSecondsString)
+                Text(newWorkoutManager.elapsedSecondsString)
                     .font(.headline)
                 Spacer()
                 
-                if workoutManager.workoutState == .notStarted {
+                if newWorkoutManager.workoutState == .notStarted {
                     StartButton()
                 } else {
                     HStack(spacing: 0) {
@@ -36,21 +37,22 @@ struct WorkoutStatusBar: View {
                 }
                 
                 Spacer()
-                Text(workoutManager.totalDistanceString)
+                Text(newWorkoutManager.totalDistanceString)
                     .font(.headline)
                 Spacer()
             }
             .padding(10)
             .background(Blur())
             .compositingGroup()
-            .shadow(radius: 2)
+            .shadow(radius: 1)
             .onTapGesture {
                 showWorkoutDetailSheet = true
             }
         }
         .sheet(isPresented: $showWorkoutDetailSheet) {
             WorkoutDetail()
-                .environmentObject(workoutManager)
+                .environmentObject(newWorkoutManager)
+                .environmentObject(workoutsManager)
         }
     }
 }

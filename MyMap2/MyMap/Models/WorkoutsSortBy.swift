@@ -8,14 +8,14 @@
 import Foundation
 
 enum WorkoutsSortBy: String, CaseIterable {
-    case startDate = "Oldest"
-    case endDate = "Newest"
+    case recent = "Recent"
+    case oldest = "Oldest"
     case shortestDistance = "Shortest Distance"
     case longestDistance = "Longest Distance"
     case shortestDuration = "Shortest Duration"
     case longestDuration = "Longest Duration"
-//    case lowestCalories = "Lowest Calories"
-//    case mostCalories = "Most Calories"
-//    case leastElevation = "Least Elevation"
-//    case greatestElevation = "Greatest Elevation"
+    case fewestCalories = "Fewest Calories"
+    case mostCalories = "Most Calories"
+    case leastElevation = "Least Elevation"
+    case greatestElevation = "Greatest Elevation"
 }

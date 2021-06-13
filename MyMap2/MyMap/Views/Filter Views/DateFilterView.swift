@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct DateFilterView: View {
-    @EnvironmentObject var mapManager: MapManager
+    @EnvironmentObject var workoutsManager: WorkoutsManager
     
     var body: some View {
         Form {
-            Section(header: Text("Workout Date")) {
-                Toggle("Filter by Date", isOn: $mapManager.filterByDate.animation())
-                if mapManager.filterByDate {
-                    DatePicker("Start Date", selection: $mapManager.startDate, displayedComponents: .date)
-                    DatePicker("End Date", selection: $mapManager.endDate, displayedComponents: .date)
+            Section {
+                Toggle("Filter by Date", isOn: $workoutsManager.filterByDate.animation())
+                if workoutsManager.filterByDate {
+                    DatePicker("Start Date", selection: $workoutsManager.startDate, displayedComponents: .date)
+                    DatePicker("End Date", selection: $workoutsManager.endDate, displayedComponents: .date)
                 }
             }
         }

@@ -9,7 +9,8 @@ import SwiftUI
 import MapKit
 
 struct MapView: UIViewRepresentable {
-    @EnvironmentObject var workoutManager: WorkoutManager
+    @EnvironmentObject var newWorkoutManager: NewWorkoutManager
+    @EnvironmentObject var workoutsManager: WorkoutsManager
     @EnvironmentObject var mapManager: MapManager
     
     var mapView = MKMapView()
@@ -44,15 +45,15 @@ struct MapView: UIViewRepresentable {
         mapView.removeOverlays(mapView.overlays)
         // Add nearest workout
         if mapManager.searchState == .found {
-            mapView.addOverlay(mapManager.getClosestRoute(center: mapView.centerCoordinate))
+            mapView.addOverlay(workoutsManager.getClosestRoute(center: mapView.centerCoordinate))
         }
         // Add current workout
-        if workoutManager.workoutState != .notStarted {
-            mapView.addOverlay(workoutManager.getCurrentWorkoutMultiPolyline())
+        if newWorkoutManager.workoutState != .notStarted {
+            mapView.addOverlay(newWorkoutManager.getCurrentWorkoutMultiPolyline())
         }
         // Add previous filtered workouts
-        if mapManager.showWorkouts && mapManager.finishedLoading {
-            mapView.addOverlay(mapManager.getFilteredWorkoutsMultiPolyline())
+        if workoutsManager.showWorkouts && workoutsManager.finishedLoading {
+            mapView.addOverlay(workoutsManager.getFilteredWorkoutsMultiPolyline())
         }
     }
 }
