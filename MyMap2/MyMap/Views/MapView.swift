@@ -13,9 +13,12 @@ struct MapView: UIViewRepresentable {
     @EnvironmentObject var workoutsManager: WorkoutsManager
     @EnvironmentObject var mapManager: MapManager
     
+    @Binding var centreCoordinate: CLLocationCoordinate2D
+    
     var mapView = MKMapView()
 
     func makeCoordinator() -> MapManager {
+        mapManager.parent = self
         return mapManager
     }
 
@@ -41,19 +44,15 @@ struct MapView: UIViewRepresentable {
             mapView.mapType = mapManager.mapType
         }
         
-        // Add updated overlays
+        // Updated polyline overlays
         mapView.removeOverlays(mapView.overlays)
-        // Add nearest workout
-        if mapManager.searchState == .found {
-            mapView.addOverlay(workoutsManager.getClosestRoute(center: mapView.centerCoordinate))
-        }
-        // Add current workout
+        // Add new workout polyline
         if newWorkoutManager.workoutState != .notStarted {
-            mapView.addOverlay(newWorkoutManager.getCurrentWorkoutMultiPolyline())
+            mapView.addOverlays(newWorkoutManager.getCurrentWorkoutMultiPolyline())
         }
-        // Add previous filtered workouts
+        // Add filtered workouts polylines
         if workoutsManager.showWorkouts && workoutsManager.finishedLoading {
-            mapView.addOverlay(workoutsManager.getFilteredWorkoutsMultiPolyline())
+            mapView.addOverlays(workoutsManager.getFilteredWorkoutsMultiPolyline())
         }
     }
 }

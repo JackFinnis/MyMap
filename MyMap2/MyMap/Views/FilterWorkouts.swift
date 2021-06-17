@@ -52,6 +52,9 @@ struct FilterWorkouts: View {
                 }
             }
         }
+        .onDisappear {
+            workoutsManager.updateWorkoutFilters()
+        }
     }
 }
 

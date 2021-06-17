@@ -22,23 +22,27 @@ struct NewWorkoutInfoBar: View {
                 Text(newWorkoutManager.elapsedSecondsString)
                     .font(.headline)
                 Spacer()
+                
                 HStack(spacing: 0) {
                     ToggleStateButton()
                     Divider()
-                        .frame(height: 62)
+                        .frame(height: 60)
                     EndButton()
                 }
                 .background(Color(UIColor.systemBackground))
-                .cornerRadius(11)
+                .cornerRadius(12)
+                
                 Spacer()
                 Text(newWorkoutManager.totalDistanceString)
                     .font(.headline)
                 Spacer()
             }
-            .padding(10)
+            .frame(height: 60)
             .background(Blur())
+            .cornerRadius(12)
             .compositingGroup()
             .shadow(radius: 2, y: 2)
+            .padding(10)
             .onTapGesture {
                 showWorkoutDetailSheet = true
             }

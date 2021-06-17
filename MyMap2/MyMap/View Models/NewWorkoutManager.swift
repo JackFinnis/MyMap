@@ -210,15 +210,21 @@ class NewWorkoutManager: NSObject, ObservableObject {
     
     // MARK: - Map Helper Methods
     // Return the current workout polyline
-    public func getCurrentWorkoutMultiPolyline() -> MKMultiPolyline {
-        var polylines: [MKPolyline] = []
+    public func getCurrentWorkoutMultiPolyline() -> [MulticolourPolyline] {
+        var polylines: [MulticolourPolyline] = []
+        let polylineColour: UIColor = .systemPink
         
-        polylines.append(MKPolyline(coordinates: formattedNewLocations, count: formattedNewLocations.count))
+        let newPolyline = MulticolourPolyline(coordinates: formattedNewLocations, count: formattedNewLocations.count)
+        newPolyline.colour = polylineColour
+        polylines.append(newPolyline)
+        
         for segmentRouteLocations in formattedAccumulatedLocations {
-            polylines.append(MKPolyline(coordinates: segmentRouteLocations, count: segmentRouteLocations.count))
+            let newPolyline = MulticolourPolyline(coordinates: segmentRouteLocations, count: segmentRouteLocations.count)
+            newPolyline.colour = polylineColour
+            polylines.append(newPolyline)
         }
         
-        return MKMultiPolyline(polylines)
+        return polylines
     }
 }
 

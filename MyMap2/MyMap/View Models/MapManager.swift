@@ -12,7 +12,9 @@ class MapManager: NSObject, ObservableObject {
     // MARK: - Properties
     @Published var userTrackingMode: MKUserTrackingMode = .follow
     @Published var mapType: MKMapType = .standard
-    @Published var searchState: WorkoutSearchState = .found
+    @Published var searchState: WorkoutSearchState = .none
+    
+    var parent: MapView?
     
     // Display image names
     public var userTrackingModeImageName: String {
@@ -59,19 +61,7 @@ class MapManager: NSObject, ObservableObject {
         }
     }
     
-    // Workout search button pressed
-    public func updateSearchState() {
-        switch searchState {
-        case .none:
-            searchState = .finding
-        case .finding:
-            searchState = .found
-        case .found:
-            searchState = .none
-        }
-    }
-    
-    // Map yype button pressed
+    // Map type button pressed
     public func updateMapType() {
         switch mapType {
         case .standard:
@@ -84,15 +74,29 @@ class MapManager: NSObject, ObservableObject {
 
 // MARK: - MKMapView Delegate
 extension MapManager: MKMapViewDelegate {
-    // Render multi polyline overlays
+    // Render multicolour polyline overlays
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        guard let multiPolyline = overlay as? MKMultiPolyline else {
-          return MKOverlayRenderer(overlay: overlay)
+        guard let polyline = overlay as? MulticolourPolyline else {
+            return MKOverlayRenderer(overlay: overlay)
         }
         
-        let renderer = MKMultiPolylineRenderer(multiPolyline: multiPolyline)
-        renderer.strokeColor = UIColor(.accentColor)
-        renderer.lineWidth = 3
+        // Set different colour if selected
+        var colour: UIColor {
+            if polyline.selected {
+                return .systemYellow
+            } else {
+                return polyline.colour!
+            }
+        }
+        
+        let renderer = MKPolylineRenderer(polyline: polyline)
+        renderer.strokeColor = colour
+        renderer.lineWidth = 2
         return renderer
+    }
+    
+    // Update parent centre coordinate
+    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+        parent?.centreCoordinate = mapView.centerCoordinate
     }
 }

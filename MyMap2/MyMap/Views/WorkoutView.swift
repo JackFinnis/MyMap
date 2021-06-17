@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct WorkoutView: View {
     // Responsible for recording new workouts
@@ -15,12 +16,15 @@ struct WorkoutView: View {
     // Responsible for map settings
     @StateObject var mapManager = MapManager()
     
+    // Map centre coordinate
+    @State var centreCoordinate = CLLocationCoordinate2D()
+    
     var body: some View {
         ZStack {
-            MapView()
+            MapView(centreCoordinate: $centreCoordinate)
                 .ignoresSafeArea()
             FindWorkoutPointer()
-            FloatingMapButtons()
+            FloatingMapButtons(centreCoordinate: $centreCoordinate)
             WorkoutDetailBar()
         }
         .environmentObject(newWorkoutManager)

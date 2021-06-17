@@ -10,14 +10,25 @@ import HealthKit
 import MapKit
 import CoreLocation
 
-struct Workout {
+struct Workout: Equatable {
     let workout: HKWorkout
     let workoutType: HKWorkoutActivityType
     let routeLocations: [CLLocation]
-    let routePolylines: [MKPolyline]
+    let routePolylines: [MulticolourPolyline]
     let date: Date?
     let distance: Double?
     let duration: Double
     let elevation: Double?
     let calories: Double?
+    
+    var durationString: String {
+        String(format: "%02d:%02d", Int(duration) / 60, Int(duration) % 60)
+    }
+    var distanceString: String {
+        if distance == nil {
+            return ""
+        } else {
+            return String("\(Int(distance!) / 1000).\(Int(distance!) % 1000) km")
+        }
+    }
 }

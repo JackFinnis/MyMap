@@ -15,10 +15,8 @@ struct ToggleStateButton: View {
             newWorkoutManager.toggleWorkoutState()
         }, label: {
             Image(systemName: newWorkoutManager.toggleStateImageName)
-                .font(.title)
-                .padding(.vertical, 15)
-                .padding(.leading, 15)
-                .padding(.trailing, 10)
+                .frame(width: 40, height: 40)
+                .padding(3)
         })
     }
 }

@@ -17,10 +17,8 @@ struct EndButton: View {
             showEndWorkoutAlert = true
         }, label: {
             Image(systemName: "stop.fill")
-                .font(.title)
-                .padding(.vertical, 15)
-                .padding(.leading, 10)
-                .padding(.trailing, 15)
+                .frame(width: 40, height: 40)
+                .padding(3)
         })
         .foregroundColor(Color(UIColor.systemRed))
         .alert(isPresented: $showEndWorkoutAlert) {

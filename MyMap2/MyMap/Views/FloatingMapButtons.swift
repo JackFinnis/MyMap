@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct FloatingMapButtons: View {
     @EnvironmentObject var workoutsManager: WorkoutsManager
     @EnvironmentObject var mapManager: MapManager
+    
+    @Binding var centreCoordinate: CLLocationCoordinate2D
     
     @State var showFilterWorkoutsSheet: Bool = false
     
@@ -24,40 +27,54 @@ struct FloatingMapButtons: View {
                         Image(systemName: mapManager.mapTypeImageName)
                     })
                     Divider()
-                        .frame(width: 40)
+                        .frame(width: 46)
                     Button(action: {
                         mapManager.updateUserTrackingMode()
                     }, label: {
                         Image(systemName: mapManager.userTrackingModeImageName)
                     })
                     Divider()
-                        .frame(width: 40)
+                        .frame(width: 46)
                     Button(action: {
                         showFilterWorkoutsSheet = true
                     }, label: {
                         Image(systemName: "figure.walk")
                     })
                     Divider()
-                        .frame(width: 40)
+                        .frame(width: 46)
                     Button(action: {
-                        mapManager.updateSearchState()
+                        updateSearchState()
                     }, label: {
                         Image(systemName: mapManager.searchStateImageName)
                     })
                 }
                 .buttonStyle(FloatingButtonStyle())
                 .background(Blur())
-                .cornerRadius(10)
+                .cornerRadius(12)
                 .compositingGroup()
                 .shadow(radius: 2, y: 2)
-                .padding(.trailing)
-                .padding(.top, 60)
+                .padding(.trailing, 10)
+                .padding(.top, 50)
             }
             Spacer()
         }
         .sheet(isPresented: $showFilterWorkoutsSheet) {
             FilterWorkouts(showFilterWorkoutsSheet: $showFilterWorkoutsSheet)
                 .environmentObject(workoutsManager)
+        }
+    }
+    
+    // Workout search button pressed
+    func updateSearchState() {
+        mapManager.userTrackingMode = .none
+        switch mapManager.searchState {
+        case .none:
+            mapManager.searchState = .finding
+        case .finding:
+            mapManager.searchState = .found
+            workoutsManager.setClosestRoute(center: centreCoordinate)
+        case .found:
+            mapManager.searchState = .none
         }
     }
 }

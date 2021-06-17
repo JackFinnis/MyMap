@@ -10,18 +10,25 @@ import MapKit
 import HealthKit
 
 class WorkoutsManager: NSObject, ObservableObject {
-    // MARK: - Workouts from Health Store
-    @Published var selectedIndex: Int = 0
-    var selectedWorkout: Workout? {
-        if workouts.count <= selectedIndex {
-            return nil
+    // MARK: - Workouts
+    @Published var workouts: [Workout] = []
+    @Published var filteredWorkouts: [Workout] = []
+    @Published var selectedWorkout: Workout?
+    @Published var finishedLoading: Bool = false
+    var selectedWorkoutDurationString: String {
+        if selectedWorkout == nil {
+            return ""
         } else {
-            return workouts[selectedIndex]
+            return selectedWorkout!.durationString
         }
     }
-    
-    @Published var workouts: [Workout] = []
-    @Published var finishedLoading: Bool = false
+    var selectedWorkoutDistanceString: String {
+        if selectedWorkout == nil {
+            return ""
+        } else {
+            return selectedWorkout!.distanceString
+        }
+    }
     
     // MARK: - Workout Filters
     @Published var distanceFilter = WorkoutFilter(type: .distance)
@@ -85,16 +92,164 @@ class WorkoutsManager: NSObject, ObservableObject {
         }
     }
     
-    // MARK: - Filtered workouts
-    // Filter and sort all workouts based on previous properties
-    public var filteredWorkouts: [Workout] {
-        // Only calculate if workouts need to be shown
-        if !showWorkouts {
-            return []
+    // MARK: - Initialiser
+    override init() {
+        super.init()
+        // Load Health Store Workouts
+        loadHealthKitWorkouts()
+    }
+    
+    // MARK: - Private functions
+    // Load HealthKit workouts
+    private func loadHealthKitWorkouts() {
+        // Use workout data store
+        let healthKitDataStore = HealthKitDataStore()
+        healthKitDataStore.loadAllWorkouts { (workouts) in
+            // Update published properties
+            DispatchQueue.main.async {
+                self.workouts = workouts
+                self.updateWorkoutFilters()
+                self.finishedLoading = true
+            }
+        }
+    }
+    
+    // MARK: - Public Functions
+    // Find the closest filtered route to the center coordinate
+    public func setClosestRoute(center: CLLocationCoordinate2D) {
+        let centerCoordinate = CLLocation(latitude: center.latitude, longitude: center.longitude)
+        
+        var minimumDistance: Double = .greatestFiniteMagnitude
+        var closestWorkout: Workout?
+        
+        for workout in filteredWorkouts {
+            for location in workout.routeLocations {
+                let delta = location.distance(from: centerCoordinate)
+                if delta < minimumDistance {
+                    minimumDistance = delta
+                    closestWorkout = workout
+                }
+            }
         }
         
+        DispatchQueue.main.async {
+            self.resetSelectedColour()
+            self.selectedWorkout = closestWorkout
+            self.setSelectedColour()
+        }
+    }
+    
+    // Return the filtered workouts multi polyline
+    public func getFilteredWorkoutsMultiPolyline() -> [MulticolourPolyline] {
+        var polylines: [MulticolourPolyline] = []
+        
+        for workout in filteredWorkouts {
+            polylines.append(contentsOf: workout.routePolylines)
+        }
+        
+        return polylines
+    }
+    
+    // MARK: - Selected Workout
+    // Select the first filtered workout to highlight
+    public func selectFirstWorkout() {
+        // Reset selected colour
+        resetSelectedColour()
+        if filteredWorkouts.isEmpty {
+            selectedWorkout = nil
+        } else {
+            selectedWorkout = filteredWorkouts.first
+        }
+        setSelectedColour()
+    }
+    
+    // Reset selected workout polyline colour
+    private func resetSelectedColour() {
+        selectedWorkout?.routePolylines.first?.selected = false
+        self.objectWillChange.send()
+    }
+    
+    // Set selected workout polyline colour
+    private func setSelectedColour() {
+        selectedWorkout?.routePolylines.first?.selected = true
+        self.objectWillChange.send()
+    }
+    
+    // Highlight next workout
+    public func nextWorkout() {
+        // Reset selected colour
+        resetSelectedColour()
+        if filteredWorkouts.isEmpty {
+            selectedWorkout = nil
+        } else if selectedWorkout == nil {
+            selectedWorkout = filteredWorkouts.first
+        } else {
+            let index = filteredWorkouts.firstIndex(of: selectedWorkout!)
+            if index == nil {
+                selectedWorkout = filteredWorkouts.first
+            } else {
+                if index == filteredWorkouts.count-1 {
+                    selectedWorkout = filteredWorkouts.first
+                } else {
+                    selectedWorkout = filteredWorkouts[index!+1]
+                }
+            }
+        }
+        setSelectedColour()
+    }
+    
+    // Highlight previous workout
+    public func previousWorkout() {
+        // Reset selected colour
+        resetSelectedColour()
+        if filteredWorkouts.isEmpty {
+            selectedWorkout = nil
+        } else if selectedWorkout == nil {
+            selectedWorkout = filteredWorkouts.first
+        } else {
+            let index = filteredWorkouts.firstIndex(of: selectedWorkout!)
+            if index == nil {
+                selectedWorkout = filteredWorkouts.first
+            } else {
+                if index == 0 {
+                    selectedWorkout = filteredWorkouts.last
+                } else {
+                    selectedWorkout = filteredWorkouts[index!-1]
+                }
+            }
+        }
+        setSelectedColour()
+    }
+    
+    // MARK: - Filter workouts
+    // Update workout filters
+    public func updateWorkoutFilters() {
+        // Only calculate if workouts need to be shown
+        if !showWorkouts {
+            DispatchQueue.main.async {
+                self.filteredWorkouts = []
+            }
+            return
+        }
+        
+        // Filter and sort workouts
+        let filtered = filterWorkouts(workouts: workouts)
+        let sorted = sortWorkouts(workouts: filtered)
+        let numberFiltered = filterNumber(workouts: sorted)
+        
+        // Update published
+        DispatchQueue.main.async {
+            self.filteredWorkouts = numberFiltered
+        }
+        
+        // Select first workout to highlight
+        selectFirstWorkout()
+    }
+    
+    // Filter workouts
+    private func filterWorkouts(workouts: [Workout]) -> [Workout] {
         // Filter workouts
-        var filtered: [Workout] = workouts.filter { workout in
+        workouts.filter { workout in
             // Filter by type
             if filterByType {
                 switch workout.workoutType {
@@ -176,9 +331,12 @@ class WorkoutsManager: NSObject, ObservableObject {
             // Passed the filter criteria!
             return true
         }
-        
+    }
+    
+    // Filter and sort all workouts based on previous properties
+    private func sortWorkouts(workouts: [Workout]) -> [Workout] {
         // Sort workouts
-        filtered.sort { (workout1, workout2) in
+        workouts.sorted { (workout1, workout2) in
             switch sortBy {
             case .recent:
                 if workout1.date == nil || workout2.date == nil {
@@ -226,133 +384,25 @@ class WorkoutsManager: NSObject, ObservableObject {
                 return workout1.elevation! < workout2.elevation!
             }
         }
-        
-        // Filter the number of workouts
+    }
+    
+    // Filter the number of workouts
+    private func filterNumber(workouts: [Workout]) -> [Workout] {
         switch numberShown {
         case .five:
-            if filtered.count < 5 {
-                return filtered
+            if workouts.count < 5 {
+                return workouts
             } else {
-                return Array(filtered[..<5])
+                return Array(workouts[..<5])
             }
         case .ten:
-            if filtered.count < 10 {
-                return filtered
+            if workouts.count < 10 {
+                return workouts
             } else {
-                return Array(filtered[..<10])
+                return Array(workouts[..<10])
             }
         default:
-            return filtered
-        }
-    }
-    
-    // MARK: - Initialiser
-    override init() {
-        super.init()
-        // Setup HealthKit
-        HealthKitSetupAssistant().requestAuthorisation()
-        // Load Health Store Workouts
-        loadWorkoutsData()
-    }
-    
-    // MARK: - Map Helper Methods
-    // Highlight to next workout
-    public func nextWorkout() {
-        if workouts.isEmpty || workouts.count == selectedIndex + 1 {
-            selectedIndex = 0
-        } else {
-            selectedIndex += 1
-        }
-    }
-    
-    // Highlight to previous workout
-    public func previousWorkout() {
-        if workouts.isEmpty {
-            selectedIndex = 0
-        } else if selectedIndex == 0 {
-            selectedIndex = workouts.count
-        } else {
-            selectedIndex += 1
-        }
-    }
-    
-    // Find the closest filtered route to the center coordinate
-    public func getClosestRoute(center: CLLocationCoordinate2D) -> MKMultiPolyline {
-        let centerCoordinate = CLLocation(latitude: center.latitude, longitude: center.longitude)
-        
-        var minimumDistance: Double = .greatestFiniteMagnitude
-        var closestWorkout: Workout?
-        
-        for workout in filteredWorkouts {
-            for location in workout.routeLocations {
-                let delta = location.distance(from: centerCoordinate)
-                if delta < minimumDistance {
-                    minimumDistance = delta
-                    closestWorkout = workout
-                }
-            }
-        }
-        
-        if closestWorkout == nil {
-            return MKMultiPolyline()
-        }
-        return MKMultiPolyline(closestWorkout!.routePolylines)
-    }
-    
-    // Return the filtered workouts multi polyline
-    public func getFilteredWorkoutsMultiPolyline() -> MKMultiPolyline {
-        var polylines: [MKPolyline] = []
-        
-        for workout in filteredWorkouts {
-            polylines.append(contentsOf: workout.routePolylines)
-        }
-        
-        return MKMultiPolyline(polylines)
-    }
-    
-    // MARK: - Workouts Data Store Interface
-    // Load all workouts and associated data
-    public func loadWorkoutsData() {
-        let workoutDataStore = WorkoutDataStore()
-        // Load array of workouts from health store
-        workoutDataStore.loadWorkouts { (workouts, error) in
-            if error == true || workouts!.isEmpty {
-                print("No Workouts Returned by Health Store")
-                DispatchQueue.main.async {
-                    self.finishedLoading = true
-                }
-                return
-            }
-            // Load each workout route's data
-            for workout in workouts! {
-                workoutDataStore.loadWorkoutRoute(workout: workout) { (locations, formattedLocations, error) in
-                    if error == true {
-                        // Workout has no route
-                        return
-                    }
-                    
-                    // Instantiate new workout
-                    let newWorkout = Workout(
-                        workout: workout,
-                        workoutType: workout.workoutActivityType,
-                        routeLocations: locations!,
-                        routePolylines: [MKPolyline(coordinates: formattedLocations!, count: formattedLocations!.count)],
-                        date: workout.startDate,
-                        distance: workout.totalDistance?.doubleValue(for: HKUnit.meter()),
-                        duration: workout.duration,
-                        elevation: 0,
-                        calories: workout.totalEnergyBurned?.doubleValue(for: HKUnit.smallCalorie())
-                    )
-                    
-                    // Update published properties
-                    DispatchQueue.main.async {
-                        self.workouts.append(newWorkout)
-                        if workout == workouts!.last {
-                            self.finishedLoading = true
-                        }
-                    }
-                }
-            }
+            return workouts
         }
     }
 }
