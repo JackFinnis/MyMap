@@ -13,6 +13,7 @@ struct AdvancedFilters: View {
     
     var body: some View {
         Section(header: Text("Advanced Filters")) {
+            
             NavigationLink(destination: TypeFilterView(), label: {
                 HStack {
                     Text("Type")

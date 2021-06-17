@@ -17,7 +17,7 @@ struct EndButton: View {
             showEndWorkoutAlert = true
         }, label: {
             Image(systemName: "stop.fill")
-                .frame(width: 40, height: 40)
+                .frame(width: 54, height: 54)
                 .padding(3)
         })
         .foregroundColor(Color(UIColor.systemRed))

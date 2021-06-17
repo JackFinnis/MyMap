@@ -44,7 +44,7 @@ struct WorkoutInfoBar: View {
                 })
                 .buttonStyle(FloatingButtonStyle())
             }
-            .frame(height: 60)
+            .frame(height: 70)
             .background(Blur())
             .cornerRadius(12)
             .compositingGroup()

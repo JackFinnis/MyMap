@@ -95,7 +95,7 @@ class NewWorkoutManager: NSObject, ObservableObject {
         
         // Set accuracy
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = 50
+        //locationManager.distanceFilter = 100
         
         // Request location services authorisation
         locationManager.requestWhenInUseAuthorization()
@@ -212,7 +212,7 @@ class NewWorkoutManager: NSObject, ObservableObject {
     // Return the current workout polyline
     public func getCurrentWorkoutMultiPolyline() -> [MulticolourPolyline] {
         var polylines: [MulticolourPolyline] = []
-        let polylineColour: UIColor = .systemPink
+        let polylineColour: UIColor = .systemIndigo
         
         let newPolyline = MulticolourPolyline(coordinates: formattedNewLocations, count: formattedNewLocations.count)
         newPolyline.colour = polylineColour

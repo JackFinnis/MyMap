@@ -37,7 +37,7 @@ struct NewWorkoutInfoBar: View {
                     .font(.headline)
                 Spacer()
             }
-            .frame(height: 60)
+            .frame(height: 70)
             .background(Blur())
             .cornerRadius(12)
             .compositingGroup()

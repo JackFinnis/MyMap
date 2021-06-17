@@ -34,8 +34,6 @@ class MapManager: NSObject, ObservableObject {
             return "magnifyingglass"
         case .finding:
             return "mappin.and.ellipse"
-        case .found:
-            return "xmark"
         }
     }
     
@@ -97,6 +95,8 @@ extension MapManager: MKMapViewDelegate {
     
     // Update parent centre coordinate
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-        parent?.centreCoordinate = mapView.centerCoordinate
+        DispatchQueue.main.async {
+            self.parent?.centreCoordinate = mapView.centerCoordinate
+        }
     }
 }

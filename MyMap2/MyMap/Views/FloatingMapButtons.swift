@@ -71,10 +71,8 @@ struct FloatingMapButtons: View {
         case .none:
             mapManager.searchState = .finding
         case .finding:
-            mapManager.searchState = .found
-            workoutsManager.setClosestRoute(center: centreCoordinate)
-        case .found:
             mapManager.searchState = .none
+            workoutsManager.setClosestRoute(center: centreCoordinate)
         }
     }
 }

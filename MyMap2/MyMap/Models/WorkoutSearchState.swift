@@ -10,5 +10,4 @@ import Foundation
 enum WorkoutSearchState {
     case none
     case finding
-    case found
 }
