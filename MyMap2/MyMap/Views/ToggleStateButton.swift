@@ -15,9 +15,10 @@ struct ToggleStateButton: View {
             newWorkoutManager.toggleWorkoutState()
         }, label: {
             Image(systemName: newWorkoutManager.toggleStateImageName)
-                .foregroundColor(Color(UIColor.systemBackground))
-                .frame(width: 54, height: 54)
-                .padding(3)
+                .foregroundColor(.black)
+                .font(.title)
         })
+        .frame(width: 44, height: 44)
+        .padding(3)
     }
 }

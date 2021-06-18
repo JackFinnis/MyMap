@@ -206,6 +206,8 @@ class NewWorkoutManager: NSObject, ObservableObject {
         elapsedSeconds = 0
         distance = 0
         accumulatedTime = 0
+        accumulatedLocations = []
+        newLocations = []
     }
     
     // MARK: - Map Helper Methods

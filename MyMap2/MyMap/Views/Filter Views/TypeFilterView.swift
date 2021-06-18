@@ -16,13 +16,13 @@ struct TypeFilterView: View {
                 Toggle("Filter by Type", isOn: $workoutsManager.filterByType.animation())
                 if workoutsManager.filterByType {
                     Toggle("Display Walks", isOn: $workoutsManager.displayWalks)
-                        .accentColor(Color(UIColor.systemRed))
+                        .toggleStyle(SwitchToggleStyle(tint: Color(UIColor.systemGreen)))
                     Toggle("Display Runs", isOn: $workoutsManager.displayRuns)
-                        .accentColor(Color(UIColor.systemGreen))
+                        .toggleStyle(SwitchToggleStyle(tint: Color(UIColor.systemRed)))
                     Toggle("Display Cycles", isOn: $workoutsManager.displayCycles)
-                        .accentColor(Color(UIColor.systemBlue))
+                        .toggleStyle(SwitchToggleStyle(tint: Color(UIColor.systemBlue)))
                     Toggle("Display Other Workouts", isOn: $workoutsManager.displayOther)
-                        .accentColor(Color(UIColor.systemOrange))
+                        .toggleStyle(SwitchToggleStyle(tint: Color(UIColor.systemOrange)))
                 }
             }
         }

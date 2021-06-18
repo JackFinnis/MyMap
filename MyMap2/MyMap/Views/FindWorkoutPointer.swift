@@ -6,15 +6,24 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct FindWorkoutPointer: View {
+    @EnvironmentObject var workoutsManager: WorkoutsManager
     @EnvironmentObject var mapManager: MapManager
+    
+    @Binding var centreCoordinate: CLLocationCoordinate2D
     
     var body: some View {
         if mapManager.searchState == .finding {
-            Image(systemName: "circle")
-                .font(.largeTitle)
-                .foregroundColor(.accentColor)
+            Button(action: {
+                mapManager.userTrackingMode = .none
+                mapManager.searchState = .none
+                workoutsManager.setClosestRoute(center: centreCoordinate)
+            }, label: {
+                Image(systemName: "circle")
+            })
+            .buttonStyle(FloatingButtonStyle())
         }
     }
 }

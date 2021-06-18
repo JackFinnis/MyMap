@@ -31,10 +31,12 @@ struct MapView: UIViewRepresentable {
         mapView.showsScale = true
         mapView.showsCompass = true
         
+        
         return mapView
     }
     
     func updateUIView(_ mapView: MKMapView, context: Context) {
+        print("update")
         // Set user tracking mode
         if mapView.userTrackingMode != mapManager.userTrackingMode {
             mapView.setUserTrackingMode(mapManager.userTrackingMode, animated: true)
@@ -47,9 +49,7 @@ struct MapView: UIViewRepresentable {
         // Updated polyline overlays
         mapView.removeOverlays(mapView.overlays)
         // Add new workout polyline
-        if newWorkoutManager.workoutState != .notStarted {
-            mapView.addOverlays(newWorkoutManager.getCurrentWorkoutMultiPolyline())
-        }
+        mapView.addOverlays(newWorkoutManager.getCurrentWorkoutMultiPolyline())
         // Add filtered workouts polylines
         if workoutsManager.showWorkouts && workoutsManager.finishedLoading {
             mapView.addOverlays(workoutsManager.getFilteredWorkoutsMultiPolyline())

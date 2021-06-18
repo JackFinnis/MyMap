@@ -17,32 +17,35 @@ struct WorkoutInfoBar: View {
     var body: some View {
         VStack {
             Spacer()
-            HStack {
-                Button(action: {
-                    workoutsManager.previousWorkout()
-                }, label: {
-                    Image(systemName: "arrow.left")
-                })
+            ZStack {
+                HStack {
+                    Button(action: {
+                        workoutsManager.previousWorkout()
+                    }, label: {
+                        Image(systemName: "arrow.left")
+                    })
+                    .padding(.leading, 10)
+                    
+                    Text(workoutsManager.selectedWorkoutDurationString)
+                        .font(.headline)
+                    Spacer()
+                    Text(workoutsManager.selectedWorkoutDistanceString)
+                        .font(.headline)
+                    
+                    Button(action: {
+                        workoutsManager.nextWorkout()
+                    }, label: {
+                        Image(systemName: "arrow.right")
+                    })
+                    .padding(.trailing, 10)
+                }
                 .buttonStyle(FloatingButtonStyle())
                 
-                Spacer()
-                Text(workoutsManager.selectedWorkoutDurationString)
-                    .font(.headline)
-                Spacer()
-                
-                StartButton()
-                
-                Spacer()
-                Text(workoutsManager.selectedWorkoutDistanceString)
-                    .font(.headline)
-                Spacer()
-                
-                Button(action: {
-                    workoutsManager.nextWorkout()
-                }, label: {
-                    Image(systemName: "arrow.right")
-                })
-                .buttonStyle(FloatingButtonStyle())
+                HStack {
+                    Spacer()
+                    StartButton()
+                    Spacer()
+                }
             }
             .frame(height: 70)
             .background(Blur())
@@ -51,13 +54,13 @@ struct WorkoutInfoBar: View {
             .shadow(radius: 2, y: 2)
             .padding(10)
             .onTapGesture {
-                showWorkoutDetailSheet = true
+                if workoutsManager.selectedWorkout != nil {
+                    showWorkoutDetailSheet = true
+                }
             }
         }
         .sheet(isPresented: $showWorkoutDetailSheet) {
-            WorkoutDetail()
-                .environmentObject(newWorkoutManager)
-                .environmentObject(workoutsManager)
+            WorkoutDetail(workout: workoutsManager.selectedWorkout!, showWorkoutDetailSheet: $showWorkoutDetailSheet)
         }
     }
 }

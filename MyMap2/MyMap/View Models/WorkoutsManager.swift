@@ -13,6 +13,7 @@ class WorkoutsManager: NSObject, ObservableObject {
     // MARK: - Workouts
     @Published var workouts: [Workout] = []
     @Published var filteredWorkouts: [Workout] = []
+    @Published var filteredWorkoutsCount: Int = 0
     @Published var selectedWorkout: Workout?
     @Published var finishedLoading: Bool = false
     var selectedWorkoutDurationString: String {
@@ -31,16 +32,16 @@ class WorkoutsManager: NSObject, ObservableObject {
     }
     
     // MARK: - Workout Filters
-    @Published var distanceFilter = WorkoutFilter(type: .distance)
-    @Published var durationFilter = WorkoutFilter(type: .duration)
-    @Published var caloriesFilter = WorkoutFilter(type: .calories)
-    @Published var elevationFilter = WorkoutFilter(type: .elevation)
+    @Published var distanceFilter = WorkoutFilter(type: .distance) { didSet { updateWorkoutFilters() } }
+    @Published var durationFilter = WorkoutFilter(type: .duration) { didSet { updateWorkoutFilters() } }
+    @Published var caloriesFilter = WorkoutFilter(type: .calories) { didSet { updateWorkoutFilters() } }
+    @Published var elevationFilter = WorkoutFilter(type: .elevation) { didSet { updateWorkoutFilters() } }
     
-    @Published var filterByType: Bool = false
-    @Published var displayWalks: Bool = true
-    @Published var displayRuns: Bool = true
-    @Published var displayCycles: Bool = true
-    @Published var displayOther: Bool = true
+    @Published var filterByType: Bool = false { didSet { updateWorkoutFilters() } }
+    @Published var displayWalks: Bool = true { didSet { updateWorkoutFilters() } }
+    @Published var displayRuns: Bool = true { didSet { updateWorkoutFilters() } }
+    @Published var displayCycles: Bool = true { didSet { updateWorkoutFilters() } }
+    @Published var displayOther: Bool = true { didSet { updateWorkoutFilters() } }
     var typeFilterSummary: String {
         if !filterByType {
             return ""
@@ -61,9 +62,9 @@ class WorkoutsManager: NSObject, ObservableObject {
         return typesShowing.joined(separator: ", ")
     }
     
-    @Published var filterByDate: Bool = false
-    @Published var startDate: Date = Date()
-    @Published var endDate: Date = Date()
+    @Published var filterByDate: Bool = false { didSet { updateWorkoutFilters() } }
+    @Published var startDate: Date = Date() { didSet { updateWorkoutFilters() } }
+    @Published var endDate: Date = Date() { didSet { updateWorkoutFilters() } }
     var dateFilterSummary: String {
         if !filterByDate {
             return ""
@@ -82,8 +83,8 @@ class WorkoutsManager: NSObject, ObservableObject {
     }
     
     // MARK: - Workout Sort Desciptors
-    @Published var sortBy: WorkoutsSortBy = .recent
-    @Published var numberShown: WorkoutsShown = .none
+    @Published var sortBy: WorkoutsSortBy = .oldest  { didSet { updateWorkoutFilters() } }
+    @Published var numberShown: WorkoutsShown = .none  { didSet { updateWorkoutFilters() } }
     public var showWorkouts: Bool {
         if numberShown == .none {
             return false
@@ -240,6 +241,7 @@ class WorkoutsManager: NSObject, ObservableObject {
         // Update published
         DispatchQueue.main.async {
             self.filteredWorkouts = numberFiltered
+            self.filteredWorkoutsCount = sorted.count
         }
         
         // Select first workout to highlight

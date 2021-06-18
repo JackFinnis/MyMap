@@ -23,7 +23,7 @@ struct WorkoutView: View {
         ZStack {
             MapView(centreCoordinate: $centreCoordinate)
                 .ignoresSafeArea()
-            FindWorkoutPointer()
+            FindWorkoutPointer(centreCoordinate: $centreCoordinate)
             FloatingMapButtons(centreCoordinate: $centreCoordinate)
             WorkoutDetailBar()
         }

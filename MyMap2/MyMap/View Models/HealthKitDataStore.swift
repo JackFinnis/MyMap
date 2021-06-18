@@ -64,7 +64,7 @@ class HealthKitDataStore {
                         distance: workout.totalDistance?.doubleValue(for: HKUnit.meter()),
                         duration: workout.duration,
                         elevation: 0,
-                        calories: workout.totalEnergyBurned?.doubleValue(for: HKUnit.smallCalorie())
+                        calories: workout.totalEnergyBurned?.doubleValue(for: HKUnit.kilocalorie())
                     )
                     
                     newWorkouts.append(newWorkout)
@@ -125,7 +125,11 @@ class HealthKitDataStore {
                 if done {
                     // Format locations
                     let formattedLocations = self.formatLocations(locations: routeLocations)
-                    completion(routeLocations, formattedLocations, false)
+                    if routeLocations.isEmpty {
+                        completion(nil, nil, true)
+                    } else {
+                        completion(routeLocations, formattedLocations, false)
+                    }
                 }
             }
             self.healthStore.execute(workoutRouteLocationsQuery)

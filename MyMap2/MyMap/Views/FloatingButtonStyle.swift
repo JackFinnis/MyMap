@@ -13,7 +13,6 @@ struct FloatingButtonStyle: ButtonStyle {
             .scaleEffect(configuration.isPressed ? 0.7 : 1)
             .animation(.easeIn(duration: 0.1))
             .frame(width: 40, height: 40)
-            .padding(3)
             .foregroundColor(.accentColor)
             .contentShape(Rectangle())
     }

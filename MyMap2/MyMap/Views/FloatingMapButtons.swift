@@ -26,6 +26,7 @@ struct FloatingMapButtons: View {
                     }, label: {
                         Image(systemName: mapManager.mapTypeImageName)
                     })
+                    .padding(3)
                     Divider()
                         .frame(width: 46)
                     Button(action: {
@@ -33,6 +34,7 @@ struct FloatingMapButtons: View {
                     }, label: {
                         Image(systemName: mapManager.userTrackingModeImageName)
                     })
+                    .padding(3)
                     Divider()
                         .frame(width: 46)
                     Button(action: {
@@ -40,6 +42,7 @@ struct FloatingMapButtons: View {
                     }, label: {
                         Image(systemName: "figure.walk")
                     })
+                    .padding(3)
                     Divider()
                         .frame(width: 46)
                     Button(action: {
@@ -47,6 +50,7 @@ struct FloatingMapButtons: View {
                     }, label: {
                         Image(systemName: mapManager.searchStateImageName)
                     })
+                    .padding(3)
                 }
                 .buttonStyle(FloatingButtonStyle())
                 .background(Blur())

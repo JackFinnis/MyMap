@@ -19,7 +19,7 @@ struct FilterWorkouts: View {
                 Section(header: Text("Workouts Shown")) {
                     Picker("Number of Workouts Shown", selection: $workoutsManager.numberShown.animation()) {
                         ForEach(WorkoutsShown.allCases, id: \.self) { number in
-                            Text(number.rawValue)
+                            Text(getNumberString(numberString: number.rawValue))
                         }
                     }
                     .pickerStyle(SegmentedPickerStyle())
@@ -54,6 +54,15 @@ struct FilterWorkouts: View {
         }
         .onDisappear {
             workoutsManager.updateWorkoutFilters()
+        }
+    }
+    
+    // Get number string for segmented picker
+    func getNumberString(numberString: String) -> String {
+        if numberString == "All" && workoutsManager.filteredWorkoutsCount != 0 {
+            return "\(numberString) (\(workoutsManager.filteredWorkoutsCount))"
+        } else {
+            return numberString
         }
     }
 }

@@ -12,30 +12,29 @@ struct NewWorkoutInfoBar: View {
     @EnvironmentObject var workoutsManager: WorkoutsManager
     @EnvironmentObject var mapManager: MapManager
     
-    @State var showWorkoutDetailSheet: Bool = false
-    
     var body: some View {
-        VStack(spacing: 0) {
+        VStack {
             Spacer()
-            HStack(spacing: 0) {
-                Spacer()
-                Text(newWorkoutManager.elapsedSecondsString)
-                    .font(.headline)
-                Spacer()
-                
-                HStack(spacing: 0) {
-                    ToggleStateButton()
-                    Divider()
-                        .frame(height: 60)
-                    EndButton()
+            ZStack {
+                HStack {
+                    Text(newWorkoutManager.elapsedSecondsString)
+                        .font(.headline)
+                        .padding(.leading, 50)
+                    Spacer()
+                    Text(newWorkoutManager.totalDistanceString)
+                        .font(.headline)
+                        .padding(.trailing, 50)
                 }
-                .background(Color(UIColor.systemBackground))
-                .cornerRadius(12)
-                
-                Spacer()
-                Text(newWorkoutManager.totalDistanceString)
-                    .font(.headline)
-                Spacer()
+                HStack {
+                    HStack(spacing: 0) {
+                        ToggleStateButton()
+                        Divider()
+                            .frame(height: 50)
+                        EndButton()
+                    }
+                    .background(Color(UIColor.white))
+                    .cornerRadius(12)
+                }
             }
             .frame(height: 70)
             .background(Blur())
@@ -43,14 +42,6 @@ struct NewWorkoutInfoBar: View {
             .compositingGroup()
             .shadow(radius: 2, y: 2)
             .padding(10)
-            .onTapGesture {
-                showWorkoutDetailSheet = true
-            }
-        }
-        .sheet(isPresented: $showWorkoutDetailSheet) {
-            WorkoutDetail()
-                .environmentObject(newWorkoutManager)
-                .environmentObject(workoutsManager)
         }
     }
 }
