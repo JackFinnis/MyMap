@@ -17,6 +17,8 @@ struct WorkoutFilter {
             return ""
         } else if minimum >= maximum {
             return "> \(Int(minimum)) \(type.rawValue)"
+        } else if minimum == 0 {
+            return "< \(Int(maximum)) \(type.rawValue)"
         } else {
             return "\(Int(minimum))-\(Int(maximum)) \(type.rawValue)"
         }

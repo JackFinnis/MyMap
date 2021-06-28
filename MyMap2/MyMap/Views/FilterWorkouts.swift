@@ -30,6 +30,7 @@ struct FilterWorkouts: View {
                                 Spinner()
                                 Text("Loading Workouts...")
                                     .font(.subheadline)
+                                    .foregroundColor(.secondary)
                             }
                         }
                         Picker("Sort By", selection: $workoutsManager.sortBy) {
