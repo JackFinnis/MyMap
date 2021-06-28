@@ -41,12 +41,6 @@ struct WorkoutDetail: View {
                             .foregroundColor(.secondary)
                     }
                     HStack {
-                        Text("Elevation")
-                        Spacer()
-                        Text(workout.elevationString)
-                            .foregroundColor(.secondary)
-                    }
-                    HStack {
                         Text("Calories")
                         Spacer()
                         Text(workout.caloriesString)

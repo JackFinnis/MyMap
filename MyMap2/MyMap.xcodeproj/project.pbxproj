@@ -10,12 +10,10 @@
 		9D17EA2726735D31006C2C47 /* WorkoutFilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D17EA2626735D31006C2C47 /* WorkoutFilterType.swift */; };
 		9D17EA2A26735D77006C2C47 /* WorkoutFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D17EA2926735D77006C2C47 /* WorkoutFilter.swift */; };
 		9D17EA312673614A006C2C47 /* DistanceFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D17EA302673614A006C2C47 /* DistanceFilterView.swift */; };
-		9D17EA3426736620006C2C47 /* AdvancedFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D17EA3326736620006C2C47 /* AdvancedFilters.swift */; };
 		9D17EA39267366FC006C2C47 /* TypeFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D17EA38267366FC006C2C47 /* TypeFilterView.swift */; };
 		9D17EA3E2673670B006C2C47 /* DateFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D17EA3D2673670B006C2C47 /* DateFilterView.swift */; };
 		9D17EA412673671B006C2C47 /* DurationFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D17EA402673671B006C2C47 /* DurationFilterView.swift */; };
 		9D17EA4426736728006C2C47 /* CaloriesFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D17EA4326736728006C2C47 /* CaloriesFilterView.swift */; };
-		9D17EA4726736737006C2C47 /* ElevationFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D17EA4626736737006C2C47 /* ElevationFilterView.swift */; };
 		F409673C25D7ED7700E5FBC6 /* NewWorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409673B25D7ED7700E5FBC6 /* NewWorkoutManager.swift */; };
 		F409675125D94C1000E5FBC6 /* WorkoutState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409675025D94C1000E5FBC6 /* WorkoutState.swift */; };
 		F409675425D94D0500E5FBC6 /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409675325D94D0500E5FBC6 /* StartButton.swift */; };
@@ -29,7 +27,6 @@
 		F44930672675E67700CB8D19 /* FloatingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44930662675E67700CB8D19 /* FloatingButtonStyle.swift */; };
 		F449306B26760C6D00CB8D19 /* FindWorkoutPointer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F449306A26760C6D00CB8D19 /* FindWorkoutPointer.swift */; };
 		F449306E2676112500CB8D19 /* WorkoutInfoBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F449306D2676112500CB8D19 /* WorkoutInfoBar.swift */; };
-		F4493073267617FF00CB8D19 /* WorkoutDetailBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4493072267617FF00CB8D19 /* WorkoutDetailBar.swift */; };
 		F44D4C3F266D72EE00A028C1 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44D4C3E266D72EE00A028C1 /* MapManager.swift */; };
 		F44D4C4B2671379400A028C1 /* HealthKitDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44D4C4A2671379400A028C1 /* HealthKitDataStore.swift */; };
 		F454DD9225CAF76D00749542 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F454DD9125CAF76D00749542 /* HealthKit.framework */; };
@@ -50,12 +47,10 @@
 		9D17EA2626735D31006C2C47 /* WorkoutFilterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutFilterType.swift; sourceTree = "<group>"; };
 		9D17EA2926735D77006C2C47 /* WorkoutFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutFilter.swift; sourceTree = "<group>"; };
 		9D17EA302673614A006C2C47 /* DistanceFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceFilterView.swift; sourceTree = "<group>"; };
-		9D17EA3326736620006C2C47 /* AdvancedFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedFilters.swift; sourceTree = "<group>"; };
 		9D17EA38267366FC006C2C47 /* TypeFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeFilterView.swift; sourceTree = "<group>"; };
 		9D17EA3D2673670B006C2C47 /* DateFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilterView.swift; sourceTree = "<group>"; };
 		9D17EA402673671B006C2C47 /* DurationFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationFilterView.swift; sourceTree = "<group>"; };
 		9D17EA4326736728006C2C47 /* CaloriesFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesFilterView.swift; sourceTree = "<group>"; };
-		9D17EA4626736737006C2C47 /* ElevationFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationFilterView.swift; sourceTree = "<group>"; };
 		F409673B25D7ED7700E5FBC6 /* NewWorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkoutManager.swift; sourceTree = "<group>"; };
 		F409675025D94C1000E5FBC6 /* WorkoutState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutState.swift; sourceTree = "<group>"; };
 		F409675325D94D0500E5FBC6 /* StartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartButton.swift; sourceTree = "<group>"; };
@@ -69,7 +64,6 @@
 		F44930662675E67700CB8D19 /* FloatingButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButtonStyle.swift; sourceTree = "<group>"; };
 		F449306A26760C6D00CB8D19 /* FindWorkoutPointer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindWorkoutPointer.swift; sourceTree = "<group>"; };
 		F449306D2676112500CB8D19 /* WorkoutInfoBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutInfoBar.swift; sourceTree = "<group>"; };
-		F4493072267617FF00CB8D19 /* WorkoutDetailBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailBar.swift; sourceTree = "<group>"; };
 		F44D4C3E266D72EE00A028C1 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		F44D4C4A2671379400A028C1 /* HealthKitDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitDataStore.swift; sourceTree = "<group>"; };
 		F454DD8F25CAF76700749542 /* MyMap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyMap.entitlements; sourceTree = "<group>"; };
@@ -109,7 +103,6 @@
 				9D17EA302673614A006C2C47 /* DistanceFilterView.swift */,
 				9D17EA402673671B006C2C47 /* DurationFilterView.swift */,
 				9D17EA4326736728006C2C47 /* CaloriesFilterView.swift */,
-				9D17EA4626736737006C2C47 /* ElevationFilterView.swift */,
 			);
 			path = "Filter Views";
 			sourceTree = "<group>";
@@ -141,6 +134,16 @@
 				F4EAE78B25C1C594005AAEEE /* Info.plist */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F469C52D2689DA8900EF6D46 /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				F44930662675E67700CB8D19 /* FloatingButtonStyle.swift */,
+				F4D80C9F2635EE3B00E23847 /* Spinner.swift */,
+				F409676225D9CB4B00E5FBC6 /* Blur.swift */,
+			);
+			path = Styles;
 			sourceTree = "<group>";
 		};
 		F4EAE77625C1C550005AAEEE = {
@@ -179,19 +182,15 @@
 				F409675F25D9554000E5FBC6 /* MapView.swift */,
 				F449306A26760C6D00CB8D19 /* FindWorkoutPointer.swift */,
 				F4D80C7626354CBB00E23847 /* FloatingMapButtons.swift */,
-				F44930662675E67700CB8D19 /* FloatingButtonStyle.swift */,
 				F4D80C82263558AB00E23847 /* FilterWorkouts.swift */,
-				9D17EA3326736620006C2C47 /* AdvancedFilters.swift */,
-				9D17EA37267366E3006C2C47 /* Filter Views */,
-				F4493072267617FF00CB8D19 /* WorkoutDetailBar.swift */,
 				F449306D2676112500CB8D19 /* WorkoutInfoBar.swift */,
 				F4D80C9B2635A4EE00E23847 /* WorkoutDetail.swift */,
 				F425805F25F1270300624875 /* NewWorkoutInfoBar.swift */,
 				F409675325D94D0500E5FBC6 /* StartButton.swift */,
 				F409675925D950BA00E5FBC6 /* ToggleStateButton.swift */,
 				F409675C25D9519E00E5FBC6 /* EndButton.swift */,
-				F4D80C9F2635EE3B00E23847 /* Spinner.swift */,
-				F409676225D9CB4B00E5FBC6 /* Blur.swift */,
+				9D17EA37267366E3006C2C47 /* Filter Views */,
+				F469C52D2689DA8900EF6D46 /* Styles */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -279,12 +278,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D17EA4726736737006C2C47 /* ElevationFilterView.swift in Sources */,
 				9D17EA312673614A006C2C47 /* DistanceFilterView.swift in Sources */,
 				F409675A25D950BA00E5FBC6 /* ToggleStateButton.swift in Sources */,
 				9D17EA412673671B006C2C47 /* DurationFilterView.swift in Sources */,
 				F4D80C7726354CBB00E23847 /* FloatingMapButtons.swift in Sources */,
-				F4493073267617FF00CB8D19 /* WorkoutDetailBar.swift in Sources */,
 				9D17EA2A26735D77006C2C47 /* WorkoutFilter.swift in Sources */,
 				9D17EA4426736728006C2C47 /* CaloriesFilterView.swift in Sources */,
 				F425806025F1270300624875 /* NewWorkoutInfoBar.swift in Sources */,
@@ -311,7 +308,6 @@
 				F409675125D94C1000E5FBC6 /* WorkoutState.swift in Sources */,
 				F46526CB266CE00700CF5D41 /* WorkoutSearchState.swift in Sources */,
 				9D17EA39267366FC006C2C47 /* TypeFilterView.swift in Sources */,
-				9D17EA3426736620006C2C47 /* AdvancedFilters.swift in Sources */,
 				F413658D26504FBD000CFD54 /* Workout.swift in Sources */,
 				F4D80CA02635EE3B00E23847 /* Spinner.swift in Sources */,
 			);

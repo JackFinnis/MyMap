@@ -65,6 +65,7 @@ struct FloatingMapButtons: View {
         .sheet(isPresented: $showFilterWorkoutsSheet) {
             FilterWorkouts(showFilterWorkoutsSheet: $showFilterWorkoutsSheet)
                 .environmentObject(workoutsManager)
+                .preferredColorScheme(mapManager.mapType == .standard ? .none : .dark)
         }
     }
     
@@ -75,8 +76,10 @@ struct FloatingMapButtons: View {
         case .none:
             mapManager.searchState = .finding
         case .finding:
-            mapManager.searchState = .none
+            mapManager.searchState = .found
             workoutsManager.setClosestRoute(center: centreCoordinate)
+        case .found:
+            mapManager.searchState = .none
         }
     }
 }

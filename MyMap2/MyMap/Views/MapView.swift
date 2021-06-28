@@ -31,12 +31,20 @@ struct MapView: UIViewRepresentable {
         mapView.showsScale = true
         mapView.showsCompass = true
         
-        
         return mapView
     }
     
     func updateUIView(_ mapView: MKMapView, context: Context) {
-        print("update")
+        // Pan to polyline
+        if mapManager.selectedWorkout != workoutsManager.selectedWorkout {
+            mapManager.selectedWorkout = workoutsManager.selectedWorkout
+            let region = mapManager.getSelectedWorkoutRegion()
+            if region != nil {
+                mapView.setRegion(region!, animated: true)
+                mapManager.userTrackingMode = .none
+            }
+        }
+        
         // Set user tracking mode
         if mapView.userTrackingMode != mapManager.userTrackingMode {
             mapView.setUserTrackingMode(mapManager.userTrackingMode, animated: true)
@@ -51,8 +59,12 @@ struct MapView: UIViewRepresentable {
         // Add new workout polyline
         mapView.addOverlays(newWorkoutManager.getCurrentWorkoutMultiPolyline())
         // Add filtered workouts polylines
-        if workoutsManager.showWorkouts && workoutsManager.finishedLoading {
-            mapView.addOverlays(workoutsManager.getFilteredWorkoutsMultiPolyline())
+        if workoutsManager.numberShown != .none && workoutsManager.finishedLoading {
+            if mapManager.searchState == .found && workoutsManager.selectedWorkout != nil {
+                mapView.addOverlays(workoutsManager.selectedWorkout!.routePolylines)
+            } else {
+                mapView.addOverlays(workoutsManager.getFilteredWorkoutsMultiPolyline())
+            }
         }
     }
 }

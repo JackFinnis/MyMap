@@ -18,7 +18,6 @@ struct Workout: Equatable {
     let date: Date?
     let distance: Double?
     let duration: Double
-    let elevation: Double?
     let calories: Double?
     
     var workoutTypeString: String {
@@ -36,7 +35,6 @@ struct Workout: Equatable {
     var durationString: String {
         String(format: "%02d:%02d", Int(duration) / 60, Int(duration) % 60)
     }
-    
     var dateString: String {
         if date == nil {
             return ""
@@ -51,13 +49,6 @@ struct Workout: Equatable {
             return ""
         } else {
             return "\(Int(distance!) / 1000).\(Int(distance!) % 1000) km"
-        }
-    }
-    var elevationString: String {
-        if elevation == nil {
-            return ""
-        } else {
-            return "\(Int(elevation!)) m"
         }
     }
     var caloriesString: String {

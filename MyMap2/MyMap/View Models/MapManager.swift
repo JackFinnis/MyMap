@@ -10,11 +10,12 @@ import MapKit
 
 class MapManager: NSObject, ObservableObject {
     // MARK: - Properties
-    @Published var userTrackingMode: MKUserTrackingMode = .follow
+    @Published var userTrackingMode: MKUserTrackingMode = .none
     @Published var mapType: MKMapType = .standard
     @Published var searchState: WorkoutSearchState = .none
     
     var parent: MapView?
+    var selectedWorkout: Workout?
     
     // Display image names
     public var userTrackingModeImageName: String {
@@ -34,6 +35,8 @@ class MapManager: NSObject, ObservableObject {
             return "magnifyingglass"
         case .finding:
             return "mappin.and.ellipse"
+        case .found:
+            return "xmark"
         }
     }
     
@@ -68,6 +71,42 @@ class MapManager: NSObject, ObservableObject {
             mapType = .standard
         }
     }
+    
+    // Get map region
+    public func getSelectedWorkoutRegion() -> MKCoordinateRegion? {
+        if selectedWorkout == nil {
+            return nil
+        } else if selectedWorkout!.routeLocations.isEmpty {
+            return nil
+        }
+        
+        var minLat: Double = 90
+        var maxLat: Double = -90
+        var minLong: Double = 180
+        var maxLong: Double = -180
+        
+        for location in selectedWorkout!.routeLocations {
+            if location.coordinate.latitude < minLat {
+                minLat = location.coordinate.latitude
+            }
+            if location.coordinate.latitude > maxLat {
+                maxLat = location.coordinate.latitude
+            }
+            if location.coordinate.longitude < minLong {
+                minLong = location.coordinate.longitude
+            }
+            if location.coordinate.longitude > maxLong {
+                maxLong = location.coordinate.longitude
+            }
+        }
+        
+        let latDelta: Double = maxLat - minLat
+        let longDelta: Double = maxLong - minLong
+        let span = MKCoordinateSpan(latitudeDelta: latDelta * 1.4, longitudeDelta: longDelta * 1.4)
+        let centre = CLLocationCoordinate2D(latitude: (minLat + maxLat)/2, longitude: (minLong + maxLong)/2)
+        let region = MKCoordinateRegion(center: centre, span: span)
+        return region
+    }
 }
 
 // MARK: - MKMapView Delegate
@@ -81,7 +120,7 @@ extension MapManager: MKMapViewDelegate {
         // Set different colour if selected
         var colour: UIColor {
             if polyline.selected {
-                return .systemYellow
+                return .systemOrange
             } else {
                 return polyline.colour!
             }

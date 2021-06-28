@@ -18,7 +18,7 @@ struct FindWorkoutPointer: View {
         if mapManager.searchState == .finding {
             Button(action: {
                 mapManager.userTrackingMode = .none
-                mapManager.searchState = .none
+                mapManager.searchState = .found
                 workoutsManager.setClosestRoute(center: centreCoordinate)
             }, label: {
                 Image(systemName: "circle")

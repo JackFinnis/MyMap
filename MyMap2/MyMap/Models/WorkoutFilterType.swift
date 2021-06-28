@@ -11,5 +11,4 @@ enum WorkoutFilterType: String {
     case distance = "km"
     case duration = "mins"
     case calories = "cal"
-    case elevation = "m"
 }

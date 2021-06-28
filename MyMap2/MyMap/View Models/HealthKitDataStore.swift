@@ -51,7 +51,7 @@ class HealthKitDataStore {
                     case .cycling:
                         newWorkoutPolyline.colour = .systemBlue
                     default:
-                        newWorkoutPolyline.colour = .systemOrange
+                        newWorkoutPolyline.colour = .systemYellow
                     }
                     
                     // Instantiate new workout
@@ -63,7 +63,6 @@ class HealthKitDataStore {
                         date: workout.startDate,
                         distance: workout.totalDistance?.doubleValue(for: HKUnit.meter()),
                         duration: workout.duration,
-                        elevation: 0,
                         calories: workout.totalEnergyBurned?.doubleValue(for: HKUnit.kilocalorie())
                     )
                     
@@ -105,7 +104,7 @@ class HealthKitDataStore {
                 completion(nil, nil, true)
                 return
             }
-            if workoutRoutes.count == 0 {
+            if workoutRoutes.isEmpty {
                 // No workout route
                 completion(nil, nil, true)
                 return
@@ -123,11 +122,11 @@ class HealthKitDataStore {
                 
                 // If this is the final batch
                 if done {
-                    // Format locations
-                    let formattedLocations = self.formatLocations(locations: routeLocations)
-                    if routeLocations.isEmpty {
+                    if routeLocations.count <= 1 {
                         completion(nil, nil, true)
                     } else {
+                        // Format locations
+                        let formattedLocations = self.formatLocations(locations: routeLocations)
                         completion(routeLocations, formattedLocations, false)
                     }
                 }

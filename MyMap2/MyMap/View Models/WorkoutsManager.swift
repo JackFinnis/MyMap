@@ -16,82 +16,24 @@ class WorkoutsManager: NSObject, ObservableObject {
     @Published var filteredWorkoutsCount: Int = 0
     @Published var selectedWorkout: Workout?
     @Published var finishedLoading: Bool = false
-    var selectedWorkoutDurationString: String {
-        if selectedWorkout == nil {
-            return ""
-        } else {
-            return selectedWorkout!.durationString
-        }
-    }
-    var selectedWorkoutDistanceString: String {
-        if selectedWorkout == nil {
-            return ""
-        } else {
-            return selectedWorkout!.distanceString
-        }
-    }
     
     // MARK: - Workout Filters
+    @Published var sortBy: WorkoutsSortBy = .recent  { didSet { updateWorkoutFilters() } }
+    @Published var numberShown: WorkoutsShown = .all  { didSet { updateWorkoutFilters() } }
+    
     @Published var distanceFilter = WorkoutFilter(type: .distance) { didSet { updateWorkoutFilters() } }
     @Published var durationFilter = WorkoutFilter(type: .duration) { didSet { updateWorkoutFilters() } }
     @Published var caloriesFilter = WorkoutFilter(type: .calories) { didSet { updateWorkoutFilters() } }
-    @Published var elevationFilter = WorkoutFilter(type: .elevation) { didSet { updateWorkoutFilters() } }
     
     @Published var filterByType: Bool = false { didSet { updateWorkoutFilters() } }
     @Published var displayWalks: Bool = true { didSet { updateWorkoutFilters() } }
     @Published var displayRuns: Bool = true { didSet { updateWorkoutFilters() } }
     @Published var displayCycles: Bool = true { didSet { updateWorkoutFilters() } }
     @Published var displayOther: Bool = true { didSet { updateWorkoutFilters() } }
-    var typeFilterSummary: String {
-        if !filterByType {
-            return ""
-        }
-        var typesShowing: [String] = []
-        if displayRuns {
-            typesShowing.append("Runs")
-        }
-        if displayWalks {
-            typesShowing.append("Walks")
-        }
-        if displayCycles {
-            typesShowing.append("Cycles")
-        }
-        if displayOther {
-            typesShowing.append("Other")
-        }
-        return typesShowing.joined(separator: ", ")
-    }
     
     @Published var filterByDate: Bool = false { didSet { updateWorkoutFilters() } }
     @Published var startDate: Date = Date() { didSet { updateWorkoutFilters() } }
     @Published var endDate: Date = Date() { didSet { updateWorkoutFilters() } }
-    var dateFilterSummary: String {
-        if !filterByDate {
-            return ""
-        } else if startDate >= endDate {
-            return "\(formatDate(date: startDate)) onwards"
-        } else {
-            return "\(formatDate(date: startDate)) to \(formatDate(date: endDate))"
-        }
-    }
-    
-    // Format date to dd/mm/yy
-    private func formatDate(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/mm/yy"
-        return dateFormatter.string(from: date)
-    }
-    
-    // MARK: - Workout Sort Desciptors
-    @Published var sortBy: WorkoutsSortBy = .oldest  { didSet { updateWorkoutFilters() } }
-    @Published var numberShown: WorkoutsShown = .none  { didSet { updateWorkoutFilters() } }
-    public var showWorkouts: Bool {
-        if numberShown == .none {
-            return false
-        } else {
-            return true
-        }
-    }
     
     // MARK: - Initialiser
     override init() {
@@ -156,24 +98,24 @@ class WorkoutsManager: NSObject, ObservableObject {
     public func selectFirstWorkout() {
         // Reset selected colour
         resetSelectedColour()
-        if filteredWorkouts.isEmpty {
-            selectedWorkout = nil
-        } else {
-            selectedWorkout = filteredWorkouts.first
-        }
+        selectedWorkout = filteredWorkouts.first
         setSelectedColour()
     }
     
     // Reset selected workout polyline colour
     private func resetSelectedColour() {
         selectedWorkout?.routePolylines.first?.selected = false
-        self.objectWillChange.send()
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+        }
     }
     
     // Set selected workout polyline colour
     private func setSelectedColour() {
         selectedWorkout?.routePolylines.first?.selected = true
-        self.objectWillChange.send()
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+        }
     }
     
     // Highlight next workout
@@ -225,14 +167,6 @@ class WorkoutsManager: NSObject, ObservableObject {
     // MARK: - Filter workouts
     // Update workout filters
     public func updateWorkoutFilters() {
-        // Only calculate if workouts need to be shown
-        if !showWorkouts {
-            DispatchQueue.main.async {
-                self.filteredWorkouts = []
-            }
-            return
-        }
-        
         // Filter and sort workouts
         let filtered = filterWorkouts(workouts: workouts)
         let sorted = sortWorkouts(workouts: filtered)
@@ -242,10 +176,8 @@ class WorkoutsManager: NSObject, ObservableObject {
         DispatchQueue.main.async {
             self.filteredWorkouts = numberFiltered
             self.filteredWorkoutsCount = sorted.count
+            self.selectFirstWorkout()
         }
-        
-        // Select first workout to highlight
-        selectFirstWorkout()
     }
     
     // Filter workouts
@@ -281,7 +213,7 @@ class WorkoutsManager: NSObject, ObservableObject {
                 if workout.distance! <= distanceFilter.minimum {
                     return false
                 }
-                if workout.distance! >= distanceFilter.maximum {
+                if distanceFilter.minimum < distanceFilter.maximum && workout.distance! >= distanceFilter.maximum * 1000 {
                     return false
                 }
             }
@@ -290,7 +222,7 @@ class WorkoutsManager: NSObject, ObservableObject {
                 if workout.duration <= durationFilter.minimum {
                     return false
                 }
-                if workout.duration >= durationFilter.maximum {
+                if durationFilter.minimum < durationFilter.maximum && workout.duration >= durationFilter.maximum * 60 {
                     return false
                 }
             }
@@ -302,7 +234,7 @@ class WorkoutsManager: NSObject, ObservableObject {
                 if workout.date! <= startDate {
                     return false
                 }
-                if workout.date! >= endDate {
+                if startDate < endDate && workout.date! >= endDate {
                     return false
                 }
             }
@@ -314,21 +246,38 @@ class WorkoutsManager: NSObject, ObservableObject {
                 if workout.calories! <= caloriesFilter.minimum {
                     return false
                 }
-                if workout.calories! >= caloriesFilter.maximum {
+                if caloriesFilter.minimum < caloriesFilter.maximum && workout.calories! >= caloriesFilter.maximum {
                     return false
                 }
             }
-            // Filter by elevation
-            if elevationFilter.filter {
-                if workout.elevation == nil {
+            // Filter sort by
+            switch sortBy {
+            case .recent:
+                if workout.date == nil || workout.date == nil {
                     return false
                 }
-                if workout.elevation! <= elevationFilter.minimum {
+            case .oldest:
+                if workout.date == nil || workout.date == nil {
                     return false
                 }
-                if workout.elevation! >= elevationFilter.maximum {
+            case .shortestDistance:
+                if workout.distance == nil || workout.distance == nil {
                     return false
                 }
+            case .longestDistance:
+                if workout.distance == nil || workout.distance == nil {
+                    return false
+                }
+            case .fewestCalories:
+                if workout.calories == nil || workout.calories == nil {
+                    return false
+                }
+            case .mostCalories:
+                if workout.calories == nil || workout.calories == nil {
+                    return false
+                }
+            default:
+                return true
             }
             // Passed the filter criteria!
             return true
@@ -342,22 +291,22 @@ class WorkoutsManager: NSObject, ObservableObject {
             switch sortBy {
             case .recent:
                 if workout1.date == nil || workout2.date == nil {
-                    return true
+                    return false
                 }
                 return workout1.date! > workout2.date!
             case .oldest:
                 if workout1.date == nil || workout2.date == nil {
-                    return true
+                    return false
                 }
                 return workout1.date! < workout2.date!
             case .shortestDistance:
                 if workout1.distance == nil || workout2.distance == nil {
-                    return true
+                    return false
                 }
                 return workout1.distance! < workout2.distance!
             case .longestDistance:
                 if workout1.distance == nil || workout2.distance == nil {
-                    return true
+                    return false
                 }
                 return workout1.distance! > workout2.distance!
             case .shortestDuration:
@@ -366,24 +315,14 @@ class WorkoutsManager: NSObject, ObservableObject {
                 return workout1.duration > workout2.duration
             case .fewestCalories:
                 if workout1.calories == nil || workout2.calories == nil {
-                    return true
+                    return false
                 }
                 return workout1.calories! < workout2.calories!
             case .mostCalories:
                 if workout1.calories == nil || workout2.calories == nil {
-                    return true
+                    return false
                 }
                 return workout1.calories! > workout2.calories!
-            case .leastElevation:
-                if workout1.elevation == nil || workout2.elevation == nil {
-                    return true
-                }
-                return workout1.elevation! < workout2.elevation!
-            case .greatestElevation:
-                if workout1.elevation == nil || workout2.elevation == nil {
-                    return true
-                }
-                return workout1.elevation! < workout2.elevation!
             }
         }
     }
@@ -391,6 +330,8 @@ class WorkoutsManager: NSObject, ObservableObject {
     // Filter the number of workouts
     private func filterNumber(workouts: [Workout]) -> [Workout] {
         switch numberShown {
+        case .none:
+            return []
         case .five:
             if workouts.count < 5 {
                 return workouts
@@ -403,8 +344,60 @@ class WorkoutsManager: NSObject, ObservableObject {
             } else {
                 return Array(workouts[..<10])
             }
-        default:
+        case .all:
             return workouts
         }
+    }
+    
+    // MARK: - String Formatting
+    // Selected workout strings
+    var selectedWorkoutDurationString: String {
+        if selectedWorkout == nil {
+            return ""
+        } else {
+            return selectedWorkout!.durationString
+        }
+    }
+    var selectedWorkoutDistanceString: String {
+        if selectedWorkout == nil {
+            return ""
+        } else {
+            return selectedWorkout!.distanceString
+        }
+    }
+    
+    // Filter summaries
+    var typeFilterSummary: String {
+        if !filterByType {
+            return ""
+        }
+        var typesShowing: [String] = []
+        if displayRuns {
+            typesShowing.append("Runs")
+        }
+        if displayWalks {
+            typesShowing.append("Walks")
+        }
+        if displayCycles {
+            typesShowing.append("Cycles")
+        }
+        if displayOther {
+            typesShowing.append("Other")
+        }
+        return typesShowing.joined(separator: ", ")
+    }
+    var dateFilterSummary: String {
+        if !filterByDate {
+            return ""
+        } else if startDate >= endDate {
+            return "\(formatDate(date: startDate)) onwards"
+        } else {
+            return "\(formatDate(date: startDate)) to \(formatDate(date: endDate))"
+        }
+    }
+    private func formatDate(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yy"
+        return dateFormatter.string(from: date)
     }
 }

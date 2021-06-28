@@ -18,26 +18,28 @@ struct WorkoutInfoBar: View {
         VStack {
             Spacer()
             ZStack {
-                HStack {
+                HStack(spacing: 0) {
                     Button(action: {
                         workoutsManager.previousWorkout()
                     }, label: {
                         Image(systemName: "arrow.left")
                     })
-                    .padding(.leading, 10)
+                    .padding(.leading, 5)
                     
                     Text(workoutsManager.selectedWorkoutDurationString)
                         .font(.headline)
+                        .padding(.leading, 5)
                     Spacer()
                     Text(workoutsManager.selectedWorkoutDistanceString)
                         .font(.headline)
+                        .padding(.trailing, 5)
                     
                     Button(action: {
                         workoutsManager.nextWorkout()
                     }, label: {
                         Image(systemName: "arrow.right")
                     })
-                    .padding(.trailing, 10)
+                    .padding(.trailing, 5)
                 }
                 .buttonStyle(FloatingButtonStyle())
                 
@@ -61,6 +63,7 @@ struct WorkoutInfoBar: View {
         }
         .sheet(isPresented: $showWorkoutDetailSheet) {
             WorkoutDetail(workout: workoutsManager.selectedWorkout!, showWorkoutDetailSheet: $showWorkoutDetailSheet)
+                .preferredColorScheme(mapManager.mapType == .standard ? .none : .dark)
         }
     }
 }

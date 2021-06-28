@@ -39,7 +39,49 @@ struct FilterWorkouts: View {
                         }
                     }
                 }
-                AdvancedFilters()
+                // Advanced filters
+                Section(header: Text("Advanced Filters")) {
+                    NavigationLink(destination: TypeFilterView(), label: {
+                        HStack {
+                            Text("Type")
+                            Spacer()
+                            Text(workoutsManager.typeFilterSummary)
+                                .foregroundColor(.secondary)
+                        }
+                    })
+                    NavigationLink(destination: DateFilterView(), label: {
+                        HStack {
+                            Text("Date")
+                            Spacer()
+                            Text(workoutsManager.dateFilterSummary)
+                                .foregroundColor(.secondary)
+                        }
+                    })
+                    NavigationLink(destination: DistanceFilterView(), label: {
+                        HStack {
+                            Text("Distance")
+                            Spacer()
+                            Text(workoutsManager.distanceFilter.summary)
+                                .foregroundColor(.secondary)
+                        }
+                    })
+                    NavigationLink(destination: DurationFilterView(), label: {
+                        HStack {
+                            Text("Duration")
+                            Spacer()
+                            Text(workoutsManager.durationFilter.summary)
+                                .foregroundColor(.secondary)
+                        }
+                    })
+                    NavigationLink(destination: CaloriesFilterView(), label: {
+                        HStack {
+                            Text("Calories")
+                            Spacer()
+                            Text(workoutsManager.caloriesFilter.summary)
+                                .foregroundColor(.secondary)
+                        }
+                    })
+                }
             }
             .navigationTitle("Workouts")
             .toolbar {
@@ -52,14 +94,11 @@ struct FilterWorkouts: View {
                 }
             }
         }
-        .onDisappear {
-            workoutsManager.updateWorkoutFilters()
-        }
     }
     
     // Get number string for segmented picker
     func getNumberString(numberString: String) -> String {
-        if numberString == "All" && workoutsManager.filteredWorkoutsCount != 0 {
+        if numberString == "All" && workoutsManager.finishedLoading {
             return "\(numberString) (\(workoutsManager.filteredWorkoutsCount))"
         } else {
             return numberString

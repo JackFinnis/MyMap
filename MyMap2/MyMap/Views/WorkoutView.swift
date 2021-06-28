@@ -25,10 +25,22 @@ struct WorkoutView: View {
                 .ignoresSafeArea()
             FindWorkoutPointer(centreCoordinate: $centreCoordinate)
             FloatingMapButtons(centreCoordinate: $centreCoordinate)
-            WorkoutDetailBar()
+            
+            // Workout detail bar
+            if newWorkoutManager.workoutState != .notStarted {
+                NewWorkoutInfoBar()
+            } else {
+                WorkoutInfoBar()
+            }
         }
         .environmentObject(newWorkoutManager)
         .environmentObject(workoutsManager)
         .environmentObject(mapManager)
+        .preferredColorScheme(mapManager.mapType == .standard ? .none : .dark)
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.mapManager.userTrackingMode = .follow
+            }
+        }
     }
 }

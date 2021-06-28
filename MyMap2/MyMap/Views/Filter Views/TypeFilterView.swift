@@ -22,7 +22,7 @@ struct TypeFilterView: View {
                     Toggle("Display Cycles", isOn: $workoutsManager.displayCycles)
                         .toggleStyle(SwitchToggleStyle(tint: Color(UIColor.systemBlue)))
                     Toggle("Display Other Workouts", isOn: $workoutsManager.displayOther)
-                        .toggleStyle(SwitchToggleStyle(tint: Color(UIColor.systemOrange)))
+                        .toggleStyle(SwitchToggleStyle(tint: Color(UIColor.systemYellow)))
                 }
             }
         }

@@ -16,6 +16,4 @@ enum WorkoutsSortBy: String, CaseIterable {
     case longestDuration = "Longest Duration"
     case fewestCalories = "Fewest Calories"
     case mostCalories = "Most Calories"
-    case leastElevation = "Least Elevation"
-    case greatestElevation = "Greatest Elevation"
 }
