@@ -22,24 +22,20 @@ struct WorkoutInfoBar: View {
                     Button(action: {
                         workoutsManager.previousWorkout()
                     }, label: {
-                        Image(systemName: "arrow.left")
+                        Image(systemName: "chevron.backward")
                     })
-                    .padding(.leading, 5)
                     
                     Text(workoutsManager.selectedWorkoutDurationString)
                         .font(.headline)
-                        .padding(.leading, 5)
                     Spacer()
                     Text(workoutsManager.selectedWorkoutDistanceString)
                         .font(.headline)
-                        .padding(.trailing, 5)
                     
                     Button(action: {
                         workoutsManager.nextWorkout()
                     }, label: {
-                        Image(systemName: "arrow.right")
+                        Image(systemName: "chevron.forward")
                     })
-                    .padding(.trailing, 5)
                 }
                 .buttonStyle(FloatingButtonStyle())
                 

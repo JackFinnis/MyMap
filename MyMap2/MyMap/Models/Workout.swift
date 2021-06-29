@@ -33,7 +33,10 @@ struct Workout: Equatable {
         }
     }
     var durationString: String {
-        String(format: "%02d:%02d", Int(duration) / 60, Int(duration) % 60)
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute, .second]
+        formatter.unitsStyle = .abbreviated
+        return formatter.string(from: TimeInterval(duration))!
     }
     var dateString: String {
         if date == nil {
@@ -48,7 +51,7 @@ struct Workout: Equatable {
         if distance == nil {
             return ""
         } else {
-            return "\(Int(distance!) / 1000).\(Int(distance!) % 1000) km"
+            return String(format: "%.2f km", distance! / 1000)
         }
     }
     var caloriesString: String {

@@ -27,7 +27,15 @@ struct NewWorkoutInfoBar: View {
                 }
                 HStack {
                     HStack(spacing: 0) {
-                        ToggleStateButton()
+                        Button(action: {
+                            newWorkoutManager.toggleWorkoutState()
+                        }, label: {
+                            Image(systemName: newWorkoutManager.toggleStateImageName)
+                                .foregroundColor(.black)
+                                .font(.title)
+                        })
+                        .frame(width: 44, height: 44)
+                        .padding(3)
                         Divider()
                             .frame(height: 50)
                         EndButton()

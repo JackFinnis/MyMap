@@ -42,7 +42,7 @@ class NewWorkoutManager: NSObject, ObservableObject {
         String(format: "%02d:%02d", elapsedSeconds / 60, elapsedSeconds % 60)
     }
     var totalDistanceString: String {
-        String("\(Int(distance) / 1000).\(Int(distance) % 1000) km")
+        String(format: "%.2f km", distance / 1000)
     }
     var toggleStateImageName: String {
         if workoutState == .running {

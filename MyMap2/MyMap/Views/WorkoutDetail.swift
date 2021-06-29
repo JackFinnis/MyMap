@@ -15,17 +15,11 @@ struct WorkoutDetail: View {
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Workout")) {
+                Section(header: Text("Details")) {
                     HStack {
                         Text("Type")
                         Spacer()
                         Text(workout.workoutTypeString)
-                            .foregroundColor(.secondary)
-                    }
-                    HStack {
-                        Text("Duration")
-                        Spacer()
-                        Text(workout.durationString)
                             .foregroundColor(.secondary)
                     }
                     HStack {
@@ -38,6 +32,12 @@ struct WorkoutDetail: View {
                         Text("Distance")
                         Spacer()
                         Text(workout.distanceString)
+                            .foregroundColor(.secondary)
+                    }
+                    HStack {
+                        Text("Duration")
+                        Spacer()
+                        Text(workout.durationString)
                             .foregroundColor(.secondary)
                     }
                     HStack {
