@@ -137,7 +137,6 @@
 		F469C52D2689DA8900EF6D46 /* Styles */ = {
 			isa = PBXGroup;
 			children = (
-				F44930662675E67700CB8D19 /* FloatingButtonStyle.swift */,
 				F4D80C9F2635EE3B00E23847 /* Spinner.swift */,
 				F409676225D9CB4B00E5FBC6 /* Blur.swift */,
 			);
@@ -180,6 +179,7 @@
 				F409675F25D9554000E5FBC6 /* MapView.swift */,
 				F449306A26760C6D00CB8D19 /* FindWorkoutPointer.swift */,
 				F4D80C7626354CBB00E23847 /* FloatingMapButtons.swift */,
+				F44930662675E67700CB8D19 /* FloatingButtonStyle.swift */,
 				F4D80C82263558AB00E23847 /* FilterWorkouts.swift */,
 				F449306D2676112500CB8D19 /* WorkoutInfoBar.swift */,
 				F4D80C9B2635A4EE00E23847 /* WorkoutDetail.swift */,
