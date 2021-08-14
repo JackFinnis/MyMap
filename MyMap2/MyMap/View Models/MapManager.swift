@@ -13,6 +13,7 @@ class MapManager: NSObject, ObservableObject {
     @Published var userTrackingMode: MKUserTrackingMode = .none
     @Published var mapType: MKMapType = .standard
     @Published var searchState: WorkoutSearchState = .none
+    @Published var loadedMap: Bool = false
     
     var parent: MapView?
     var selectedWorkout: Workout?
@@ -136,6 +137,19 @@ extension MapManager: MKMapViewDelegate {
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
         DispatchQueue.main.async {
             self.parent?.centreCoordinate = mapView.centerCoordinate
+        }
+    }
+    
+    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+        if loadedMap != true {
+            loadedMap = true
+            userTrackingMode = .follow
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
+        if !animated {
+            userTrackingMode = .none
         }
     }
 }

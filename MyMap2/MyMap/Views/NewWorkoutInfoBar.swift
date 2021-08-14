@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NewWorkoutInfoBar: View {
+    @Environment(\.colorScheme) var colourScheme
     @EnvironmentObject var newWorkoutManager: NewWorkoutManager
     @EnvironmentObject var workoutsManager: WorkoutsManager
     @EnvironmentObject var mapManager: MapManager
@@ -19,36 +20,39 @@ struct NewWorkoutInfoBar: View {
                 HStack {
                     Text(newWorkoutManager.elapsedSecondsString)
                         .font(.headline)
-                        .padding(.leading, 50)
+                        .padding(.leading)
+                        .animation(.none, value: newWorkoutManager.elapsedSecondsString)
                     Spacer()
                     Text(newWorkoutManager.totalDistanceString)
                         .font(.headline)
-                        .padding(.trailing, 50)
+                        .padding(.trailing)
+                        .animation(.none, value: newWorkoutManager.totalDistanceString)
                 }
-                HStack {
-                    HStack(spacing: 0) {
-                        Button(action: {
-                            newWorkoutManager.toggleWorkoutState()
-                        }, label: {
-                            Image(systemName: newWorkoutManager.toggleStateImageName)
-                                .foregroundColor(.black)
-                                .font(.title)
-                        })
-                        .frame(width: 44, height: 44)
-                        .padding(3)
-                        Divider()
-                            .frame(height: 50)
-                        EndButton()
-                    }
-                    .background(Color(UIColor.white))
-                    .cornerRadius(12)
+                
+                HStack(spacing: 0) {
+                    Button(action: {
+                        newWorkoutManager.toggleWorkoutState()
+                    }, label: {
+                        Image(systemName: newWorkoutManager.toggleStateImageName)
+                            .font(.title)
+                            .frame(width: 48, height: 48)
+                            .foregroundColor(colourScheme == .light ? .black : .white)
+                            .animation(.none, value: newWorkoutManager.toggleStateImageName)
+                    })
+                    
+                    Divider()
+                        .frame(height: 48)
+                    
+                    EndButton()
                 }
+                .background(colourScheme == .light ? Color.white : Color.black)
+                .cornerRadius(10)
             }
             .frame(height: 70)
             .background(Blur())
-            .cornerRadius(12)
+            .cornerRadius(10)
             .compositingGroup()
-            .shadow(radius: 2, y: 2)
+            .shadow(color: Color(UIColor.systemFill), radius: 5)
             .padding(10)
         }
     }

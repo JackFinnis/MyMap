@@ -23,6 +23,8 @@ struct WorkoutInfoBar: View {
                         workoutsManager.previousWorkout()
                     }, label: {
                         Image(systemName: "chevron.backward")
+                            .font(.system(size: 24))
+                            .frame(width: 48, height: 48)
                     })
                     
                     Text(workoutsManager.selectedWorkoutDurationString)
@@ -35,9 +37,10 @@ struct WorkoutInfoBar: View {
                         workoutsManager.nextWorkout()
                     }, label: {
                         Image(systemName: "chevron.forward")
+                            .font(.system(size: 24))
+                            .frame(width: 48, height: 48)
                     })
                 }
-                .buttonStyle(FloatingButtonStyle())
                 
                 HStack {
                     Spacer()
@@ -47,9 +50,9 @@ struct WorkoutInfoBar: View {
             }
             .frame(height: 70)
             .background(Blur())
-            .cornerRadius(12)
+            .cornerRadius(10)
             .compositingGroup()
-            .shadow(radius: 2, y: 2)
+            .shadow(color: Color(UIColor.systemFill), radius: 5)
             .padding(10)
             .onTapGesture {
                 if workoutsManager.selectedWorkout != nil {

@@ -27,10 +27,11 @@ struct FilterWorkouts: View {
                     if workoutsManager.numberShown != .none {
                         if !workoutsManager.finishedLoading {
                             HStack {
-                                Spinner()
+                                ProgressView()
                                 Text("Loading Workouts...")
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
+                                    .padding(.leading, 5)
                             }
                         }
                         Picker("Sort By", selection: $workoutsManager.sortBy) {
@@ -40,6 +41,7 @@ struct FilterWorkouts: View {
                         }
                     }
                 }
+                
                 // Advanced filters
                 Section(header: Text("Advanced Filters")) {
                     NavigationLink(destination: TypeFilterView(), label: {

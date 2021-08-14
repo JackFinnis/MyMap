@@ -26,21 +26,19 @@ struct WorkoutView: View {
             FindWorkoutPointer(centreCoordinate: $centreCoordinate)
             FloatingMapButtons(centreCoordinate: $centreCoordinate)
             
-            // Workout detail bar
-            if newWorkoutManager.workoutState != .notStarted {
-                NewWorkoutInfoBar()
-            } else {
+            if newWorkoutManager.workoutState == .notStarted {
                 WorkoutInfoBar()
+                    .animation(.none, value: workoutsManager.selectedWorkout)
+                    .transition(.move(edge: .bottom))
+            } else {
+                NewWorkoutInfoBar()
+                    .transition(.move(edge: .bottom))
             }
         }
+        .animation(.default)
         .environmentObject(newWorkoutManager)
         .environmentObject(workoutsManager)
         .environmentObject(mapManager)
         .preferredColorScheme(mapManager.mapType == .standard ? .none : .dark)
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.mapManager.userTrackingMode = .follow
-            }
-        }
     }
 }

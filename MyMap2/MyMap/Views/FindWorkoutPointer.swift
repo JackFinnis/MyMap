@@ -22,8 +22,8 @@ struct FindWorkoutPointer: View {
                 workoutsManager.setClosestRoute(center: centreCoordinate)
             }, label: {
                 Image(systemName: "circle")
+                    .frame(width: 48, height: 48)
             })
-            .buttonStyle(FloatingButtonStyle())
         }
     }
 }

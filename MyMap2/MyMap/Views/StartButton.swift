@@ -27,7 +27,7 @@ struct StartButton: View {
         .background(Color(UIColor.systemRed))
         .clipShape(Circle())
         .compositingGroup()
-        .shadow(radius: 2, y: 2)
+        .shadow(color: Color(UIColor.systemFill), radius: 5)
         .actionSheet(isPresented: $showActionSheet) {
             ActionSheet(
                 title: Text("Record a Workout"),
