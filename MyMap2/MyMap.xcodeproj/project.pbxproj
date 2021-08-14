@@ -74,6 +74,7 @@
 		F4EAE78225C1C552005AAEEE /* MyMapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMapApp.swift; sourceTree = "<group>"; };
 		F4EAE78625C1C593005AAEEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4EAE78B25C1C594005AAEEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F4F0CAF826C84E9900A1B5D4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F4FFF8B225D7EB6000D2BE6C /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,6 +105,7 @@
 		F454DD9025CAF76D00749542 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F4F0CAF826C84E9900A1B5D4 /* MapKit.framework */,
 				F454DD9125CAF76D00749542 /* HealthKit.framework */,
 			);
 			name = Frameworks;
@@ -118,16 +120,6 @@
 				F44D4C4A2671379400A028C1 /* HealthKitDataStore.swift */,
 			);
 			path = "View Models";
-			sourceTree = "<group>";
-		};
-		F469552A25DBE839000FA605 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				F454DD8F25CAF76700749542 /* MyMap.entitlements */,
-				F4EAE78625C1C593005AAEEE /* Assets.xcassets */,
-				F4EAE78B25C1C594005AAEEE /* Info.plist */,
-			);
-			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		F4EAE77625C1C550005AAEEE = {
@@ -151,10 +143,12 @@
 			isa = PBXGroup;
 			children = (
 				F4EAE78225C1C552005AAEEE /* MyMapApp.swift */,
+				F4EAE78625C1C593005AAEEE /* Assets.xcassets */,
+				F454DD8F25CAF76700749542 /* MyMap.entitlements */,
+				F4EAE78B25C1C594005AAEEE /* Info.plist */,
 				F4FFF8B525D7EB9900D2BE6C /* Views */,
 				F46526BB266C87BA00CF5D41 /* View Models */,
 				F4FFF8B625D7EBA000D2BE6C /* Models */,
-				F469552A25DBE839000FA605 /* Supporting Files */,
 			);
 			path = MyMap;
 			sourceTree = "<group>";
@@ -417,21 +411,25 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "MyMap/Supporting Files/MyMap.entitlements";
+				CODE_SIGN_ENTITLEMENTS = MyMap/MyMap.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"MyMap/Supporting Files\"";
-				DEVELOPMENT_TEAM = 4CQW4CFFYT;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = T4L8JBB88A;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "MyMap/Supporting Files/Info.plist";
+				INFOPLIST_FILE = MyMap/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = JackFinnis.MyMap;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = JackFinnis.MyMap.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -440,21 +438,25 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "MyMap/Supporting Files/MyMap.entitlements";
+				CODE_SIGN_ENTITLEMENTS = MyMap/MyMap.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"MyMap/Supporting Files\"";
-				DEVELOPMENT_TEAM = 4CQW4CFFYT;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = T4L8JBB88A;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "MyMap/Supporting Files/Info.plist";
+				INFOPLIST_FILE = MyMap/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = JackFinnis.MyMap;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = JackFinnis.MyMap.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -19,7 +19,7 @@ class WorkoutsManager: NSObject, ObservableObject {
     
     // MARK: - Workout Filters
     @Published var sortBy: WorkoutsSortBy = .recent  { didSet { updateWorkoutFilters() } }
-    @Published var numberShown: WorkoutsShown = .none  { didSet { updateWorkoutFilters() } }
+    @Published var numberShown: WorkoutsShown = .all  { didSet { updateWorkoutFilters() } }
     
     @Published var distanceFilter = WorkoutFilter(type: .distance) { didSet { updateWorkoutFilters() } }
     @Published var durationFilter = WorkoutFilter(type: .duration) { didSet { updateWorkoutFilters() } }
