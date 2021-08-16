@@ -12,16 +12,43 @@ import MapKit
 
 class HealthKitDataStore {
     // MARK: - Properties
-    private let healthStore = HKHealthStore()
+    var healthStore: HKHealthStore!
+    
+    public func requestAuthorisation(completion: @escaping (String?) -> Void) {
+        // Check healthkit is available
+        if !HKHealthStore.isHealthDataAvailable() {
+            completion("Health data not available")
+            return
+        }
+        healthStore = HKHealthStore()
+        
+        // Request authorisation to use health store
+        // The quantity type to write to the health store
+        let typesToShare: Set = [
+            HKObjectType.workoutType(),
+            HKSeriesType.workoutRoute()
+        ]
+        // The quantity type to read from the health store
+        let typesToRead: Set = [
+            HKObjectType.workoutType(),
+            HKSeriesType.workoutRoute()
+        ]
+        
+        // Request authorization for those quantity types
+        healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead) { (success, error) in
+            if error != nil {
+                completion(error!.localizedDescription)
+                return
+            }
+            completion(nil)
+        }
+    }
     
     // MARK: - Public Methods
     // Load all workouts and associated data
     public func loadAllWorkouts(completion: @escaping ([Workout]) -> Void) {
-        // Request authorisation to use health store
-        requestAuthorisation()
-        
         // Load workouts
-        loadWorkouts { (workouts, error) in
+        self.loadWorkouts { (workouts, error) in
             if error == true || workouts!.isEmpty {
                 print("No Workouts Returned by Health Store")
                 completion([])
@@ -148,25 +175,5 @@ class HealthKitDataStore {
             formattedLocations.append(newLocation)
         }
         return formattedLocations
-    }
-
-    // Request authorisation to access HealthKit
-    private func requestAuthorisation() {
-        // The quantity type to write to the health store
-        let typesToShare: Set = [
-            HKObjectType.workoutType(),
-            HKSeriesType.workoutRoute()
-        ]
-        // The quantity type to read from the health store
-        let typesToRead: Set = [
-            HKObjectType.workoutType(),
-            HKSeriesType.workoutRoute()
-        ]
-        // Request authorization for those quantity types
-        healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead) { (success, error) in
-            if error != nil {
-                print("Error requesting authorisation")
-            }
-        }
     }
 }

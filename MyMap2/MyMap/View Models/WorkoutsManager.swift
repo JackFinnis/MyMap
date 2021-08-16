@@ -47,12 +47,18 @@ class WorkoutsManager: NSObject, ObservableObject {
     private func loadHealthKitWorkouts() {
         // Use workout data store
         let healthKitDataStore = HealthKitDataStore()
-        healthKitDataStore.loadAllWorkouts { (workouts) in
-            // Update published properties
-            DispatchQueue.main.async {
-                self.workouts = workouts
-                self.updateWorkoutFilters()
-                self.finishedLoading = true
+        healthKitDataStore.requestAuthorisation { error in
+            if error != nil {
+                print(error!)
+                return
+            }
+            healthKitDataStore.loadAllWorkouts { workouts in
+                // Update published properties
+                DispatchQueue.main.async {
+                    self.workouts = workouts
+                    self.updateWorkoutFilters()
+                    self.finishedLoading = true
+                }
             }
         }
     }

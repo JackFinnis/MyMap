@@ -25,7 +25,7 @@ class NewWorkoutManager: NSObject, ObservableObject {
     @Published var formattedAccumulatedLocations: [[CLLocationCoordinate2D]] = []
     @Published var formattedNewLocations: [CLLocationCoordinate2D] = []
     
-    private let healthStore = HKHealthStore()
+    private var healthStore: HKHealthStore!
     private var workoutBuilder: HKWorkoutBuilder!
     private var routeBuilder: HKWorkoutRouteBuilder!
     private var locationManager: CLLocationManager!
@@ -137,21 +137,35 @@ class NewWorkoutManager: NSObject, ObservableObject {
     
     // MARK: - Workout State Control
     public func startWorkout(workoutType: HKWorkoutActivityType) {
+        // Check healthkit is available
+        if !HKHealthStore.isHealthDataAvailable() {
+            print("Health data not available")
+            return
+        }
+        
+        healthStore = HKHealthStore()
+        let workoutStatus = healthStore.authorizationStatus(for: HKObjectType.workoutType())
+        let routeStatus = healthStore.authorizationStatus(for: HKSeriesType.workoutRoute())
+        guard !(workoutStatus == .sharingAuthorized) || !(routeStatus == .sharingAuthorized) else {
+            print("Sharing not authorised")
+            return
+        }
+        
         // Start the timer
-        startTimer()
+        self.startTimer()
         
         // Setup the workout and route builders
-        workoutBuilder = HKWorkoutBuilder(healthStore: healthStore, configuration: workoutConfiguration(workoutType: workoutType), device: .local())
-        routeBuilder = HKWorkoutRouteBuilder(healthStore: healthStore, device: nil)
-        workoutBuilder.beginCollection(withStart: Date()) { (success, error) in }
+        self.workoutBuilder = HKWorkoutBuilder(healthStore: self.healthStore, configuration: self.workoutConfiguration(workoutType: workoutType), device: .local())
+        self.workoutBuilder.beginCollection(withStart: Date()) { (success, error) in }
+        self.routeBuilder = HKWorkoutRouteBuilder(healthStore: self.healthStore, device: nil)
         
         // Setup location manager
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestAlwaysAuthorization()
-        locationManager.allowsBackgroundLocationUpdates = true
+        self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.allowsBackgroundLocationUpdates = true
 
         // Workout started
-        workoutState = .running
+        self.workoutState = .running
     }
     
     public func toggleWorkoutState() {
