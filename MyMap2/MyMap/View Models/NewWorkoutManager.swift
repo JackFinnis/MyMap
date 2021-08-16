@@ -146,7 +146,7 @@ class NewWorkoutManager: NSObject, ObservableObject {
         healthStore = HKHealthStore()
         let workoutStatus = healthStore.authorizationStatus(for: HKObjectType.workoutType())
         let routeStatus = healthStore.authorizationStatus(for: HKSeriesType.workoutRoute())
-        guard !(workoutStatus == .sharingAuthorized) || !(routeStatus == .sharingAuthorized) else {
+        if !(workoutStatus == .sharingAuthorized) || !(routeStatus == .sharingAuthorized) {
             print("Sharing not authorised")
             return
         }

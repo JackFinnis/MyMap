@@ -120,7 +120,7 @@ extension MapManager: MKMapViewDelegate {
         
         // Set different colour if selected
         var colour: UIColor {
-            if polyline.selected {
+            if polyline.pointCount == selectedWorkout?.routePolylines.first?.pointCount {
                 return .systemOrange
             } else {
                 return polyline.colour!
