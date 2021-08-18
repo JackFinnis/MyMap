@@ -24,6 +24,7 @@ class NewWorkoutManager: NSObject, ObservableObject {
     @Published var workoutState: WorkoutState = .notStarted
     @Published var formattedAccumulatedLocations: [[CLLocationCoordinate2D]] = []
     @Published var formattedNewLocations: [CLLocationCoordinate2D] = []
+    @Published var showAlert: Bool = false
     
     private var healthStore: HKHealthStore!
     private var workoutBuilder: HKWorkoutBuilder!
@@ -147,9 +148,8 @@ class NewWorkoutManager: NSObject, ObservableObject {
         let workoutStatus = healthStore.authorizationStatus(for: HKObjectType.workoutType())
         let routeStatus = healthStore.authorizationStatus(for: HKSeriesType.workoutRoute())
         if workoutStatus != .sharingAuthorized || routeStatus != .sharingAuthorized {
-            print(workoutStatus)
-            print(routeStatus)
             print("Sharing not authorised")
+            showAlert = true
             return
         }
         print("Sharing Authorised")

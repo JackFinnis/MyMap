@@ -48,10 +48,19 @@ struct StartButton: View {
                 ]
             )
         }
+        .alert(isPresented: $newWorkoutManager.showAlert) {
+            Alert(
+                title: Text("Recording Failed"),
+                message: Text("MyMap needs access to your workout routes to show them on the map. Allow access in the Health App. MyMap needs access to your location to record workout routes. Allow access in the Settings App."),
+                dismissButton: .cancel(Text("Ok"))
+            )
+        }
     }
     
     func recordWorkout(workoutType: HKWorkoutActivityType) {
         newWorkoutManager.startWorkout(workoutType: workoutType)
-        mapManager.userTrackingMode = .followWithHeading
+        if newWorkoutManager.workoutState == .running {
+            mapManager.userTrackingMode = .followWithHeading
+        }
     }
 }
