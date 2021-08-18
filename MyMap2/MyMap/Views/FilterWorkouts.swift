@@ -43,7 +43,7 @@ struct FilterWorkouts: View {
                 }
                 
                 // Advanced filters
-                Section(header: Text("Advanced Filters")) {
+                Section(header: Text("Advanced Filters"), footer: Text("MyMap shows all your workout routes that are stored in the Health App. If no workout routes are showing on the map see our troubleshooting steps by clicking on the info button above.")) {
                     NavigationLink(destination: TypeFilterView(), label: {
                         HStack {
                             Text("Type")
@@ -88,6 +88,14 @@ struct FilterWorkouts: View {
             }
             .navigationTitle("Workouts")
             .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
+                        let url = URL(string: "https://k7j7mpb6hn.wixsite.com/mymapsupport")!
+                        UIApplication.shared.open(url)
+                    } label: {
+                        Image(systemName: "info.circle")
+                    }
+                }
                 ToolbarItem(placement: .confirmationAction) {
                     Button(action: {
                         showFilterWorkoutsSheet = false

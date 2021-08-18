@@ -146,10 +146,13 @@ class NewWorkoutManager: NSObject, ObservableObject {
         healthStore = HKHealthStore()
         let workoutStatus = healthStore.authorizationStatus(for: HKObjectType.workoutType())
         let routeStatus = healthStore.authorizationStatus(for: HKSeriesType.workoutRoute())
-        if !(workoutStatus == .sharingAuthorized) || !(routeStatus == .sharingAuthorized) {
+        if workoutStatus != .sharingAuthorized || routeStatus != .sharingAuthorized {
+            print(workoutStatus)
+            print(routeStatus)
             print("Sharing not authorised")
             return
         }
+        print("Sharing Authorised")
         
         // Start the timer
         self.startTimer()
