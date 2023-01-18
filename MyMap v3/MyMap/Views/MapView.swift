@@ -20,6 +20,10 @@ struct MapView: UIViewRepresentable {
         mapView.showsUserLocation = true
         mapView.showsScale = true
         mapView.showsCompass = true
+        mapView.isPitchEnabled = false
+        
+        let tapRecognizer = UITapGestureRecognizer(target: vm, action: #selector(ViewModel.handleTap))
+        mapView.addGestureRecognizer(tapRecognizer)
         
         return mapView
     }

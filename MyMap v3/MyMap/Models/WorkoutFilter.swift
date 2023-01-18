@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum WorkoutFilter: String, CaseIterable {
+enum WorkoutDate: String, CaseIterable {
     case thisWeek = "This Week"
     case thisMonth = "This Month"
     case thisYear = "This Year"

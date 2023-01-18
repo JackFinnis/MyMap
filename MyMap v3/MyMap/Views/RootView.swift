@@ -12,38 +12,41 @@ struct RootView: View {
     @Environment(\.scenePhase) var scenePhase
     @StateObject var vm = ViewModel()
     @AppStorage("launchedBefore") var launchedBefore = false
-    @State var showWelcomeView = false
+    @State var welcome = false
     
     var body: some View {
         ZStack(alignment: .bottom) {
             MapView()
                 .ignoresSafeArea()
             
-            VStack {
+            VStack(spacing: 10) {
                 Spacer()
-                FloatingButtons()
                 if let workout = vm.selectedWorkout {
-                    WorkoutBar(workout: workout)
+                    WorkoutBar(workout: workout, new: false)
                 }
+                FloatingButtons()
                 if vm.recording {
-                    NewWorkoutBar()
+                    WorkoutBar(workout: vm.newWorkout, new: true)
                 }
             }
+            .padding(10)
         }
-        .environmentObject(vm)
-        .alert(vm.error.rawValue, isPresented: $vm.showErrorAlert) {
-            Button("OK", role: .cancel) {}
-        } message: {
+        .animation(.default, value: vm.recording)
+        .animation(.default, value: vm.selectedWorkout)
+        .alert(vm.error.rawValue, isPresented: $vm.showErrorAlert) {} message: {
             Text(vm.error.message)
         }
         .onAppear {
             if !launchedBefore {
                 launchedBefore = true
-                showWelcomeView = true
+                welcome = true
+                vm.showInfoView = true
             }
         }
-        .sheet(isPresented: $showWelcomeView) {
-            InfoView(firstLaunch: true)
+        .sheet(isPresented: $vm.showInfoView, onDismiss: {
+            welcome = false
+        }) {
+            InfoView(welcome: welcome)
         }
         .sheet(isPresented: $vm.showPermissionsView) {
             PermissionsView()
@@ -53,5 +56,6 @@ struct RootView: View {
                 vm.updateHealthStatus()
             }
         }
+        .environmentObject(vm)
     }
 }

@@ -11,7 +11,7 @@ struct InfoView: View {
     @Environment(\.dismiss) var dismiss
     @State var showShareSheet = false
     
-    let firstLaunch: Bool
+    let welcome: Bool
     
     var body: some View {
         NavigationView {
@@ -23,11 +23,11 @@ struct InfoView: View {
                         .frame(width: 70, height: 70)
                         .cornerRadius(15)
                         .padding(.bottom)
-                    Text((firstLaunch ? "Welcome to\n" : "") + NAME)
+                    Text((welcome ? "Welcome to\n" : "") + NAME)
                         .font(.largeTitle.bold())
                         .multilineTextAlignment(.center)
                         .padding(.bottom, 5)
-                    if !firstLaunch {
+                    if !welcome {
                         Text("Version " + (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""))
                             .foregroundColor(.secondary)
                     }
@@ -40,7 +40,7 @@ struct InfoView: View {
                 InfoRow(systemName: "line.3.horizontal.decrease.circle", title: "Filter Workouts", description: "Filter the workouts shown on the map by date and type.")
                 Spacer()
                 
-                if firstLaunch {
+                if welcome {
                     Button {
                         dismiss()
                     } label: {
@@ -62,7 +62,7 @@ struct InfoView: View {
                         Button {
                             Store.requestRating()
                         } label: {
-                            Label("Rate the App", systemImage: "star")
+                            Label("Rate \(NAME)", systemImage: "star")
                         }
                         Button {
                             showShareSheet = true
@@ -79,7 +79,7 @@ struct InfoView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
-                    if !firstLaunch {
+                    if !welcome {
                         Button {
                             dismiss()
                         } label: {
@@ -89,11 +89,16 @@ struct InfoView: View {
                     }
                 }
                 ToolbarItem(placement: .principal) {
-                    DraggableBar()
+                    if welcome {
+                        Text("")
+                    } else {
+                        DraggableBar()
+                    }
                 }
             }
         }
         .shareSheet(url: APP_URL, isPresented: $showShareSheet)
+        .interactiveDismissDisabled(welcome)
     }
 }
 
@@ -101,7 +106,7 @@ struct InfoView_Previews: PreviewProvider {
     static var previews: some View {
         Text("")
             .sheet(isPresented: .constant(true)) {
-                InfoView(firstLaunch: true)
+                InfoView(welcome: true)
             }
     }
 }

@@ -17,7 +17,6 @@ struct Background: ViewModifier {
             .cornerRadius(10)
             .compositingGroup()
             .shadow(color: Color(.systemFill), radius: 5)
-            .padding(10)
     }
 }
 

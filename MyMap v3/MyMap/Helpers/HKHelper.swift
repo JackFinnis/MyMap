@@ -37,7 +37,8 @@ struct HKHelper {
     }
     
     static func loadWorkouts(completion: @escaping ([HKWorkout]) -> Void) {
-        let query = HKSampleQuery(sampleType: .workoutType(), predicate: nil, limit: HKObjectQueryNoLimit, sortDescriptors: []) { query, samples, error in
+        let sort = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+        let query = HKSampleQuery(sampleType: .workoutType(), predicate: nil, limit: HKObjectQueryNoLimit, sortDescriptors: [sort]) { query, samples, error in
             guard let workouts = samples as? [HKWorkout] else {
                 completion([])
                 return

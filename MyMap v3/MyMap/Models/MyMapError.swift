@@ -11,6 +11,7 @@ enum MyMapError: String {
     case endingWorkout = "Save Failed"
     case startingWorkout = "Start Failed"
     case noWorkouts = "No Workouts Yet"
+    case emptyWorkout = "Workout Discarded"
     
     var message: String {
         switch self {
@@ -20,6 +21,8 @@ enum MyMapError: String {
             return "I was unable to start a new workout. Please try again."
         case .noWorkouts:
             return "Currently you have no workouts stored in the Health App. When you record a new workout, it will appear on the map."
+        case .emptyWorkout:
+            return "This workout has been discarded because it had no route locations."
         }
     }
 }

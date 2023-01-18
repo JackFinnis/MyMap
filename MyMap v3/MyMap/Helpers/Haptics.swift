@@ -12,6 +12,10 @@ struct Haptics {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
     }
     
+    static func impact() {
+        UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+    }
+    
     static func success() {
         UINotificationFeedbackGenerator().notificationOccurred(.success)
     }

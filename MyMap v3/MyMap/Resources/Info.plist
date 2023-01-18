@@ -23,13 +23,15 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSHealthShareUsageDescription</key>
-	<string>MyMap shows all your workouts on one map</string>
+	<string>MyMap needs access to your Health Data to show all your workout routes on one map.</string>
 	<key>NSHealthUpdateUsageDescription</key>
-	<string>MyMap saves the workouts you record in the Health App</string>
+	<string>MyMap saves the workouts you record in the Health App.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>MyMap needs to record your workout route when your phone is turned off</string>
+	<string>MyMap needs access to your location to record a workout route in the background.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>MyMap needs access to your location to record a workout route in the background.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>MyMap shows your current location on the map</string>
+	<string>MyMap shows your current location on the map.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

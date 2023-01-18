@@ -13,18 +13,20 @@ import CoreLocation
 class Workout: NSObject {
     let type: WorkoutType
     let polyline: MKPolyline
+    let locations: [CLLocation]
     let date: Date
-    let seconds: Double
-    let metres: Double?
-    let calories: Double?
+    let duration: Double
+    let distance: Double
+    let elevation: Double
     
-    init(type: WorkoutType, polyline: MKPolyline, date: Date, seconds: Double, meters: Double?, calories: Double?) {
+    init(type: WorkoutType, polyline: MKPolyline, locations: [CLLocation], date: Date, duration: Double) {
         self.type = type
         self.polyline = polyline
+        self.locations = locations
         self.date = date
-        self.seconds = seconds
-        self.metres = meters
-        self.calories = calories
+        self.duration = duration
+        self.distance = locations.distance
+        self.elevation = locations.elevation
     }
     
     convenience init(hkWorkout: HKWorkout, locations: [CLLocation]) {
@@ -32,17 +34,18 @@ class Workout: NSObject {
         let type = WorkoutType(hkType: hkWorkout.workoutActivityType)
         let polyline = MKPolyline(coordinates: coords, count: coords.count)
         let date = hkWorkout.startDate
-        let seconds = hkWorkout.duration
-        let metres = hkWorkout.totalDistance?.doubleValue(for: HKUnit.meter())
-        let calories = hkWorkout.totalEnergyBurned?.doubleValue(for: HKUnit.kilocalorie())
-        self.init(type: type, polyline: polyline, date: date, seconds: seconds, meters: metres, calories: calories)
+        let duration = hkWorkout.duration
+        self.init(type: type, polyline: polyline, locations: locations, date: date, duration: duration)
     }
+    
+    static let example = Workout(type: .walk, polyline: MKPolyline(), locations: [], date: .now, duration: 3456)
 }
 
 extension Workout: MKOverlay {
     var coordinate: CLLocationCoordinate2D {
         polyline.coordinate
     }
+    
     var boundingMapRect: MKMapRect {
         polyline.boundingMapRect
     }

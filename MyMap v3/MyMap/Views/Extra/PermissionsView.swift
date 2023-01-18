@@ -14,30 +14,33 @@ struct PermissionsView: View {
         NavigationView {
             Form {
                 Section {
-                    HStack(spacing: 15) {
+                    HStack(alignment: .top, spacing: 15) {
                         Image(systemName: "location.fill")
                             .font(.title2)
-                            .frame(width: 45, height: 45)
+                            .frame(width: 50, height: 50)
                             .background(Color.accentColor)
                             .foregroundColor(.white)
-                            .cornerRadius(9)
-                            .shadow(color: .black.opacity(0.2), radius: 5)
-                        PermissionRow(title: "Location Always", description: NAME + " needs access to your location to record a workout route in the background.", allowed: vm.locationAuth, denied: vm.locationStatus == .denied, instructions: "Please go to Settings > Location and select \"Always\"", linkTitle: "Settings", linkString: UIApplication.openSettingsURLString) {
+                            .cornerRadius(10)
+                            .padding(.top, 10)
+                        PermissionRow(title: "Location Always", description: NAME + " needs access to your location to record a workout route in the background and show your location on the map.", allowed: vm.locationAuth, denied: vm.locationStatus == .denied || vm.locationStatus == .authorizedWhenInUse, instructions: "Please go to Settings > \(NAME) > Location and select \"Always\"", linkTitle: "Settings", linkString: UIApplication.openSettingsURLString, loading: vm.locationLoading) {
                             vm.requestLocationAuthorisation()
                         }
                     }
                 }
                 
                 Section {
-                    HStack(spacing: 15) {
+                    HStack(alignment: .top, spacing: 15) {
                         Image("healthIcon")
                             .resizable()
                             .scaledToFill()
-                            .frame(width: 45, height: 45)
-                            .cornerRadius(9)
+                            .frame(width: 50, height: 50)
+                            .cornerRadius(10)
                             .shadow(color: .black.opacity(0.2), radius: 5)
-                        PermissionRow(title: "Health", description: NAME + " needs access to your Health Data to show all your workout routes on one map.", allowed: vm.healthAuth, denied: vm.healthStatus == .sharingDenied, instructions: "Please go to Health > Sharing > Apps > \(NAME) and select \"Turn On All\"", linkTitle: "Health", linkString: "x-apple-health://") {
-                            vm.requestLocationAuthorisation()
+                            .padding(.top, 10)
+                        PermissionRow(title: "Health", description: NAME + " needs access to your Health Data to show all your workout routes on one map and save the workouts you record.", allowed: vm.healthAuth, denied: vm.healthStatus == .sharingDenied, instructions: "Please go to Health > Sharing > Apps > \(NAME) and select \"Turn On All\"", linkTitle: "Health", linkString: "x-apple-health://", loading: vm.healthLoading) {
+                            Task {
+                                await vm.requestHealthAuthorisation()
+                            }
                         }
                     }
                 }
@@ -80,6 +83,7 @@ struct PermissionRow: View {
     let instructions: String
     let linkTitle: String
     let linkString: String
+    let loading: Bool
     let request: () -> Void
     
     var body: some View {
@@ -89,26 +93,33 @@ struct PermissionRow: View {
             Text(description)
                 .foregroundColor(.secondary)
                 .font(.subheadline)
-            Button {
-                if denied {
-                    showAlert = true
-                } else {
-                    request()
-                }
-            } label: {
-                Text(allowed ? "Allowed" : "Allow")
-                    .padding(.horizontal, 10)
+                .fixedSize(horizontal: false, vertical: true)
+            if loading {
+                ProgressView()
                     .padding(.vertical, 5)
-                    .background(Color.accentColor)
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .cornerRadius(.infinity)
+            } else {
+                Button {
+                    if denied {
+                        showAlert = true
+                    } else {
+                        request()
+                    }
+                } label: {
+                    Text(allowed ? "Allowed" : "Allow")
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 5)
+                        .background(Color.accentColor)
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .cornerRadius(.infinity)
+                }
+                .disabled(allowed)
             }
-            .disabled(allowed)
         }
+        .padding(.vertical, 5)
         .alert("Allow Access", isPresented: $showAlert) {
-            Button("Cancel", role: .cancel) {}
-            Button("Open " + linkTitle) {
+            Button("Cancel") {}
+            Button(linkTitle, role: .cancel) {
                 if let url = URL(string: linkString) {
                     UIApplication.shared.open(url)
                 }

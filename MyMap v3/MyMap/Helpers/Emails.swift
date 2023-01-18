@@ -14,3 +14,9 @@ struct Emails {
         }
     }
 }
+
+extension String {
+    var replaceSpaces: String {
+        replacingOccurrences(of: " ", with: "%20")
+    }
+}
