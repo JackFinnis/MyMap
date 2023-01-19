@@ -36,19 +36,35 @@ struct FloatingButtons: View {
             }
             Divider().frame(height: SIZE)
             
-            if vm.loadingWorkouts {
-                ProgressView()
-                    .frame(width: SIZE, height: SIZE)
-            } else if vm.workouts.isNotEmpty {
-                Button {
-                    showFilterView = true
-                } label: {
-                    Image(systemName: "line.3.horizontal.decrease.circle")
-                        .frame(width: SIZE, height: SIZE)
+            Menu {
+                Picker("Date", selection: $vm.workoutDate) {
+                    Text("All")
+                        .tag(nil as WorkoutDate?)
+                    ForEach(WorkoutDate.allCases.reversed(), id: \.self) { type in
+                        Text(type.rawValue)
+                            .tag(type as WorkoutDate?)
+                    }
                 }
-                .sheet(isPresented: $showFilterView) {
-                    FilterView()
-                        .font(nil)
+                .pickerStyle(.menu)
+                
+                Picker("Type", selection: $vm.workoutType) {
+                    Text("All")
+                        .tag(nil as WorkoutType?)
+                    ForEach(WorkoutType.allCases.reversed(), id: \.self) { type in
+                        Text(type.rawValue + "s")
+                            .tag(type as WorkoutType?)
+                    }
+                }
+                .pickerStyle(.menu)
+                
+                Text("Filter Workouts")
+            } label: {
+                if vm.loadingWorkouts {
+                    ProgressView()
+                        .frame(width: SIZE, height: SIZE)
+                } else if  vm.workouts.isNotEmpty {
+                    Image(systemName: "line.3.horizontal.decrease.circle" + (vm.workoutType == nil && vm.workoutDate == nil ? "" : ".fill"))
+                        .frame(width: SIZE, height: SIZE)
                 }
             }
             Divider().frame(height: SIZE)
@@ -101,7 +117,7 @@ struct FloatingButtons: View {
     
     func updateTrackingMode() {
         var mode: MKUserTrackingMode {
-            switch vm.mapView?.userTrackingMode ?? .none {
+            switch vm.trackingMode {
             case .none:
                 return .follow
             case .follow:
@@ -115,7 +131,7 @@ struct FloatingButtons: View {
     
     func updateMapType() {
         var type: MKMapType {
-            switch vm.mapView?.mapType ?? .standard {
+            switch vm.mapType {
             case .standard:
                 return .hybrid
             default:
@@ -143,5 +159,12 @@ struct FloatingButtons: View {
         default:
             return "map"
         }
+    }
+}
+
+struct FloatingButtons_Previews: PreviewProvider {
+    static var previews: some View {
+        FloatingButtons()
+            .environmentObject(ViewModel())
     }
 }

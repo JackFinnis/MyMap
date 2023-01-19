@@ -17,8 +17,8 @@ struct WorkoutBar: View {
     let new: Bool
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack(spacing: 12) {
+        VStack(alignment: .leading, spacing: 5) {
+            HStack {
                 Text(workout.type.rawValue)
                     .font(.headline)
                 Spacer()
@@ -28,7 +28,7 @@ struct WorkoutBar: View {
                         .font(.subheadline)
                         .opacity(vm.pulse ? 1 : 0)
                 } else {
-                    Text(workout.date.formatted(date: .abbreviated, time: .omitted))
+                    Text(workout.date.formattedApple())
                 }
             }
             .animation(.default, value: vm.pulse)
@@ -54,7 +54,7 @@ struct WorkoutBar: View {
             view
                 .offset(x: 0, y: offset)
                 .opacity((100 - offset)/100)
-                .gesture(DragGesture()
+                .gesture(DragGesture(minimumDistance: 0)
                     .onChanged { value in
                         if value.translation.height > 0 {
                             offset = value.translation.height

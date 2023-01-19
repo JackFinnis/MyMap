@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0417FA30297846C400C23D87 /* CLLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0417FA2F297846C400C23D87 /* CLLocation.swift */; };
+		0417FA322978A5F900C23D87 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0417FA312978A5F900C23D87 /* Date.swift */; };
 		04E383AE296F6A980070AC9B /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E383AD296F6A980070AC9B /* Row.swift */; };
 		04E383B0296F6AF20070AC9B /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E383AF296F6AF20070AC9B /* View.swift */; };
 		04E383B2296F6CE90070AC9B /* DismissCross.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E383B1296F6CE90070AC9B /* DismissCross.swift */; };
@@ -24,7 +25,6 @@
 		04E384C42976D0F10070AC9B /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E384C32976D0F00070AC9B /* Haptics.swift */; };
 		04E384C82976EB920070AC9B /* WorkoutFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E384C72976EB920070AC9B /* WorkoutFilter.swift */; };
 		04E384D229776D360070AC9B /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E384D129776D360070AC9B /* PermissionsView.swift */; };
-		04E384D429782B510070AC9B /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E384D329782B510070AC9B /* FilterView.swift */; };
 		F409673C25D7ED7700E5FBC6 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409673B25D7ED7700E5FBC6 /* ViewModel.swift */; };
 		F409676025D9554000E5FBC6 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409675F25D9554000E5FBC6 /* MapView.swift */; };
 		F413658D26504FBD000CFD54 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F413658C26504FBD000CFD54 /* Workout.swift */; };
@@ -39,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		0417FA2F297846C400C23D87 /* CLLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocation.swift; sourceTree = "<group>"; };
+		0417FA312978A5F900C23D87 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		04E383AD296F6A980070AC9B /* Row.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
 		04E383AF296F6AF20070AC9B /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		04E383B1296F6CE90070AC9B /* DismissCross.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissCross.swift; sourceTree = "<group>"; };
@@ -55,7 +56,6 @@
 		04E384C32976D0F00070AC9B /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		04E384C72976EB920070AC9B /* WorkoutFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutFilter.swift; sourceTree = "<group>"; };
 		04E384D129776D360070AC9B /* PermissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsView.swift; sourceTree = "<group>"; };
-		04E384D329782B510070AC9B /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		F409673B25D7ED7700E5FBC6 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		F409675F25D9554000E5FBC6 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		F413658C26504FBD000CFD54 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
@@ -111,6 +111,7 @@
 		04E383B6296F7ECB0070AC9B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				0417FA312978A5F900C23D87 /* Date.swift */,
 				04E383B7296F7ED90070AC9B /* CLLocationCoordinate2D.swift */,
 				0417FA2F297846C400C23D87 /* CLLocation.swift */,
 				04E383B9296F84800070AC9B /* Collection.swift */,
@@ -163,7 +164,6 @@
 				F4FFF8B225D7EB6000D2BE6C /* RootView.swift */,
 				F409675F25D9554000E5FBC6 /* MapView.swift */,
 				F4D80C7626354CBB00E23847 /* FloatingButtons.swift */,
-				04E384D329782B510070AC9B /* FilterView.swift */,
 				F449306D2676112500CB8D19 /* WorkoutBar.swift */,
 				04E383AA296F6A5D0070AC9B /* Extra */,
 			);
@@ -270,11 +270,11 @@
 				04E384BA2976D08B0070AC9B /* DraggableBar.swift in Sources */,
 				04E384C02976D0CF0070AC9B /* Defaults.swift in Sources */,
 				F449306E2676112500CB8D19 /* WorkoutBar.swift in Sources */,
-				04E384D429782B510070AC9B /* FilterView.swift in Sources */,
 				04E384D229776D360070AC9B /* PermissionsView.swift in Sources */,
 				F44D4C4B2671379400A028C1 /* HKHelper.swift in Sources */,
 				04E384C42976D0F10070AC9B /* Haptics.swift in Sources */,
 				F409673C25D7ED7700E5FBC6 /* ViewModel.swift in Sources */,
+				0417FA322978A5F900C23D87 /* Date.swift in Sources */,
 				F413658D26504FBD000CFD54 /* Workout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -406,7 +406,7 @@
 				CODE_SIGN_ENTITLEMENTS = MyMap/Resources/MyMap.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 4CQW4CFFYT;
 				ENABLE_PREVIEWS = YES;
@@ -416,7 +416,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = JackFinnis.MyMap.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -433,7 +433,7 @@
 				CODE_SIGN_ENTITLEMENTS = MyMap/Resources/MyMap.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 4CQW4CFFYT;
 				ENABLE_PREVIEWS = YES;
@@ -443,7 +443,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = JackFinnis.MyMap.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

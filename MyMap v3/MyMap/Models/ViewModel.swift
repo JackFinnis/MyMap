@@ -47,8 +47,8 @@ class ViewModel: NSObject, ObservableObject {
     // Map
     @Published var trackingMode = MKUserTrackingMode.none
     @Published var mapType = MKMapType.standard
+    @Published var accuracyAuth = false
     @Published var locationStatus = CLAuthorizationStatus.notDetermined
-    @Published var locationLoading = false
     var locationAuth: Bool { locationStatus == .authorizedAlways }
     var mapView: MKMapView?
     
@@ -70,7 +70,7 @@ class ViewModel: NSObject, ObservableObject {
     @Published var workoutType: WorkoutType? { didSet {
         filterWorkouts()
     }}
-    @Published var workoutFilter: WorkoutDate? { didSet {
+    @Published var workoutDate: WorkoutDate? { didSet {
         filterWorkouts()
     }}
     
@@ -80,6 +80,7 @@ class ViewModel: NSObject, ObservableObject {
     func showError(_ error: MyMapError) {
         self.error = error
         self.showErrorAlert = true
+        Haptics.error()
     }
     
     // MARK: - Initialiser
@@ -97,8 +98,11 @@ class ViewModel: NSObject, ObservableObject {
     }
     
     func requestLocationAuthorisation() {
-        locationLoading = true
-        locationManager.requestAlwaysAuthorization()
+        if locationStatus == .notDetermined {
+            locationManager.requestWhenInUseAuthorization()
+        } else {
+            locationManager.requestAlwaysAuthorization()
+        }
     }
     
     func updateHealthStatus() {
@@ -139,6 +143,7 @@ class ViewModel: NSObject, ObservableObject {
         locationManager.allowsBackgroundLocationUpdates = true
         updateTrackingMode(.followWithHeading)
         
+        Haptics.success()
         startDate = .now
         recording = true
         timer = Timer.publish(every: 0.5, on: .main, in: .default).autoconnect().sink { _ in
@@ -152,14 +157,16 @@ class ViewModel: NSObject, ObservableObject {
         timer?.cancel()
         recording = false
         
-        guard locations.isNotEmpty else {
+        guard locations.distance > 100 else {
             showError(.emptyWorkout)
             return
         }
         
-        workouts.append(newWorkout)
+        let workout = newWorkout
+        workouts.append(workout)
         updatePolylines()
         filterWorkouts()
+        selectWorkout(workout)
         
         metres = 0
         locations = []
@@ -169,6 +176,7 @@ class ViewModel: NSObject, ObservableObject {
             if let workout = try await workoutBuilder?.finishWorkout() {
                 try await routeBuilder?.finishRoute(with: workout, metadata: nil)
             }
+            Haptics.success()
         } catch {
             showError(.endingWorkout)
         }
@@ -194,13 +202,15 @@ class ViewModel: NSObject, ObservableObject {
                         let workout = Workout(hkWorkout: hkWorkout, locations: locations)
                         DispatchQueue.main.async {
                             self.workouts.append(workout)
-                            if self.selectedWorkout == nil {
+                            if self.showWorkout(workout) {
+                                self.filteredWorkouts.append(workout)
                                 self.mapView?.addOverlay(workout, level: .aboveRoads)
                             }
                         }
                     }
                     if tally == hkWorkouts.count {
                         DispatchQueue.main.async {
+                            Haptics.success()
                             self.loadingWorkouts = false
                         }
                     }
@@ -211,15 +221,17 @@ class ViewModel: NSObject, ObservableObject {
     
     func filterWorkouts() {
         mapView?.removeOverlays(mapView?.overlays(in: .aboveRoads) ?? [])
-        filteredWorkouts = workouts.filter { workout in
-            (selectedWorkout == nil || workout == selectedWorkout) &&
-            (workoutType == nil || workoutType == workout.type) &&
-            (workoutFilter == nil || Calendar.current.isDate(workout.date, equalTo: .now, toGranularity: workoutFilter!.granularity))
-        }
+        filteredWorkouts = workouts.filter { showWorkout($0) }
         mapView?.addOverlays(filteredWorkouts, level: .aboveRoads)
         if let selectedWorkout, !filteredWorkouts.contains(selectedWorkout) {
             self.selectedWorkout = nil
         }
+    }
+    
+    func showWorkout(_ workout: Workout) -> Bool {
+        (selectedWorkout == nil || workout == selectedWorkout) &&
+        (workoutType == nil || workoutType == workout.type) &&
+        (workoutDate == nil || Calendar.current.isDate(workout.date, equalTo: .now, toGranularity: workoutDate!.granularity))
     }
     
     func selectClosestWorkout(to targetCoord: CLLocationCoordinate2D) {
@@ -227,19 +239,28 @@ class ViewModel: NSObject, ObservableObject {
         var shortestDistance = Double.infinity
         var closestWorkout: Workout?
         
+        guard let rect = mapView?.visibleMapRect else { return }
+        let left = MKMapPoint(x: rect.minX, y: rect.midY)
+        let right = MKMapPoint(x: rect.maxX, y: rect.midY)
+        let maxDelta = left.distance(to: right) / 20
+        
         for workout in filteredWorkouts {
             for location in workout.locations {
                 let delta = location.distance(from: targetLocation)
                 
-                if delta < shortestDistance && delta < 200 {
+                if delta < shortestDistance && delta < maxDelta {
                     shortestDistance = delta
                     closestWorkout = workout
                 }
             }
         }
-        selectedWorkout = closestWorkout
-        if let selectedWorkout {
-            zoomTo(selectedWorkout)
+        selectWorkout(closestWorkout)
+    }
+    
+    func selectWorkout(_ workout: Workout?) {
+        selectedWorkout = workout
+        if let workout {
+            zoomTo(workout)
         }
     }
     
@@ -331,12 +352,15 @@ extension ViewModel: CLLocationManagerDelegate {
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        locationLoading = false
         locationStatus = manager.authorizationStatus
         if locationAuth {
             manager.startUpdatingLocation()
             updateTrackingMode(.follow)
         } else {
+            showPermissionsView = true
+        }
+        accuracyAuth = manager.accuracyAuthorization == .fullAccuracy
+        if !accuracyAuth {
             showPermissionsView = true
         }
     }
@@ -347,13 +371,8 @@ extension ViewModel: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let polyline = overlay as? MKPolyline {
             let render = MKPolylineRenderer(polyline: polyline)
-            if polyline == selectedWorkout?.polyline {
-                render.lineWidth = 2
-                render.strokeColor = UIColor(.orange)
-            } else {
-                render.lineWidth = 2
-                render.strokeColor = UIColor(.indigo)
-            }
+            render.lineWidth = 2
+            render.strokeColor = UIColor(polyline == selectedWorkout?.polyline ? .orange : .indigo)
             return render
         } else if let workout = overlay as? Workout {
             let render = MKPolylineRenderer(polyline: workout.polyline)
@@ -370,13 +389,7 @@ extension ViewModel: MKMapViewDelegate {
         }
     }
     
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if let user = annotation as? MKUserLocation {
-            let view = MKUserLocationView(annotation: user, reuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-            view.rightCalloutAccessoryView = UILabel()
-            view.leftCalloutAccessoryView = UILabel()
-            return view
-        }
-        return nil
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        mapView.deselectAnnotation(view.annotation, animated: false)
     }
 }

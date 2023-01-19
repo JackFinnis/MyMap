@@ -35,8 +35,8 @@ struct InfoView: View {
                 .horizontallyCentred()
                 .padding(.bottom, 30)
                 
-                InfoRow(systemName: "record.circle", title: "Record Workouts", description: "Record runs, walks and cycles and see your route update live.")
                 InfoRow(systemName: "map", title: "Browse all your Routes", description: "See all your routes stored in the Health App on one map.")
+                InfoRow(systemName: "record.circle", title: "Record Workouts", description: "Record runs, walks and cycles and see your route update live.")
                 InfoRow(systemName: "line.3.horizontal.decrease.circle", title: "Filter Workouts", description: "Filter the workouts shown on the map by date and type.")
                 Spacer()
                 
