@@ -14,9 +14,6 @@ import Combine
 @MainActor
 class ViewModel: NSObject, ObservableObject {
     // MARK: - Properties
-    // Views
-    @Published var showInfoView = false
-    
     // Workout Tracking
     @Published var recording = false
     @Published var type = WorkoutType.other
@@ -52,11 +49,6 @@ class ViewModel: NSObject, ObservableObject {
     var locationAuth: Bool { locationStatus == .authorizedAlways }
     var mapView: MKMapView?
     
-    // Animations
-    @Published var degrees = 0.0
-    @Published var scale = 1.0
-    @Published var pulse = false
-    
     // Workouts
     @Published var workouts = [Workout]()
     @Published var filteredWorkouts = [Workout]()
@@ -73,6 +65,13 @@ class ViewModel: NSObject, ObservableObject {
     @Published var workoutDate: WorkoutDate? { didSet {
         filterWorkouts()
     }}
+    
+    // View
+    @Published var degrees = 0.0
+    @Published var scale = 1.0
+    @Published var pulse = false
+    @Published var showInfoView = false
+    @Defaults(key: "shownNoWorkoutsError", defaultValue: false) var shownNoWorkoutsError
     
     // Errors
     @Published var showErrorAlert = false
@@ -121,75 +120,17 @@ class ViewModel: NSObject, ObservableObject {
         healthLoading = false
     }
     
-    // MARK: - Workout Tracking
-    func startWorkout(type: HKWorkoutActivityType) async {
-        updateHealthStatus()
-        guard healthAuth else { return }
-        
-        let config = HKWorkoutConfiguration()
-        config.activityType = type
-        config.locationType = .outdoor
-        self.type = WorkoutType(hkType: type)
-        
-        routeBuilder = HKWorkoutRouteBuilder(healthStore: healthStore, device: .local())
-        workoutBuilder = HKWorkoutBuilder(healthStore: healthStore, configuration: config, device: .local())
-        do {
-            try await workoutBuilder?.beginCollection(at: .now)
-        } catch {
-            self.showError(.startingWorkout)
-            return
-        }
-        
-        locationManager.allowsBackgroundLocationUpdates = true
-        updateTrackingMode(.followWithHeading)
-        
-        Haptics.success()
-        startDate = .now
-        recording = true
-        timer = Timer.publish(every: 0.5, on: .main, in: .default).autoconnect().sink { _ in
-            self.pulse.toggle()
-        }
-    }
-    
-    func endWorkout() async {
-        locationManager.allowsBackgroundLocationUpdates = false
-        
-        timer?.cancel()
-        recording = false
-        
-        guard locations.distance > 100 else {
-            showError(.emptyWorkout)
-            return
-        }
-        
-        let workout = newWorkout
-        workouts.append(workout)
-        updatePolylines()
-        filterWorkouts()
-        selectWorkout(workout)
-        
-        metres = 0
-        locations = []
-        
-        do {
-            try await workoutBuilder?.endCollection(at: .now)
-            if let workout = try await workoutBuilder?.finishWorkout() {
-                try await routeBuilder?.finishRoute(with: workout, metadata: nil)
-            }
-            Haptics.success()
-        } catch {
-            showError(.endingWorkout)
-        }
-    }
-    
     // MARK: - Workouts
     func loadWorkouts() {
         loadingWorkouts = true
         HKHelper.loadWorkouts { hkWorkouts in
             guard hkWorkouts.isNotEmpty else {
                 DispatchQueue.main.async {
-                    self.showError(.noWorkouts)
                     self.loadingWorkouts = false
+                    if !self.shownNoWorkoutsError {
+                        self.shownNoWorkoutsError = true
+                        self.showError(.noWorkouts)
+                    }
                 }
                 return
             }
@@ -274,6 +215,67 @@ class ViewModel: NSObject, ObservableObject {
         }
         let padding = UIEdgeInsets(top: 20, left: 20, bottom: bottomPadding, right: 20)
         mapView?.setVisibleMapRect(overlay.boundingMapRect, edgePadding: padding, animated: true)
+    }
+    
+    // MARK: - Workout Tracking
+    func startWorkout(type: HKWorkoutActivityType) async {
+        updateHealthStatus()
+        guard healthAuth else { return }
+        
+        let config = HKWorkoutConfiguration()
+        config.activityType = type
+        config.locationType = .outdoor
+        self.type = WorkoutType(hkType: type)
+        
+        routeBuilder = HKWorkoutRouteBuilder(healthStore: healthStore, device: .local())
+        workoutBuilder = HKWorkoutBuilder(healthStore: healthStore, configuration: config, device: .local())
+        do {
+            try await workoutBuilder?.beginCollection(at: .now)
+        } catch {
+            self.showError(.startingWorkout)
+            return
+        }
+        
+        locationManager.allowsBackgroundLocationUpdates = true
+        updateTrackingMode(.followWithHeading)
+        
+        Haptics.success()
+        startDate = .now
+        recording = true
+        timer = Timer.publish(every: 0.5, on: .main, in: .default).autoconnect().sink { _ in
+            self.pulse.toggle()
+        }
+    }
+    
+    func endWorkout() async {
+        locationManager.allowsBackgroundLocationUpdates = false
+        
+        timer?.cancel()
+        recording = false
+        
+        guard locations.distance > 100 else {
+            showError(.emptyWorkout)
+            return
+        }
+        
+        let workout = newWorkout
+        workouts.append(workout)
+        updatePolylines()
+        filterWorkouts()
+        selectWorkout(workout)
+        
+        metres = 0
+        locations = []
+        
+        do {
+            try await workoutBuilder?.endCollection(at: .now)
+            if let workout = try await workoutBuilder?.finishWorkout() {
+                try await routeBuilder?.finishRoute(with: workout, metadata: nil)
+            }
+            Haptics.success()
+        } catch {
+            showError(.endingWorkout)
+        }
     }
     
     // MARK: - Map

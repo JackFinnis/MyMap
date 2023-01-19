@@ -50,26 +50,25 @@ struct WorkoutBar: View {
         .onTapGesture {
             vm.zoomTo(workout)
         }
-        .if(!new) { view in
-            view
-                .offset(x: 0, y: offset)
-                .opacity((100 - offset)/100)
-                .gesture(DragGesture(minimumDistance: 0)
-                    .onChanged { value in
-                        if value.translation.height > 0 {
-                            offset = value.translation.height
+        .if(!new) { $0
+            .offset(x: 0, y: offset)
+            .opacity((100 - offset)/100)
+            .gesture(DragGesture(minimumDistance: 0)
+                .onChanged { value in
+                    if value.translation.height > 0 {
+                        offset = value.translation.height
+                    }
+                }
+                .onEnded { value in
+                    if value.predictedEndTranslation.height > 50 {
+                        vm.selectedWorkout = nil
+                    } else {
+                        withAnimation(.spring()) {
+                            offset = 0
                         }
                     }
-                    .onEnded { value in
-                        if value.predictedEndTranslation.height > 50 {
-                            vm.selectedWorkout = nil
-                        } else {
-                            withAnimation(.spring()) {
-                                offset = 0
-                            }
-                        }
-                    }
-                )
+                }
+            )
         }
     }
 }

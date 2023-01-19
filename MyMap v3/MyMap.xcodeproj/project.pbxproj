@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0417FA30297846C400C23D87 /* CLLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0417FA2F297846C400C23D87 /* CLLocation.swift */; };
 		0417FA322978A5F900C23D87 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0417FA312978A5F900C23D87 /* Date.swift */; };
+		0417FA3429799B7C00C23D87 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0417FA3329799B7C00C23D87 /* ErrorView.swift */; };
 		04E383AE296F6A980070AC9B /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E383AD296F6A980070AC9B /* Row.swift */; };
 		04E383B0296F6AF20070AC9B /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E383AF296F6AF20070AC9B /* View.swift */; };
 		04E383B2296F6CE90070AC9B /* DismissCross.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E383B1296F6CE90070AC9B /* DismissCross.swift */; };
@@ -40,6 +41,7 @@
 /* Begin PBXFileReference section */
 		0417FA2F297846C400C23D87 /* CLLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocation.swift; sourceTree = "<group>"; };
 		0417FA312978A5F900C23D87 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		0417FA3329799B7C00C23D87 /* ErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		04E383AD296F6A980070AC9B /* Row.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
 		04E383AF296F6AF20070AC9B /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		04E383B1296F6CE90070AC9B /* DismissCross.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissCross.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 		04E383AA296F6A5D0070AC9B /* Extra */ = {
 			isa = PBXGroup;
 			children = (
+				0417FA3329799B7C00C23D87 /* ErrorView.swift */,
 				04E384D129776D360070AC9B /* PermissionsView.swift */,
 				04E384B92976D08B0070AC9B /* InfoView.swift */,
 				04E384B72976D08B0070AC9B /* DraggableBar.swift */,
@@ -254,6 +257,7 @@
 				F4D80C7726354CBB00E23847 /* FloatingButtons.swift in Sources */,
 				0417FA30297846C400C23D87 /* CLLocation.swift in Sources */,
 				04E384C22976D0DA0070AC9B /* Store.swift in Sources */,
+				0417FA3429799B7C00C23D87 /* ErrorView.swift in Sources */,
 				F4EAE78325C1C552005AAEEE /* MyMapApp.swift in Sources */,
 				04E384C82976EB920070AC9B /* WorkoutFilter.swift in Sources */,
 				04E383B4296F71360070AC9B /* WorkoutType.swift in Sources */,
