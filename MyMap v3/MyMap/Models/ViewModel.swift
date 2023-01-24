@@ -247,16 +247,26 @@ class ViewModel: NSObject, ObservableObject {
         }
     }
     
-    func endWorkout() async {
+    func discardWorkout() {
         locationManager.allowsBackgroundLocationUpdates = false
         
         timer?.cancel()
         recording = false
         
-        guard locations.distance > 100 else {
-            showError(.emptyWorkout)
-            return
-        }
+        metres = 0
+        locations = []
+        updatePolylines()
+        
+        workoutBuilder?.discardWorkout()
+        routeBuilder?.discard()
+        Haptics.success()
+    }
+    
+    func endWorkout() async {
+        locationManager.allowsBackgroundLocationUpdates = false
+        
+        timer?.cancel()
+        recording = false
         
         let workout = newWorkout
         workouts.append(workout)

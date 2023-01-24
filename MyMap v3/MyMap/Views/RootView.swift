@@ -19,6 +19,13 @@ struct RootView: View {
             MapView()
                 .ignoresSafeArea()
             
+            VStack(spacing: 0) {
+                Blur()
+                    .ignoresSafeArea()
+                Spacer()
+                    .layoutPriority(1)
+            }
+            
             VStack(spacing: 10) {
                 Spacer()
                 if let workout = vm.selectedWorkout {

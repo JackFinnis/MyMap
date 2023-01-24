@@ -76,9 +76,12 @@ struct FloatingButtons: View {
                     Image(systemName: "stop.fill")
                         .frame(width: SIZE, height: SIZE)
                 }
-                .confirmationDialog("Finish Workout?", isPresented: $showStopConfirmation, titleVisibility: .visible) {
+                .confirmationDialog("Stop Workout?", isPresented: $showStopConfirmation, titleVisibility: .visible) {
                     Button("Cancel", role: .cancel) {}
-                    Button("Finish") {
+                    Button("Stop & Discard", role: .destructive) {
+                        vm.discardWorkout()
+                    }
+                    Button("Finish & Save") {
                         Task {
                             await vm.endWorkout()
                         }
