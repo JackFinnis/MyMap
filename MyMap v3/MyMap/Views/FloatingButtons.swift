@@ -51,8 +51,12 @@ struct FloatingButtons: View {
                     Text("All")
                         .tag(nil as WorkoutType?)
                     ForEach(WorkoutType.allCases.reversed(), id: \.self) { type in
-                        Text(type.rawValue + "s")
-                            .tag(type as WorkoutType?)
+                        Label {
+                            Text(type.rawValue + "s")
+                        } icon: {
+                            Image(uiImage: UIImage(systemName: "circle.fill", withConfiguration: UIImage.SymbolConfiguration(hierarchicalColor: UIColor(type.colour)))!)
+                        }
+                        .tag(type as WorkoutType?)
                     }
                 }
                 .pickerStyle(.menu)
