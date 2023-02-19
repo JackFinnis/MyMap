@@ -94,6 +94,8 @@ class ViewModel: NSObject, ObservableObject {
     
     func setupLocationManager() {
         locationManager.delegate = self
+        locationManager.activityType = .fitness
+        locationManager.pausesLocationUpdatesAutomatically = false
     }
     
     func requestLocationAuthorisation() {
@@ -343,7 +345,7 @@ extension ViewModel: CLLocationManagerDelegate {
         guard recording else { return }
         
         let filteredLocations = locations.filter { location in
-            location.horizontalAccuracy < 50
+            location.horizontalAccuracy < 100
         }
 
         for location in filteredLocations {

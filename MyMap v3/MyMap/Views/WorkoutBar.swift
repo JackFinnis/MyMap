@@ -25,7 +25,7 @@ struct WorkoutBar: View {
                 if new {
                     Image(systemName: "circle.fill")
                         .foregroundColor(.red)
-                        .font(.subheadline)
+                        .font(.footnote)
                         .opacity(vm.pulse ? 1 : 0)
                 } else {
                     Text(workout.date.formattedApple())
@@ -33,14 +33,12 @@ struct WorkoutBar: View {
             }
             .animation(.default, value: vm.pulse)
             
-            HStack {
-                WorkoutStat(name: "Distance", value: Measurement(value: workout.distance, unit: UnitLength.meters).formatted())
-                Spacer(minLength: 0)
-                WorkoutStat(name: "Duration", value: DateComponentsFormatter().string(from: workout.duration) ?? "")
-                Spacer(minLength: 0)
-                WorkoutStat(name: "Speed", value: Measurement(value: workout.distance / workout.duration, unit: UnitSpeed.metersPerSecond).formatted())
-                Spacer(minLength: 0)
-                WorkoutStat(name: "Elevation", value: Measurement(value: workout.elevation, unit: UnitLength.meters).formatted())
+            GeometryReader { geo in
+                let width = geo.size.width
+                WorkoutStat(name: "Distance", value: Measurement(value: workout.distance, unit: UnitLength.meters).formatted(), width: width)
+                WorkoutStat(name: "Duration", value: DateComponentsFormatter().string(from: workout.duration) ?? "", width: width)
+                WorkoutStat(name: "Speed", value: Measurement(value: workout.distance / workout.duration, unit: UnitSpeed.metersPerSecond).formatted(), width: width)
+                WorkoutStat(name: "Elevation", value: Measurement(value: workout.elevation, unit: UnitLength.meters).formatted(), width: width)
             }
         }
         .padding(.horizontal, 12)
@@ -86,6 +84,7 @@ struct WorkoutBar_Previews: PreviewProvider {
 struct WorkoutStat: View {
     let name: String
     let value: String
+    let width: Double
     
     var body: some View {
         VStack(spacing: 3) {
@@ -95,5 +94,6 @@ struct WorkoutStat: View {
             Text(value)
                 .font(.headline)
         }
+        .frame(width: width)
     }
 }

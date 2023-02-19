@@ -10,16 +10,16 @@
 		0417FA30297846C400C23D87 /* CLLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0417FA2F297846C400C23D87 /* CLLocation.swift */; };
 		0417FA322978A5F900C23D87 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0417FA312978A5F900C23D87 /* Date.swift */; };
 		0417FA3429799B7C00C23D87 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0417FA3329799B7C00C23D87 /* ErrorView.swift */; };
+		04CEDFD529A2E5C800810005 /* DismissCross.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CEDFD429A2E5C800810005 /* DismissCross.swift */; };
+		04CEDFD729A2E5D700810005 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CEDFD629A2E5D700810005 /* InfoView.swift */; };
+		04CEDFD929A2E5EF00810005 /* DraggableBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CEDFD829A2E5EF00810005 /* DraggableBar.swift */; };
 		04E383AE296F6A980070AC9B /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E383AD296F6A980070AC9B /* Row.swift */; };
 		04E383B0296F6AF20070AC9B /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E383AF296F6AF20070AC9B /* View.swift */; };
-		04E383B2296F6CE90070AC9B /* DismissCross.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E383B1296F6CE90070AC9B /* DismissCross.swift */; };
 		04E383B4296F71360070AC9B /* WorkoutType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E383B3296F71360070AC9B /* WorkoutType.swift */; };
 		04E383B8296F7ED90070AC9B /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E383B7296F7ED90070AC9B /* CLLocationCoordinate2D.swift */; };
 		04E383BA296F84800070AC9B /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E383B9296F84800070AC9B /* Collection.swift */; };
 		04E384AA2976BE8D0070AC9B /* MyMapError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E384A92976BE8D0070AC9B /* MyMapError.swift */; };
-		04E384BA2976D08B0070AC9B /* DraggableBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E384B72976D08B0070AC9B /* DraggableBar.swift */; };
 		04E384BB2976D08B0070AC9B /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E384B82976D08B0070AC9B /* ShareView.swift */; };
-		04E384BC2976D08B0070AC9B /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E384B92976D08B0070AC9B /* InfoView.swift */; };
 		04E384BE2976D0C50070AC9B /* Emails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E384BD2976D0C50070AC9B /* Emails.swift */; };
 		04E384C02976D0CF0070AC9B /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E384BF2976D0CF0070AC9B /* Defaults.swift */; };
 		04E384C22976D0DA0070AC9B /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E384C12976D0DA0070AC9B /* Store.swift */; };
@@ -43,16 +43,16 @@
 		0417FA2F297846C400C23D87 /* CLLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocation.swift; sourceTree = "<group>"; };
 		0417FA312978A5F900C23D87 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		0417FA3329799B7C00C23D87 /* ErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		04CEDFD429A2E5C800810005 /* DismissCross.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissCross.swift; sourceTree = "<group>"; };
+		04CEDFD629A2E5D700810005 /* InfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		04CEDFD829A2E5EF00810005 /* DraggableBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableBar.swift; sourceTree = "<group>"; };
 		04E383AD296F6A980070AC9B /* Row.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
 		04E383AF296F6AF20070AC9B /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
-		04E383B1296F6CE90070AC9B /* DismissCross.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissCross.swift; sourceTree = "<group>"; };
 		04E383B3296F71360070AC9B /* WorkoutType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutType.swift; sourceTree = "<group>"; };
 		04E383B7296F7ED90070AC9B /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
 		04E383B9296F84800070AC9B /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		04E384A92976BE8D0070AC9B /* MyMapError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMapError.swift; sourceTree = "<group>"; };
-		04E384B72976D08B0070AC9B /* DraggableBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableBar.swift; sourceTree = "<group>"; };
 		04E384B82976D08B0070AC9B /* ShareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
-		04E384B92976D08B0070AC9B /* InfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		04E384BD2976D0C50070AC9B /* Emails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emails.swift; sourceTree = "<group>"; };
 		04E384BF2976D0CF0070AC9B /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		04E384C12976D0DA0070AC9B /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -90,10 +90,10 @@
 			isa = PBXGroup;
 			children = (
 				0417FA3329799B7C00C23D87 /* ErrorView.swift */,
+				04CEDFD629A2E5D700810005 /* InfoView.swift */,
+				04CEDFD829A2E5EF00810005 /* DraggableBar.swift */,
+				04CEDFD429A2E5C800810005 /* DismissCross.swift */,
 				04E384D129776D360070AC9B /* PermissionsView.swift */,
-				04E384B92976D08B0070AC9B /* InfoView.swift */,
-				04E384B72976D08B0070AC9B /* DraggableBar.swift */,
-				04E383B1296F6CE90070AC9B /* DismissCross.swift */,
 				04E384B82976D08B0070AC9B /* ShareView.swift */,
 				04E383AD296F6A980070AC9B /* Row.swift */,
 				04E383AF296F6AF20070AC9B /* View.swift */,
@@ -263,23 +263,23 @@
 				0417FA3429799B7C00C23D87 /* ErrorView.swift in Sources */,
 				F4EAE78325C1C552005AAEEE /* MyMapApp.swift in Sources */,
 				04E384C82976EB920070AC9B /* WorkoutFilter.swift in Sources */,
+				04CEDFD729A2E5D700810005 /* InfoView.swift in Sources */,
 				04E383B4296F71360070AC9B /* WorkoutType.swift in Sources */,
 				04E383AE296F6A980070AC9B /* Row.swift in Sources */,
 				F409676025D9554000E5FBC6 /* MapView.swift in Sources */,
 				04E384AA2976BE8D0070AC9B /* MyMapError.swift in Sources */,
 				04E383BA296F84800070AC9B /* Collection.swift in Sources */,
 				04E383B0296F6AF20070AC9B /* View.swift in Sources */,
-				04E383B2296F6CE90070AC9B /* DismissCross.swift in Sources */,
 				F4FFF8B325D7EB6000D2BE6C /* RootView.swift in Sources */,
+				04CEDFD929A2E5EF00810005 /* DraggableBar.swift in Sources */,
 				04E384BE2976D0C50070AC9B /* Emails.swift in Sources */,
-				04E384BC2976D08B0070AC9B /* InfoView.swift in Sources */,
 				04E383B8296F7ED90070AC9B /* CLLocationCoordinate2D.swift in Sources */,
 				04F582C9298034CA00C62E0D /* Blur.swift in Sources */,
-				04E384BA2976D08B0070AC9B /* DraggableBar.swift in Sources */,
 				04E384C02976D0CF0070AC9B /* Defaults.swift in Sources */,
 				F449306E2676112500CB8D19 /* WorkoutBar.swift in Sources */,
 				04E384D229776D360070AC9B /* PermissionsView.swift in Sources */,
 				F44D4C4B2671379400A028C1 /* HKHelper.swift in Sources */,
+				04CEDFD529A2E5C800810005 /* DismissCross.swift in Sources */,
 				04E384C42976D0F10070AC9B /* Haptics.swift in Sources */,
 				F409673C25D7ED7700E5FBC6 /* ViewModel.swift in Sources */,
 				0417FA322978A5F900C23D87 /* Date.swift in Sources */,
